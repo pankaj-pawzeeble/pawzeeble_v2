@@ -738,13 +738,13 @@ export default class SiteController extends DCLogic {
     }));
 
     const bandSource = [
-      ['pz-band-1','Vet examining a dog', 250, 236, -2],
-      ['pz-band-2','Groomer at work', 300, 216, 2],
+      ['pz-band-1','Pet parent with her dogs at the kennel', 250, 236, -2],
+      ['pz-band-2','Freshly groomed and ready', 300, 216, 2],
       ['pz-band-3','Family walking their dog', 230, 260, -1],
       ['pz-band-4','Cat being cuddled at home', 280, 210, 2],
       ['pz-band-5','Puppy at its first vaccination', 240, 244, -3],
       ['pz-band-6','Dog walker on a morning round', 310, 200, 1],
-      ['pz-band-7','Cat at the clinic', 220, 252, -2],
+      ['pz-band-7','Small dog posing for the camera', 220, 252, -2],
       ['pz-band-8','Pet parent and their Indie', 290, 228, 2]
     ];
     const photoBand = bandSource.concat(bandSource).map(b => ({

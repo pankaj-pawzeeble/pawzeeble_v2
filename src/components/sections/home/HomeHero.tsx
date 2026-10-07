@@ -51,8 +51,8 @@ export default function HomeHero() {
           <ImageSlot id="pz-hero-b" shape="circle" placeholder="Vet with cat" />
         </div>
         <div data-r="hero-phone" style={{ position: "absolute", top: "-11px", width: "min(58%,244px)", borderRadius: "32px", padding: "8px", background: "#2B2342", zIndex: "2", left: "154px" }}>
-          <div style={{ borderRadius: "25px", overflow: "hidden", background: "#fff", height: "460px" }}>
-            <ImageSlot id="pz-img-home-hero" shape="rect" src="/images/content/home-hero.png" placeholder="Pawzeeble app home screen" align="top" style={{ display: "block", width: "100%", height: "100%" }} />
+          <div style={{ borderRadius: "25px", overflow: "hidden", background: "#fff", aspectRatio: "1440 / 3204" }}>
+            <ImageSlot id="pz-img-home-hero" shape="rect" src="/images/home/hero-phone-screen.webp" placeholder="Pawzeeble app home screen" align="top" style={{ display: "block", width: "100%", height: "100%" }} />
           </div>
         </div>
         <div data-r="hide-sm" style={{ position: "absolute", zIndex: "4", background: "#fff", borderRadius: "18px", padding: "13px 17px", display: "flex", alignItems: "center", gap: "11px", left: "400px", top: "387px" }}>

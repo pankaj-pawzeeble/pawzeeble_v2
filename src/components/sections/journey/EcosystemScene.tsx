@@ -27,7 +27,7 @@ export default function EcosystemScene() {
           <div aria-hidden="true" style={{ position: "absolute", right: "-40px", bottom: "-60px", width: "200px", height: "200px", borderRadius: "46% 54% 58% 42%/54% 46% 42% 58%", background: "#FFEFDD", pointerEvents: "none" }} />
           <div data-eco="b1-flat" style={{ position: "relative", marginBottom: "8vh", height: "min(660px,88vh)", width: "auto", aspectRatio: "268/540", borderRadius: "46px", background: "#2B2342", padding: "11px", boxShadow: "0 34px 68px rgba(43,35,66,.28)" }}>
             <div style={{ width: "100%", height: "100%", borderRadius: "34px", overflow: "hidden" }}>
-              <ImageSlot id="pz-img-eco-profile" shape="rect" src="/images/content/pet-profile-full.png" placeholder="Bruno's pet profile in the Pawzeeble app" align="top" style={{ display: "block", width: "100%", height: "100%" }} />
+              <ImageSlot id="pz-img-eco-profile" shape="rect" src="/images/journey/pet-profile-screen.webp" placeholder="Bruno's pet profile in the Pawzeeble app" align="top" style={{ display: "block", width: "100%", height: "100%" }} />
             </div>
             <div data-eco="b1-ripple" style={{ position: "absolute", left: "50%", top: "38%", width: "56px", height: "56px", margin: "-28px 0 0 -28px", borderRadius: "50%", border: "3px solid #FFC24B", opacity: "0" }} />
             <div style={{ position: "absolute", left: "-80px", bottom: "-30px", width: "132px", height: "132px", borderRadius: "26px", overflow: "hidden", transform: "rotate(-8deg)", boxShadow: "0 16px 30px rgba(43,35,66,.2)", border: "4px solid #fff" }}>

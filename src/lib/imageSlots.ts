@@ -30,13 +30,13 @@ export const IMAGE_SLOTS: Record<string, SlotImage> = {
     "y": 0
   },
   "pz-hero-b": {
-    "src": "/images/slots/pz-hero-b.webp",
+    "src": "/images/home/hero-photo-left-vet-with-cat.webp",
     "s": 1,
     "x": 0,
     "y": 0
   },
   "pz-hero-a": {
-    "src": "/images/slots/pz-hero-a.webp",
+    "src": "/images/home/hero-photo-right-pet-parent-with-dog.webp",
     "s": 1,
     "x": 0,
     "y": 0
@@ -112,6 +112,48 @@ export const IMAGE_SLOTS: Record<string, SlotImage> = {
     "s": 1,
     "x": 0,
     "y": 63.082669322709165
+  },
+  "pz-band-1": {
+    "src": "/images/cities/pz-band-1.webp",
+    "s": 1,
+    "x": 0,
+    "y": 0
+  },
+  "pz-band-2": {
+    "src": "/images/cities/pz-band-2.webp",
+    "s": 1,
+    "x": 0,
+    "y": 0
+  },
+  "pz-band-3": {
+    "src": "/images/cities/pz-band-3.webp",
+    "s": 1,
+    "x": 0,
+    "y": 0
+  },
+  "pz-band-4": {
+    "src": "/images/cities/pz-band-4.webp",
+    "s": 1,
+    "x": 0,
+    "y": 0
+  },
+  "pz-band-5": {
+    "src": "/images/cities/pz-band-5.webp",
+    "s": 1,
+    "x": 0,
+    "y": 0
+  },
+  "pz-band-6": {
+    "src": "/images/cities/pz-band-6.webp",
+    "s": 1,
+    "x": 0,
+    "y": 0
+  },
+  "pz-band-7": {
+    "src": "/images/cities/pz-band-7.webp",
+    "s": 1,
+    "x": 0,
+    "y": 0
   },
   "pz-band-8": {
     "src": "/images/slots/pz-band-8.png",
