@@ -133,3 +133,10 @@ button { font-family: inherit; cursor: pointer; border: none; }
   [data-r="sub-wrap"] { align-items: flex-end !important; padding: 0 !important; }
   [data-r="sub-panel"] { max-width: none !important; border-radius: 24px 24px 0 0 !important; max-height: 94svh !important; }
 }
+
+@media (max-width: 720px) {
+  [data-r="drafts-dialog"] { margin: 12px !important; width: calc(100% - 24px) !important; border-radius: 18px !important; padding: 22px 18px !important; }
+  [data-r="drafts-card"] { width: 100%; box-sizing: border-box; flex-direction: column !important; align-items: stretch !important; }
+  [data-r="drafts-continue"] { width: 100% !important; }
+}
+[data-r="drafts-card"]:hover { box-shadow: 0 6px 18px rgba(30,27,75,.08); border-color: #D6D3D1 !important; }

@@ -1,5 +1,14 @@
 import type { ApiPet, ApiUser, LiteDraft, PlanPrice, PlanTypeItem } from './api';
 
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+/** "07 Oct 2026" — '' when the date is missing or invalid. */
+export function formatDateDateMonYear(iso: unknown): string {
+  const d = new Date(String(iso ?? ''));
+  if (!iso || Number.isNaN(d.getTime())) return '';
+  return `${String(d.getDate()).padStart(2, '0')} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+
 export const GST_RATE = 0.18;
 export const PHONE_RE = /^[6-9][0-9]{9}$/;
 export const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;

@@ -8,6 +8,7 @@ import {
   buildDraftPayload,
   classifyPayment,
   creatureName,
+  formatDateDateMonYear,
   BREED_MIN_CHARS,
   hasRealUsername,
   isNewUser,
@@ -57,6 +58,8 @@ export interface LiteState {
   petBusy: boolean;
   petErr: string;
   successFreq: Frequency | null;
+  continuingId: string;
+  draftsDismissed: boolean;
   creatures: Creature[];
   breedOpts: string[];
   breed2Opts: string[];
@@ -81,6 +84,8 @@ export const initialLiteState = (): LiteState => ({
   petBusy: false,
   petErr: '',
   successFreq: null,
+  continuingId: '',
+  draftsDismissed: false,
   creatures: [],
   breedOpts: [],
   breed2Opts: [],
@@ -109,6 +114,8 @@ export default class LiteFlow {
   private run = 0;
   private purchased = new Set<string>();
   private otpRequesting = false;
+  private draftsChecked = false;
+  private unmounted = false;
   private breedTimers: Record<'primary' | 'secondary', ReturnType<typeof setTimeout> | undefined> = { primary: undefined, secondary: undefined };
   private breedSeq = { primary: 0, secondary: 0 };
 
@@ -170,7 +177,13 @@ export default class LiteFlow {
       this.pendingContinue = false;
       const { planKey, price } = selectedPlan(this.s.plans, this.s.frequency);
       if (price != null) void this.startLitePayment(planKey, price);
+      return;
     }
+    if (!was && this.s.user) void this.checkIncomplete();
+  }
+
+  destroy() {
+    this.unmounted = true;
   }
 
   private async preloadCashfree() {
@@ -202,7 +215,7 @@ export default class LiteFlow {
     const draftId = q.get('draft');
     if (draftId && action === 'payment_status' && q.get('planType') === 'LITE') void this.paymentStatus(draftId);
     else if (draftId && action === 'step1') void this.step1(draftId, q);
-    else if (!draftId) void this.loadIncomplete();
+    else if (!draftId) void this.checkIncomplete();
   }
 
   /* -------------------------------------------------------------- auth */
@@ -571,7 +584,8 @@ export default class LiteFlow {
       const draft = await this.fetchDraft(draftId);
       if (run !== this.run || !draft) return;
       const hasParent = Boolean(draft.parentDetails?.firstName);
-      if (needsPetSelection(draft) && String(draft.paymentDetails?.paymentStatus ?? '').toUpperCase() === 'SUCCESS') {
+      const needsPet = !draft.petId && !draft.petDetails?.name;
+      if (needsPet && String(draft.paymentDetails?.paymentStatus ?? '').toUpperCase() === 'SUCCESS') {
         this.showSuccess(draft, draft.subscriptionFrequency === 'MONTHLY' ? 'MONTHLY' : 'ANNUAL', hasParent);
       }
       return;
@@ -605,7 +619,8 @@ export default class LiteFlow {
     const user = this.s.user;
     if (this.postDraftId !== draft._id) {
       this.postDraftId = draft._id;
-      this.wasNewUser = isNewUser(user);
+      // Resume mode (hasParentDetails given) goes by the draft and pets, not the account's new-user flag.
+      this.wasNewUser = hasParentDetails !== undefined ? this.pets().length === 0 : isNewUser(user);
       this.profileRequired = hasParentDetails !== undefined ? !hasParentDetails : this.wasNewUser;
     }
     if (this.profileRequired) {
@@ -778,7 +793,7 @@ export default class LiteFlow {
         petDetails: { creature: creatureName(pet), name: pet.name, ...(pet.gender ? { gender: pet.gender } : {}) },
       });
       if (!res.success || !res.data) throw new Error(res.message || 'Could not save your pet. Please try again.');
-      this.patch({ draft: res.data, petBusy: false });
+      this.patch({ draft: res.data, petBusy: false, incomplete: this.s.incomplete.filter((d) => d._id !== res.data?._id) });
       this.showDone(res.data, res.data.subscriptionFrequency === 'MONTHLY' ? 'MONTHLY' : this.s.successFreq ?? 'ANNUAL');
     } catch (e) {
       this.patch({ petBusy: false, petErr: api.errorMessage(e, 'Could not save your pet. Please try again.') });
@@ -793,29 +808,81 @@ export default class LiteFlow {
 
   /* ------------------------------------------------ resume paid drafts */
 
-  private async loadIncomplete() {
-    if (!this.s.user) return;
+  /**
+   * Background check (once, logged-in users on /pawteckt with no draft/status in the URL):
+   * paid drafts with no pet. Renders nothing while loading, on failure or when empty.
+   */
+  private async checkIncomplete() {
+    const user = this.s.user;
+    if (this.draftsChecked || this.unmounted || !user?._id) return;
+    if (this.host.state.page !== 'pawteckt') return;
+    const q = this.query();
+    if (q.has('draft') || q.has('draft_id') || q.has('status')) return;
+    this.draftsChecked = true;
     try {
       const res = await api.getPaidDrafts();
+      if (this.unmounted) return;
       const list = (res.success && Array.isArray(res.data) ? res.data : []).filter(
         (d) => String(d.paymentDetails?.paymentStatus ?? '').toLowerCase() === 'success' && !d.petId,
       );
       this.patch({ incomplete: list });
-    } catch {
-      /* silent */
+    } catch (e) {
+      console.error('Could not check incomplete paid drafts', e);
     }
   }
+
+  /** Continue button: resumes the EXISTING draft (never creates one). */
+  continueDraft = (draftId: string) => {
+    if (this.s.continuingId) return;
+    this.patch({ continuingId: draftId });
+    this.openDraft(draftId);
+  };
+
+  closeDrafts = () => {
+    if (!this.s.continuingId) this.patch({ draftsDismissed: true });
+  };
 
   private openDraft(draftId: string) {
     this.run += 1;
     this.postDraftId = '';
-    this.patch({ draft: null, stage: null, payMsg: '', successFreq: null, activeDraftId: draftId });
+    this.patch({ draft: null, stage: null, payMsg: '', successFreq: null, activeDraftId: draftId, continuingId: '' });
     this.host.setState({ subPetId: '', np: { ...BLANK_NP } });
     this.replaceUrl(step1Url(draftId, '&resume_draft=true'));
     void this.step1(draftId, new URLSearchParams(`action=step1&draft=${draftId}&resume_draft=true`));
   }
 
   /* ------------------------------------------------------------- vals */
+
+  /** Values for the "Continue your Pawteckt Lite subscription" modal. */
+  private draftsModalVals() {
+    const s = this.s;
+    const st = this.host.state;
+    const hasStatus = typeof window !== 'undefined' && this.query().has('status');
+    const open =
+      st.page === 'pawteckt' && !!s.user?._id && !s.draftParam && !st.sub && !hasStatus && !s.draftsDismissed && s.incomplete.length > 0;
+    const busy = !!s.continuingId;
+    return {
+      draftsModalOpen: open,
+      draftsMany: s.incomplete.length > 1,
+      draftsBusy: busy,
+      closeDrafts: this.closeDrafts,
+      drafts: s.incomplete.map((d) => {
+        const monthly = d.subscriptionFrequency === 'MONTHLY';
+        const ta = d.paymentDetails?.amountDetails?.ta;
+        const paid = formatDateDateMonYear(d.createdAt);
+        return {
+          id: d._id,
+          freq: monthly ? 'Monthly' : 'Annual',
+          monthly,
+          paidLabel: paid ? `Paid on ${paid}` : 'Paid',
+          amount: ta == null ? '' : fmtINR(Number(ta)),
+          continuing: s.continuingId === d._id,
+          disabled: busy,
+          pick: () => this.continueDraft(d._id),
+        };
+      }),
+    };
+  }
 
   /** Page-level values (plan card, resume list). Safe to call for any plan. */
   pageVals() {
@@ -824,11 +891,7 @@ export default class LiteFlow {
     return {
       litePlanVisible: !!annual && !s.draftParam,
       litePriceLabel: annual ? fmtINR(annual.price) : '',
-      liteResume: s.incomplete.map((d) => ({
-        id: d._id,
-        label: 'Pawteckt Lite · ' + (d.subscriptionFrequency === 'MONTHLY' ? 'Monthly' : 'Annual'),
-        pick: () => this.openDraft(d._id),
-      })),
+      ...this.draftsModalVals(),
     };
   }
 

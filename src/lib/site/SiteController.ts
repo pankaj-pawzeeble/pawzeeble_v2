@@ -671,6 +671,7 @@ export default class SiteController extends DCLogic {
   }
 
   componentWillUnmount() {
+    this._lite.destroy();
     clearInterval(this._otpT); clearTimeout(this._payT); document.body.style.overflow = '';
     window.removeEventListener('scroll', this._onScroll);
     window.removeEventListener('scroll', this._onTopScroll);

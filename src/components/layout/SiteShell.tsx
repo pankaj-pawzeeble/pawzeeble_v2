@@ -7,6 +7,7 @@ import ScrollTopButton from '@/components/layout/ScrollTopButton';
 import AppQrCard from '@/components/layout/AppQrCard';
 import BookingDialog from '@/components/overlays/BookingDialog';
 import SubscribeFlow from '@/components/subscribe/SubscribeFlow';
+import IncompleteDraftsModal from '@/components/overlays/IncompleteDraftsModal';
 import { useSite } from '@/hooks/useSite';
 
 export default function SiteShell({ children }: { children: ReactNode }) {
@@ -37,6 +38,9 @@ export default function SiteShell({ children }: { children: ReactNode }) {
       ) : null}
       {v.subOpen ? (
         <SubscribeFlow />
+      ) : null}
+      {v.draftsModalOpen ? (
+        <IncompleteDraftsModal />
       ) : null}
     </div>
   );

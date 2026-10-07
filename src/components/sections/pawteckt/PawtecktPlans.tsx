@@ -24,17 +24,6 @@ export default function PawtecktPlans() {
         </div>
         <span style={{ flex: "1 1 240px", fontSize: "14.5px", lineHeight: "1.45", color: "#4A3E78", fontWeight: "600" }}>{v.ptAgeNote}</span>
       </div>
-      {v.liteResume.length > 0 ? (
-        <div style={{ marginTop: "18px", background: "#F5F1FC", border: "1.5px solid #E9E2F6", borderRadius: "26px", padding: "18px 20px", display: "flex", flexDirection: "column", gap: "12px" }}>
-          <span style={{ fontSize: "16px", fontWeight: "700", color: "#2B2342" }}>Continue your subscription</span>
-          {v.liteResume.map((d: SiteItem, index: number) => (
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "12px", flexWrap: "wrap" }} key={index}>
-              <span style={{ fontSize: "14.5px", color: "#4A3E78", fontWeight: "600" }}>{d.label}</span>
-              <button onClick={d.pick} style={{ background: "#CA5C00", color: "#fff", fontSize: "14px", fontWeight: "700", padding: "10px 20px", borderRadius: "999px" }}>Continue</button>
-            </div>
-          ))}
-        </div>
-      ) : null}
       <div style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(310px,1fr))", gap: "18px", alignItems: "stretch" }}>
         {v.litePlanVisible ? (
         <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "32px", padding: "clamp(24px,3vw,34px)", display: "flex", flexDirection: "column", gap: "16px" }}>
