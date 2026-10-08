@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { timeAgo, truncateCaption, type CommunityPost } from '@/lib/community/data';
+import { useSignedUrl } from '@/lib/community/useSignedUrl';
 import styles from './Community.module.css';
 import { CommentIcon, HeartIcon, MoreVerticalIcon, SendIcon, SmileIcon, UserIcon } from './CommunityIcons';
 import { useDownloadGate } from './DownloadGate';
@@ -8,10 +9,11 @@ import MediaCarousel from './MediaCarousel';
 const nameStyle = { fontSize: '15px', fontWeight: 700, color: '#2B2342', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' } as const;
 
 function Avatar({ url, size, bg, border }: { url?: string; size: number; bg: string; border?: string }) {
+  const src = useSignedUrl(url);
   return (
     <span style={{ flex: 'none', width: size, height: size, borderRadius: '50%', overflow: 'hidden', background: bg, border }}>
-      {url ? (
-        <img src={url} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+      {src ? (
+        <img src={src} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
       ) : null}
     </span>
   );
@@ -31,9 +33,9 @@ export default function PostCard({ post }: { post: CommunityPost }) {
       <div style={{ padding: '14px 12px 14px 16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
         <Avatar url={post.pet.avatarUrl} size={44} bg="#F2EEFA" border="2px solid #E3DDF6" />
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={nameStyle}>{post.pet.name} • {post.parent.name}</div>
+          <div style={nameStyle}>{post.parent ? `${post.pet.name} • ${post.parent.name}` : post.pet.name}</div>
           <div style={{ marginTop: '2px', fontSize: '12.5px', color: '#6F6590', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            {post.location.area}, {post.location.city} · <span suppressHydrationWarning>{timeAgo(post.createdAt)}</span>
+            {post.location ? `${post.location.area}, ${post.location.city} · ` : null}<span suppressHydrationWarning>{timeAgo(post.createdAt)}</span>
           </div>
         </div>
         {post.clan ? (

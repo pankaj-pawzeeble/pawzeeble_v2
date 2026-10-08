@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { formatDuration, type PostMedia } from '@/lib/community/data';
+import { useSignedUrl } from '@/lib/community/useSignedUrl';
 import styles from './Community.module.css';
 import { PlayIcon } from './CommunityIcons';
 import { useDownloadGate } from './DownloadGate';
 
 function MediaItem({ item }: { item: PostMedia }) {
   const { lock } = useDownloadGate();
-  const src = item.kind === 'video' ? item.posterUrl : item.url;
+  const src = useSignedUrl(item.kind === 'video' ? item.posterUrl : item.url);
   return (
     <div style={{ position: 'relative', flex: 'none', width: '100%', aspectRatio: '4 / 5', scrollSnapAlign: 'start', background: '#F2EEFA' }}>
       {src ? (

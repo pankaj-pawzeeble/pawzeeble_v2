@@ -1,7 +1,7 @@
 /**
  * Community feed types, helpers and SAMPLE content.
- * The public-posts and clan-list endpoints are not defined yet, so `SAMPLE_POSTS` and
- * `SAMPLE_CLANS` stand in for the API. Replace `getCommunityFeed()` when they exist.
+ * Posts come from `cn/feeds` (see api.ts / mappers.ts). `SAMPLE_POSTS` is only the fallback when the
+ * first page fails or is empty; there is no clan-list endpoint yet, so `SAMPLE_CLANS` stays static.
  */
 
 export type PostType = 'image' | 'video' | 'multi_image' | 'multi_video' | 'thought';
@@ -17,8 +17,10 @@ export interface CommunityPost {
   id: string;
   type: PostType;
   pet: { name: string; avatarUrl?: string };
-  parent: { name: string };
-  location: { area: string; city: string };
+  /** Absent when the feed gives no tagged pet name (the author is then shown as the pet). */
+  parent?: { name: string };
+  /** Not provided by the feed API. */
+  location?: { area: string; city: string };
   createdAt: string;
   clan?: { name: string };
   text: string;
@@ -113,8 +115,3 @@ export const UNLOCK_TOPICS = [
   'Pet grooming', 'Adoption & rescue', 'Pet event', 'Pet exercises', 'Pet news',
   'Pet products', 'Pet care', 'Pet care tips', 'Pet travel', 'Pet diet & nutrition',
 ];
-
-/** Placeholder until the public-posts / clan-list endpoints exist. */
-export async function getCommunityFeed(): Promise<{ posts: CommunityPost[]; clans: Clan[] }> {
-  return { posts: SAMPLE_POSTS, clans: SAMPLE_CLANS };
-}
