@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import StubView from '@/components/views/StubView';
+import CommunityView from '@/components/views/CommunityView';
 
 export default function CommunityPage() {
   return (
@@ -7,7 +7,7 @@ export default function CommunityPage() {
       <Head>
         <title>Community — Pawzeeble</title>
       </Head>
-      <StubView />
+      <CommunityView />
     </>
   );
 }

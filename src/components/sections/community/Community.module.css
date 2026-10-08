@@ -1,0 +1,12 @@
+.hideScroll { scrollbar-width: none; -ms-overflow-style: none; }
+.hideScroll::-webkit-scrollbar { display: none; }
+.cta:hover { background: #A44A00 !important; }
+.actionBtn:hover { background: #F7F4FD; color: #6351A1; }
+.iconBtn:hover { background: #F2EEFA; }
+.link:hover { color: #A44A00; }
+.toggle:hover { color: #4A3E78; }
+.commentBox:hover { border-color: #CFC3EE !important; }
+.clanBtn:hover { opacity: .85; }
+.closeBtn:hover { background: #E4DDF3 !important; }
+.playBtn:hover { background: #A44A00 !important; }
+.dot { transition: width .2s ease; }
