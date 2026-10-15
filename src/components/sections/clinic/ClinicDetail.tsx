@@ -1,10 +1,12 @@
 import ImageSlot from '@/components/ui/ImageSlot';
+import { useAppDownload } from '@/components/layout/AppDownload';
 import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './ClinicDetail.module.css';
 
 export default function ClinicDetail() {
   const v = useSite();
+  const { dlApp } = useAppDownload();
   return (
     <section data-r="cl-grid" style={{ maxWidth: "1260px", margin: "0 auto", padding: "32px 22px 90px", display: "grid", gridTemplateColumns: "minmax(0,1fr) 380px", gap: "28px", alignItems: "start" }}>
       <div style={{ display: "flex", flexDirection: "column", gap: "28px", minWidth: "0" }}>
@@ -355,7 +357,7 @@ export default function ClinicDetail() {
           ))}
           <div style={{ marginTop: "22px", paddingTop: "18px", borderTop: "1.5px solid #F2EEFA", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
             <span style={{ fontSize: "15px", color: "#2B2342", fontWeight: "600" }}>{v.clPicked}</span>
-            <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "15px", fontWeight: "700", padding: "14px 26px", borderRadius: "999px" }} className={styles.h9}>Continue in the app to book</button>
+            <button onClick={() => dlApp()} style={{ background: "#CA5C00", color: "#fff", fontSize: "15px", fontWeight: "700", padding: "14px 26px", borderRadius: "999px" }} className={styles.h9}>Continue in the app to book</button>
           </div>
         </div>
         <div>

@@ -16,9 +16,9 @@ export default function HomeView() {
       <ServicesMarquee />
       <FeatureRail />
       <PawtecktStaticPanel />
-      <CitiesSection />
       <SheruAiSection />
       <ClansSection />
+      <CitiesSection />
       <TestimonialsSection />
       <BlogsVlogsSection />
       <HomeFaqSection />

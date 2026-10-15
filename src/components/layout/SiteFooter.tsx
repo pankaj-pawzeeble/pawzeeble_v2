@@ -1,10 +1,12 @@
 import ImageSlot from '@/components/ui/ImageSlot';
+import { useAppDownload } from '@/components/layout/AppDownload';
 import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './SiteFooter.module.css';
 
 export default function SiteFooter() {
   const v = useSite();
+  const { dlApp } = useAppDownload();
   return (
     <footer style={{ background: "#F5F1FC", borderTop: "1px solid #E9E2F6", color: "#5A5177", padding: "54px 22px 28px" }}>
       <div style={{ maxWidth: "1260px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "40px", alignItems: "start" }}>
@@ -43,10 +45,10 @@ export default function SiteFooter() {
         <div>
           <h4 style={{ fontSize: "15px", color: "#2B2342" }}>Get the app</h4>
           <div data-r="wrap" style={{ marginTop: "14px", display: "flex", flexDirection: "row", gap: "10px", alignItems: "flex-start" }}>
-            <button onClick={v.goDownload} data-r="store" aria-label="Download on the App Store" style={{ display: "block", padding: "0", background: "none", borderRadius: "9px", transition: "opacity .15s", width: "160px" }} className={styles.h4}>
+            <button onClick={() => dlApp('ios')} data-r="store" aria-label="Download on the App Store" style={{ display: "block", padding: "0", background: "none", borderRadius: "9px", transition: "opacity .15s", width: "160px" }} className={styles.h4}>
               <img src="/images/badges/badge-app-store.png" alt="Download on the App Store" style={{ display: "block", height: "48px", width: "auto" }} />
             </button>
-            <button onClick={v.goDownload} data-r="store" aria-label="Get it on Google Play" style={{ display: "block", padding: "0", background: "none", borderRadius: "9px", transition: "opacity .15s", width: "160px" }} className={styles.h5}>
+            <button onClick={() => dlApp('android')} data-r="store" aria-label="Get it on Google Play" style={{ display: "block", padding: "0", background: "none", borderRadius: "9px", transition: "opacity .15s", width: "160px" }} className={styles.h5}>
               <img src="/images/badges/badge-google-play.png" alt="Get it on Google Play" style={{ display: "block", height: "48px", width: "auto" }} />
             </button>
           </div>

@@ -1,6 +1,6 @@
 export default function PawtecktEligibility() {
   return (
-    <section style={{ maxWidth: "1260px", margin: "0 auto", padding: "80px 22px 20px" }}>
+    <section data-r="pt-sec" style={{ maxWidth: "1260px", margin: "0 auto", padding: "80px 22px 20px" }}>
       <p style={{ fontSize: "13px", fontWeight: "800", letterSpacing: ".07em", color: "#CA5C00" }}>BEFORE YOU CHOOSE PREMIUM</p>
       <h2 style={{ marginTop: "10px", fontSize: "clamp(30px,3.8vw,44px)", color: "#2B2342", textWrap: "balance" }}>Is your pet ready?</h2>
       <div style={{ marginTop: "24px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(240px,1fr))", gap: "12px" }}>

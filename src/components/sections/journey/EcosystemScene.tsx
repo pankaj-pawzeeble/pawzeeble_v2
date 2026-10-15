@@ -25,7 +25,7 @@ export default function EcosystemScene() {
         <div data-eco="beat1" style={{ position: "absolute", inset: "0", display: "flex", alignItems: "center", justifyContent: "center", opacity: "0" }}>
           <div aria-hidden="true" style={{ position: "absolute", left: "-70px", top: "-50px", width: "280px", height: "280px", borderRadius: "50%", background: "#EFE6FB", pointerEvents: "none" }} />
           <div aria-hidden="true" style={{ position: "absolute", right: "-40px", bottom: "-60px", width: "200px", height: "200px", borderRadius: "46% 54% 58% 42%/54% 46% 42% 58%", background: "#FFEFDD", pointerEvents: "none" }} />
-          <div data-eco="b1-flat" style={{ position: "relative", marginBottom: "8vh", height: "min(660px,88vh)", width: "auto", aspectRatio: "268/540", borderRadius: "46px", background: "#2B2342", padding: "11px", boxShadow: "0 34px 68px rgba(43,35,66,.28)" }}>
+          <div data-eco="b1-flat" style={{ position: "relative", marginBottom: "8vh", height: "min(660px,88vh)", width: "calc(min(660px,88vh) * 268 / 540)", flex: "none", boxSizing: "border-box", aspectRatio: "268/540", borderRadius: "46px", background: "#2B2342", padding: "11px", boxShadow: "0 34px 68px rgba(43,35,66,.28)" }}>
             <div style={{ width: "100%", height: "100%", borderRadius: "34px", overflow: "hidden" }}>
               <ImageSlot id="pz-img-eco-profile" shape="rect" src="/images/journey/pet-profile-screen.webp" placeholder="Bruno's pet profile in the Pawzeeble app" align="top" style={{ display: "block", width: "100%", height: "100%" }} />
             </div>

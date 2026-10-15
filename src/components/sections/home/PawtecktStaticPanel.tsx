@@ -4,7 +4,7 @@ import styles from './PawtecktStaticPanel.module.css';
 export default function PawtecktStaticPanel() {
   const v = useSite();
   return (
-    <section data-r="ptstatic" style={{ padding: "56px 22px 20px", backgroundColor: "#FFFCF6", paddingTop: "40px", paddingBottom: "40px" }}>
+    <section data-r="ptstatic" style={{ padding: "56px 22px 20px", backgroundColor: "#FFFFFF", paddingTop: "40px", paddingBottom: "40px" }}>
       <div style={{ maxWidth: "1260px", margin: "0 auto", border: "1.5px solid #E9E2F6", borderRadius: "36px", padding: "clamp(28px,4vw,52px)", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "40px", alignItems: "flex-end", borderStyle: "none" }}>
         <div>
           <img src="/images/brand/pawteckt-logo.png" alt="Pawteckt" style={{ width: "52px", display: "block" }} />

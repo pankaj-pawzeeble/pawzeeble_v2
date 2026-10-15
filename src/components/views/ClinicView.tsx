@@ -4,7 +4,7 @@ import ClinicDetail from '@/components/sections/clinic/ClinicDetail';
 
 export default function ClinicView() {
   return (
-    <main style={{ background: "#FFFCF6" }}>
+    <main style={{ background: "#FFFFFF" }}>
       <ClinicHeader />
       <ClinicGallery />
       <ClinicDetail />

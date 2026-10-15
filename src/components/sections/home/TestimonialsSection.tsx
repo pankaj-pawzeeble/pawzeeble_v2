@@ -5,10 +5,10 @@ import type { SiteItem } from '@/types/site';
 export default function TestimonialsSection() {
   const v = useSite();
   return (
-    <section style={{ maxWidth: "1260px", margin: "0 auto", padding: "56px 22px 10px", paddingTop: "80px", paddingBottom: "40px" }}>
+    <section data-r="testi-up" style={{ position: "relative", maxWidth: "1260px", margin: "calc(-1 * min(1.31 * (100vw - 72px) / 7 + 12px, 180px) - 24px) auto 0", padding: "0 22px 40px" }}>
       <div style={{ boxSizing: "border-box", display: "flex", flexDirection: "column", justifyContent: "flex-end", alignItems: "center" }}>
         <p style={{ fontSize: "16.5px", lineHeight: "1.6", color: "#CA5C00", maxWidth: "330px", textAlign: "left", fontWeight: "600", paddingBottom: "16px" }}>TESTIMONIALS</p>
-        <h2 style={{ fontSize: "clamp(32px,4vw,48px)", color: "#2B2342", textAlign: "center" }}>What pet parents tell us</h2>
+        <h2 data-r="testi-h" style={{ fontSize: "clamp(32px,4vw,48px)", color: "#2B2342", textAlign: "center", textWrap: "balance", maxWidth: "calc(3 * (100vw - 72px) / 7)" }}>What pet parents tell us</h2>
       </div>
       <div data-r="wrap" style={{ marginTop: "26px", display: "flex", gap: "14px", justifyContent: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "14px", background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "16px 22px" }}>
@@ -36,7 +36,7 @@ export default function TestimonialsSection() {
           </div>
         </div>
       </div>
-      <div style={{ marginTop: "32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(290px,1fr))", gap: "18px", justifyContent: "flex-start", alignItems: "stretch" }}>
+      <div style={{ marginTop: "32px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(290px,1fr))", gap: "44px", alignItems: "stretch" }}>
         {v.testimonials.map((t: SiteItem, index: number) => (
           <div style={t.style} key={index}>
             <div style={{ color: "#FFC24B", fontSize: "17px", letterSpacing: "2px" }}>★★★★★</div>

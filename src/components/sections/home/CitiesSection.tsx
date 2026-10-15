@@ -1,12 +1,23 @@
 import ImageSlot from '@/components/ui/ImageSlot';
 import { useSite } from '@/hooks/useSite';
-import type { SiteItem } from '@/types/site';
 import styles from './CitiesSection.module.css';
+
+/** Seven staggered columns (outer two are hidden on mobile). The offsets form a valley the testimonials rise into. */
+const grid = (file: string, alt: string): [string, string] => [`/images/grid/${file}.webp`, alt];
+const PHOTO_COLUMNS: { top: string; edge?: boolean; tiles: [string, string][] }[] = [
+  { top: "34%", edge: true, tiles: [grid("01-vet-examining-dog", "Vet examining a dog"), grid("02-dog-at-groomer", "Dog at the groomer")] },
+  { top: "0%", tiles: [grid("03-groomer-at-work", "Groomer at work"), grid("04-pet-parent-at-home", "Pet parent at home")] },
+  { top: "28%", tiles: [grid("05-cat-cuddled-at-home", "Cat being cuddled at home")] },
+  { top: "0%", tiles: [grid("06-puppy-first-vaccination", "Puppy at its first vaccination")] },
+  { top: "28%", tiles: [grid("07-dog-walker-morning", "Dog walker on a morning round")] },
+  { top: "0%", tiles: [grid("08-pet-parent-and-indie", "Pet parent and their Indie"), grid("09-dog-car-ride", "Dog on a car ride")] },
+  { top: "34%", edge: true, tiles: [grid("10-puppy-playing", "Puppy playing"), grid("11-dog-at-beach", "Dog at the beach")] },
+];
 
 export default function CitiesSection() {
   const v = useSite();
   return (
-    <section style={{ marginTop: "0px", padding: "70px 22px 20px", backgroundColor: "#FFFCF6", paddingBottom: "40px", paddingRight: "0px", paddingLeft: "0px", paddingTop: "80px", display: "flex", flexDirection: "column" }}>
+    <section style={{ marginTop: "0px", padding: "70px 22px 20px", backgroundColor: "#FFFFFF", paddingBottom: "40px", paddingRight: "0px", paddingLeft: "0px", paddingTop: "80px", display: "flex", flexDirection: "column" }}>
       <div data-r="col-pad" style={{ maxWidth: "1260px", margin: "0 auto", display: "flex", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "44px", alignItems: "center", justifyContent: "space-around", flexDirection: "row" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <h2 style={{ fontSize: "clamp(32px,4vw,48px)", color: "#2B2342", textWrap: "balance", textAlign: "center" }}>Built for India, city by city</h2>
@@ -67,15 +78,17 @@ export default function CitiesSection() {
           </div>
         </div>
       </div>
-      <section style={{ margin: "52px 0 0", padding: "0", overflow: "hidden" }}>
-        <div style={{ display: "flex", width: "max-content", gap: "16px", alignItems: "center", animation: "pzmarquee 54s linear infinite", padding: "18px 8px", paddingTop: "0px", paddingBottom: "0px" }}>
-          {v.photoBand.map((ph: SiteItem, index: number) => (
-            <div style={ph.style} key={index}>
-              <ImageSlot id={ph.id} shape="rect" placeholder={ph.hint} />
-            </div>
-          ))}
-        </div>
-      </section>
+      <div data-r="pg-grid" style={{ width: "100%", marginTop: "52px", display: "grid", gridTemplateColumns: "repeat(7, minmax(0, 1fr))", columnGap: "12px", alignItems: "start" }}>
+        {PHOTO_COLUMNS.map((col, ci) => (
+          <div data-r={col.edge ? "pg-hide" : undefined} style={{ paddingTop: col.top, display: "flex", flexDirection: "column", gap: "12px" }} key={ci}>
+            {col.tiles.map(([src, hint]) => (
+              <div data-r="pg-tile" style={{ position: "relative", aspectRatio: "4 / 5", borderRadius: "16px", overflow: "hidden", background: "#F2EEFA" }} key={src}>
+                <ImageSlot src={src} shape="rect" placeholder={hint} style={{ position: "absolute", inset: "0", aspectRatio: "auto" }} />
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

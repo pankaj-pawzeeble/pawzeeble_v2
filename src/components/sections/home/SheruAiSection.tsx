@@ -1,12 +1,14 @@
 import ImageSlot from '@/components/ui/ImageSlot';
+import { useAppDownload } from '@/components/layout/AppDownload';
 import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './SheruAiSection.module.css';
 
 export default function SheruAiSection() {
   const v = useSite();
+  const { dlApp } = useAppDownload();
   return (
-    <section style={{ padding: "20px 22px 0", backgroundColor: "#FFFCF6", paddingTop: "40px", paddingBottom: "40px" }}>
+    <section style={{ padding: "20px 22px 0", backgroundColor: "#FFFFFF", paddingTop: "40px", paddingBottom: "40px" }}>
       <div style={{ maxWidth: "1260px", margin: "0 auto", background: "#3A2B66", borderRadius: "44px", padding: "clamp(30px,4.2vw,60px)", display: "none", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "44px", alignItems: "flex-start" }}>
         <div>
           <div style={{ display: "inline-flex", alignItems: "center", gap: "9px", background: "rgba(255,255,255,.1)", border: "1.5px solid rgba(255,255,255,.18)", padding: "7px 15px", borderRadius: "999px", fontSize: "13px", fontWeight: "700", color: "#FFC24B" }}>Sheru AI</div>
@@ -22,7 +24,7 @@ export default function SheruAiSection() {
               </li>
             ))}
           </ul>
-          <button onClick={v.goDownload} style={{ marginTop: "26px", background: "#CA5C00", color: "#fff", fontSize: "15.5px", fontWeight: "700", padding: "15px 28px", borderRadius: "999px", display: "none" }} className={styles.h1}>Ask Sheru in the app</button>
+          <button onClick={() => dlApp()} style={{ marginTop: "26px", background: "#CA5C00", color: "#fff", fontSize: "15.5px", fontWeight: "700", padding: "15px 28px", borderRadius: "999px", display: "none" }} className={styles.h1}>Ask Sheru in the app</button>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
           <div style={{ alignSelf: "flex-end", maxWidth: "min(420px,92%)", display: "flex", gap: "11px", alignItems: "flex-end" }}>

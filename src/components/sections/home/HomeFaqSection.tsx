@@ -1,4 +1,5 @@
 import { useSite } from '@/hooks/useSite';
+import FaqItem from '@/components/ui/FaqItem';
 import type { SiteItem } from '@/types/site';
 
 export default function HomeFaqSection() {
@@ -11,15 +12,7 @@ export default function HomeFaqSection() {
       </div>
       <div style={{ marginTop: "26px", display: "flex", flexDirection: "column", gap: "10px" }}>
         {v.faqs.map((q: SiteItem, index: number) => (
-          <div style={q.wrapStyle} key={index}>
-            <button onClick={q.toggle} style={{ width: "100%", textAlign: "left", background: "none", padding: "20px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "16.5px", fontWeight: "700", color: "#2B2342" }}>
-              {q.question}
-              <span style={{ textAlign: "center" }}>+</span>
-            </button>
-            {q.open ? (
-              <p style={{ padding: "0 24px 22px", fontSize: "15.5px", lineHeight: "1.68", color: "#5A5177" }}>{q.answer}</p>
-            ) : null}
-          </div>
+          <FaqItem q={q} key={index} />
         ))}
       </div>
     </section>

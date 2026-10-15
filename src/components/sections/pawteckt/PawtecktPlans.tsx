@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './PawtecktPlans.module.css';
 
 export default function PawtecktPlans() {
   const v = useSite();
+  const [accOpen, setAccOpen] = useState(false);
   return (
-    <section id="pt-plans" style={{ maxWidth: "1260px", margin: "0 auto", padding: "80px 22px 20px" }}>
+    <section id="pt-plans" data-r="pt-sec" style={{ maxWidth: "1260px", margin: "0 auto", padding: "80px 22px 20px" }}>
       <div data-r="pt-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "22px", flexWrap: "wrap" }}>
         <div>
           <p style={{ fontSize: "13px", fontWeight: "800", letterSpacing: ".07em", color: "#CA5C00" }}>PLANS</p>
@@ -24,22 +26,22 @@ export default function PawtecktPlans() {
         </div>
         <span style={{ flex: "1 1 240px", fontSize: "14.5px", lineHeight: "1.45", color: "#4A3E78", fontWeight: "600" }}>{v.ptAgeNote}</span>
       </div>
-      <div style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(310px,1fr))", gap: "18px", alignItems: "stretch" }}>
+      <div data-r="pt-plan-grid" style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(310px,1fr))", gap: "18px", alignItems: "stretch" }}>
         {v.litePlanVisible ? (
-        <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "32px", padding: "clamp(24px,3vw,34px)", display: "flex", flexDirection: "column", gap: "16px" }}>
+        <div data-r="pt-card" style={{ width: "50%", minWidth: "min(100%, 420px)", justifySelf: "center", background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "32px", padding: "clamp(24px,3vw,34px)", display: "flex", flexDirection: "column", gap: "16px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-            <span style={{ background: "#FFF1E4", color: "#A44A00", padding: "6px 13px", borderRadius: "999px", fontSize: "12px", fontWeight: "800", letterSpacing: ".04em" }}>PAWTECKT LITE</span>
+            <span style={{ background: "#FFF1E4", color: "#A44A00", padding: "6px 13px", borderRadius: "999px", fontSize: "12px", fontWeight: "800", letterSpacing: ".04em", display: "inline-flex", alignItems: "center", justifyContent: "center", lineHeight: "1", textAlign: "center" }}>PAWTECKT LITE</span>
             <span style={{ fontSize: "13px", fontWeight: "700", color: "#25795F" }}>Any age · Any breed</span>
           </div>
-          <h3 style={{ fontSize: "clamp(24px,2.6vw,30px)", lineHeight: "1.15", color: "#2B2342" }}>Everyday care</h3>
-          <p style={{ fontSize: "15px", lineHeight: "1.55", color: "#5A5177" }}>For check-ups, baths and late-night questions. Medical bills are not covered.</p>
+          <h3 data-r="pt-card-title" style={{ fontSize: "clamp(24px,2.6vw,30px)", lineHeight: "1.15", color: "#2B2342" }}>Everyday care</h3>
+          <p data-r="pt-card-desc" style={{ fontSize: "15px", lineHeight: "1.55", color: "#5A5177" }}>For check-ups, baths and late-night questions. Medical bills are not covered.</p>
           <div style={{ display: "flex", alignItems: "baseline", gap: "8px", flexWrap: "wrap" }}>
-            <span style={{ fontSize: "clamp(40px,4.4vw,50px)", fontWeight: "800", letterSpacing: "-.03em", lineHeight: "1", color: "#2B2342" }}>₹45</span>
+            <span data-r="pt-price" style={{ fontSize: "clamp(40px,4.4vw,50px)", fontWeight: "800", letterSpacing: "-.03em", lineHeight: "1", color: "#2B2342" }}>₹45</span>
             <span style={{ fontSize: "16px", fontWeight: "600", color: "#6F6590" }}>/month</span>
           </div>
           <div style={{ fontSize: "14px", fontWeight: "700", color: "#A44A00" }}>{v.litePriceLabel}{" paid once a year"}</div>
           <ul style={{ margin: "4px 0 0", padding: "16px 0 0", borderTop: "1.5px solid #F2EEFA", listStyle: "none", display: "grid", gap: "11px" }}>
-            <li style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
+            <li data-r="pt-li" style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
               <span style={{ flex: "none", width: "22px", height: "22px", borderRadius: "50%", background: "#E4F4EF", color: "#25795F", display: "grid", placeItems: "center", marginTop: "1px" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20 6 9 17l-5-5" />
@@ -47,7 +49,7 @@ export default function PawtecktPlans() {
               </span>
               <span>4 check-ups at 50% off</span>
             </li>
-            <li style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
+            <li data-r="pt-li" style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
               <span style={{ flex: "none", width: "22px", height: "22px", borderRadius: "50%", background: "#E4F4EF", color: "#25795F", display: "grid", placeItems: "center", marginTop: "1px" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20 6 9 17l-5-5" />
@@ -55,7 +57,7 @@ export default function PawtecktPlans() {
               </span>
               <span>20% off vaccination, deworming and grooming packages</span>
             </li>
-            <li style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
+            <li data-r="pt-li" style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
               <span style={{ flex: "none", width: "22px", height: "22px", borderRadius: "50%", background: "#E4F4EF", color: "#25795F", display: "grid", placeItems: "center", marginTop: "1px" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20 6 9 17l-5-5" />
@@ -63,7 +65,7 @@ export default function PawtecktPlans() {
               </span>
               <span>25% off spay or neuter</span>
             </li>
-            <li style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
+            <li data-r="pt-li" style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
               <span style={{ flex: "none", width: "22px", height: "22px", borderRadius: "50%", background: "#E4F4EF", color: "#25795F", display: "grid", placeItems: "center", marginTop: "1px" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20 6 9 17l-5-5" />
@@ -71,7 +73,7 @@ export default function PawtecktPlans() {
               </span>
               <span>Free 24×7 vet chat and Sheru AI</span>
             </li>
-            <li style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
+            <li data-r="pt-li" style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
               <span style={{ flex: "none", width: "22px", height: "22px", borderRadius: "50%", background: "#E4F4EF", color: "#25795F", display: "grid", placeItems: "center", marginTop: "1px" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20 6 9 17l-5-5" />
@@ -79,7 +81,7 @@ export default function PawtecktPlans() {
               </span>
               <span>Pet QR tag for lost and found</span>
             </li>
-            <li style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
+            <li data-r="pt-li" style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
               <span style={{ flex: "none", width: "22px", height: "22px", borderRadius: "50%", background: "#E4F4EF", color: "#25795F", display: "grid", placeItems: "center", marginTop: "1px" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20 6 9 17l-5-5" />
@@ -87,7 +89,7 @@ export default function PawtecktPlans() {
               </span>
               <span>3% back in PZB coins on spends over ₹500</span>
             </li>
-            <li style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
+            <li data-r="pt-li" style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#2B2342" }}>
               <span style={{ flex: "none", width: "22px", height: "22px", borderRadius: "50%", background: "#E4F4EF", color: "#25795F", display: "grid", placeItems: "center", marginTop: "1px" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20 6 9 17l-5-5" />
@@ -96,23 +98,38 @@ export default function PawtecktPlans() {
               <span>Unlimited storage for health records</span>
             </li>
           </ul>
-          <button onClick={v.openSub} style={{ marginTop: "auto", background: "transparent", color: "#CA5C00", border: "2px solid #CA5C00", fontSize: "15.5px", fontWeight: "700", padding: "15px 24px", borderRadius: "999px" }} className={styles.h1}>Get Lite for {v.litePriceLabel}/year</button>
+          <button data-r="pt-cta" onClick={v.openSub} style={{ marginTop: "auto", background: "transparent", color: "#CA5C00", border: "2px solid #CA5C00", fontSize: "15.5px", fontWeight: "700", padding: "15px 24px", borderRadius: "999px" }} className={styles.h1}>Get Lite for {v.litePriceLabel}/year</button>
         </div>
         ) : null}
-        <div style={{ position: "relative", background: "#6351A1", color: "#fff", borderRadius: "32px", padding: "clamp(24px,3vw,34px)", display: "flex", flexDirection: "column", gap: "16px" }}>
+        <div data-r="pt-card" style={{ position: "relative", background: "#6351A1", color: "#fff", borderRadius: "32px", padding: "clamp(24px,3vw,34px)", display: "none", flexDirection: "column", gap: "16px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
             <span style={{ background: "#FFC24B", color: "#2B2342", padding: "6px 13px", borderRadius: "999px", fontSize: "12px", fontWeight: "800", letterSpacing: ".04em" }}>PAWTECKT PREMIUM</span>
             <span style={{ fontSize: "13px", fontWeight: "700", color: "#FFC24B" }}>Ages 6 months – 5 years</span>
           </div>
-          <h3 style={{ fontSize: "clamp(24px,2.6vw,30px)", lineHeight: "1.15", color: "#fff" }}>Everything in Lite, plus medical bills</h3>
-          <p style={{ fontSize: "15px", lineHeight: "1.55", color: "#E4DDF5" }}>Pet insurance by HDFC ERGO. Pick how much cover you want.</p>
-          <div role="tablist" aria-label="Premium plans" style={{ display: "grid", gridTemplateColumns: "repeat(4,minmax(0,1fr))", gap: "4px", background: "rgba(255,255,255,.12)", padding: "5px", borderRadius: "18px" }}>
+          <h3 data-r="pt-card-title" style={{ fontSize: "clamp(24px,2.6vw,30px)", lineHeight: "1.15", color: "#fff" }}>Everything in Lite, plus medical bills</h3>
+          <p data-r="pt-card-desc" style={{ fontSize: "15px", lineHeight: "1.55", color: "#E4DDF5" }}>Pet insurance by HDFC ERGO. Pick how much cover you want.</p>
+          <div data-r="pt-tier-tabs" role="tablist" aria-label="Premium plans" style={{ display: "grid", gridTemplateColumns: "repeat(4,minmax(0,1fr))", gap: "4px", background: "rgba(255,255,255,.12)", padding: "5px", borderRadius: "18px" }}>
             {v.ptTiers.map((t: SiteItem, index: number) => (
               <button role="tab" onClick={t.pick} style={t.style} key={index}>{t.label}</button>
             ))}
           </div>
+          <div data-r="pt-tier-list" role="radiogroup" aria-label="Premium plans">
+            {v.ptTiers.map((t: SiteItem, index: number) => (
+              <button role="radio" aria-checked={t.selected} onClick={t.pick} key={index} style={{ display: "flex", alignItems: "center", gap: "12px", width: "100%", minHeight: "56px", padding: "10px 14px", borderRadius: "16px", textAlign: "left", color: "#fff", background: t.selected ? "rgba(255,255,255,.16)" : "rgba(255,255,255,.05)", border: "2px solid " + (t.selected ? "#FFC24B" : "rgba(255,255,255,.14)") }}>
+                <span aria-hidden="true" style={{ flex: "none", boxSizing: "border-box", width: "20px", height: "20px", borderRadius: "50%", border: t.selected ? "6px solid #FFC24B" : "2px solid rgba(255,255,255,.55)" }} />
+                <span style={{ flex: "1", minWidth: "0" }}>
+                  <span style={{ display: "block", fontSize: "15px", fontWeight: "800", color: "#fff" }}>{t.label}</span>
+                  <span style={{ display: "block", fontSize: "12.5px", fontWeight: "600", color: "#D5CCEE" }}>{t.total}{" total cover"}</span>
+                </span>
+                <span style={{ flex: "none", textAlign: "right" }}>
+                  <span style={{ fontSize: "15px", fontWeight: "800" }}>{t.price}</span>
+                  <span style={{ fontSize: "11.5px", fontWeight: "600", color: "#D5CCEE" }}>{"/year"}</span>
+                </span>
+              </button>
+            ))}
+          </div>
           <div style={{ display: "flex", alignItems: "baseline", gap: "10px", flexWrap: "wrap" }}>
-            <span style={{ fontSize: "clamp(40px,4.4vw,50px)", fontWeight: "800", letterSpacing: "-.03em", lineHeight: "1" }}>{v.ptYear}</span>
+            <span data-r="pt-price" style={{ fontSize: "clamp(40px,4.4vw,50px)", fontWeight: "800", letterSpacing: "-.03em", lineHeight: "1" }}>{v.ptYear}</span>
             <span style={{ fontSize: "16px", fontWeight: "600", color: "#D5CCEE" }}>/year</span>
             {v.ptHasSave ? (
               <s style={{ fontSize: "16px", fontWeight: "600", color: "#BDB2E0" }}>{v.ptWas}</s>
@@ -121,29 +138,36 @@ export default function PawtecktPlans() {
           {v.ptHasSave ? (
             <span style={{ alignSelf: "flex-start", background: "#FFC24B", color: "#2B2342", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "800" }}>{"Pre-release offer · Save "}{v.ptSave}</span>
           ) : null}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2,minmax(0,1fr))", gap: "10px" }}>
-            <div style={{ background: "rgba(255,255,255,.10)", borderRadius: "16px", padding: "14px" }}>
-              <div style={{ fontSize: "12.5px", fontWeight: "600", color: "#D5CCEE" }}>Total cover</div>
-              <div style={{ marginTop: "4px", fontSize: "21px", fontWeight: "800" }}>{v.ptTotal}</div>
+          <button data-r="pt-acc-trigger" onClick={() => setAccOpen((o) => !o)} aria-expanded={accOpen} aria-controls="pt-acc-body" style={{ alignItems: "center", justifyContent: "space-between", gap: "10px", width: "100%", padding: "14px 16px", borderRadius: "16px", background: "rgba(255,255,255,.10)", color: "#fff", fontSize: "14.5px", fontWeight: "700", textAlign: "left" }}>
+            Cover breakup and offerings
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flex: "none", transform: accOpen ? "rotate(180deg)" : "none", transition: "transform .3s cubic-bezier(.22,1,.36,1)" }}>
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+          <div id="pt-acc-body" data-r="pt-acc-body" data-open={accOpen ? "" : undefined} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          <div data-r="pt-stats" style={{ display: "grid", gridTemplateColumns: "repeat(2,minmax(0,1fr))", gap: "10px" }}>
+            <div data-r="pt-stat" style={{ background: "rgba(255,255,255,.10)", borderRadius: "16px", padding: "14px" }}>
+              <div data-r="pt-stat-label" style={{ fontSize: "12.5px", fontWeight: "600", color: "#D5CCEE" }}>Total cover</div>
+              <div data-r="pt-stat-val" style={{ marginTop: "4px", fontSize: "21px", fontWeight: "800" }}>{v.ptTotal}</div>
             </div>
-            <div style={{ background: "rgba(255,255,255,.10)", borderRadius: "16px", padding: "14px" }}>
-              <div style={{ fontSize: "12.5px", fontWeight: "600", color: "#D5CCEE" }}>Injury, illness, surgery</div>
-              <div style={{ marginTop: "4px", fontSize: "21px", fontWeight: "800" }}>
+            <div data-r="pt-stat" style={{ background: "rgba(255,255,255,.10)", borderRadius: "16px", padding: "14px" }}>
+              <div data-r="pt-stat-label" style={{ fontSize: "12.5px", fontWeight: "600", color: "#D5CCEE" }}>Injury, illness, surgery</div>
+              <div data-r="pt-stat-val" style={{ marginTop: "4px", fontSize: "21px", fontWeight: "800" }}>
                 {v.ptEach}{" "}
                 <span style={{ fontSize: "13px", fontWeight: "600", color: "#D5CCEE" }}>each</span>
               </div>
             </div>
-            <div style={{ background: "rgba(255,255,255,.10)", borderRadius: "16px", padding: "14px" }}>
-              <div style={{ fontSize: "12.5px", fontWeight: "600", color: "#D5CCEE" }}>If your pet hurts someone</div>
-              <div style={{ marginTop: "4px", fontSize: "21px", fontWeight: "800" }}>₹1,00,000</div>
+            <div data-r="pt-stat" style={{ background: "rgba(255,255,255,.10)", borderRadius: "16px", padding: "14px" }}>
+              <div data-r="pt-stat-label" style={{ fontSize: "12.5px", fontWeight: "600", color: "#D5CCEE" }}>If your pet hurts someone</div>
+              <div data-r="pt-stat-val" style={{ marginTop: "4px", fontSize: "21px", fontWeight: "800" }}>₹1,00,000</div>
             </div>
-            <div style={{ background: "rgba(255,255,255,.10)", borderRadius: "16px", padding: "14px" }}>
-              <div style={{ fontSize: "12.5px", fontWeight: "600", color: "#D5CCEE" }}>If you lose your pet</div>
-              <div style={{ marginTop: "4px", fontSize: "21px", fontWeight: "800" }}>{v.ptMort}</div>
+            <div data-r="pt-stat" style={{ background: "rgba(255,255,255,.10)", borderRadius: "16px", padding: "14px" }}>
+              <div data-r="pt-stat-label" style={{ fontSize: "12.5px", fontWeight: "600", color: "#D5CCEE" }}>If you lose your pet</div>
+              <div data-r="pt-stat-val" style={{ marginTop: "4px", fontSize: "21px", fontWeight: "800" }}>{v.ptMort}</div>
             </div>
           </div>
           <ul style={{ margin: "0", padding: "14px 0 0", borderTop: "1.5px solid rgba(255,255,255,.18)", listStyle: "none", display: "grid", gap: "11px" }}>
-            <li style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#fff" }}>
+            <li data-r="pt-li" style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#fff" }}>
               <span style={{ flex: "none", width: "22px", height: "22px", borderRadius: "50%", background: "#FFC24B", color: "#2B2342", display: "grid", placeItems: "center", marginTop: "1px" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20 6 9 17l-5-5" />
@@ -151,7 +175,7 @@ export default function PawtecktPlans() {
               </span>
               <span>All Lite perks included</span>
             </li>
-            <li style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#fff" }}>
+            <li data-r="pt-li" style={{ display: "flex", gap: "12px", alignItems: "flex-start", fontSize: "14.5px", lineHeight: "1.45", color: "#fff" }}>
               <span style={{ flex: "none", width: "22px", height: "22px", borderRadius: "50%", background: "#FFC24B", color: "#2B2342", display: "grid", placeItems: "center", marginTop: "1px" }}>
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M20 6 9 17l-5-5" />
@@ -160,8 +184,9 @@ export default function PawtecktPlans() {
               <span>Vet visits without a hospital stay covered too</span>
             </li>
           </ul>
+          </div>
           {v.ptPremOk ? (
-            <button onClick={v.openPrem} style={{ marginTop: "auto", background: "#CA5C00", color: "#fff", fontSize: "15.5px", fontWeight: "700", padding: "15px 24px", borderRadius: "999px" }} className={styles.h2}>{"Get "}{v.ptTierName}{" for "}{v.ptYear}/year</button>
+            <button data-r="pt-cta" onClick={v.openPrem} style={{ marginTop: "auto", background: "#CA5C00", color: "#fff", fontSize: "15.5px", fontWeight: "700", padding: "15px 24px", borderRadius: "999px" }} className={styles.h2}>{"Get "}{v.ptTierName}{" for "}{v.ptYear}/year</button>
           ) : null}
           {v.ptPremNo ? (
             <div style={{ marginTop: "auto", background: "rgba(255,255,255,.12)", borderRadius: "18px", padding: "14px 16px", fontSize: "14px", lineHeight: "1.5", color: "#fff" }}>

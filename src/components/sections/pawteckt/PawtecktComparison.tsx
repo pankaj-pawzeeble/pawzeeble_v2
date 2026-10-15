@@ -2,11 +2,11 @@ import type { CSSProperties } from 'react';
 
 export default function PawtecktComparison() {
   return (
-    <section style={{ maxWidth: "1260px", margin: "0 auto", padding: "80px 22px 20px" }}>
+    <section data-r="pt-sec" style={{ maxWidth: "1260px", margin: "0 auto", padding: "80px 22px 20px" }}>
       <p style={{ fontSize: "13px", fontWeight: "800", letterSpacing: ".07em", color: "#CA5C00" }}>SIDE BY SIDE</p>
       <h2 style={{ marginTop: "10px", fontSize: "clamp(30px,3.8vw,44px)", color: "#2B2342", textWrap: "balance" }}>Compare all five plans</h2>
       <div data-r="cmp" style={{ marginTop: "26px", background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", overflowX: "auto", overscrollBehaviorX: "contain", WebkitOverflowScrolling: "touch", touchAction: "pan-x pan-y" } as CSSProperties}>
-        <div style={{ minWidth: "820px" }}>
+        <div data-r="cmp-grid" style={{ minWidth: "820px" }}>
           <div style={{ display: "grid", gridTemplateColumns: "minmax(170px,1.4fr) repeat(5,minmax(120px,1fr))", borderBottom: "1.5px solid #EFEAF8" }}>
             <div style={{ padding: "16px 18px" }} />
             <div style={{ padding: "16px 10px", textAlign: "center", fontSize: "14.5px", fontWeight: "800", color: "#A44A00" }}>Lite</div>

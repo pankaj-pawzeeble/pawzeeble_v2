@@ -3,7 +3,7 @@ import { useSite } from '@/hooks/useSite';
 export default function PawtecktCoverage() {
   const v = useSite();
   return (
-    <section id="pt-cover" style={{ maxWidth: "1260px", margin: "0 auto", padding: "80px 22px 20px" }}>
+    <section id="pt-cover" data-r="pt-sec" style={{ maxWidth: "1260px", margin: "0 auto", padding: "80px 22px 20px" }}>
       <div data-r="pt-head" style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "22px", flexWrap: "wrap" }}>
         <div>
           <p style={{ fontSize: "13px", fontWeight: "800", letterSpacing: ".07em", color: "#CA5C00" }}>PREMIUM · PET INSURANCE BY HDFC ERGO</p>
@@ -16,7 +16,7 @@ export default function PawtecktCoverage() {
       </div>
       {v.ptIsIn ? (
         <div style={{ marginTop: "24px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "14px" }}>
-          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
+          <div data-r="pt-card16" style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
             <span style={{ flex: "none", width: "42px", height: "42px", borderRadius: "13px", background: "#E4F4EF", color: "#0E7C6B", display: "grid", placeItems: "center" }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M18 2 22 6" />
@@ -31,7 +31,7 @@ export default function PawtecktCoverage() {
               <div style={{ marginTop: "5px", fontSize: "14px", lineHeight: "1.55", color: "#5A5177" }}>Treatment when your pet falls sick or gets hurt.</div>
             </div>
           </div>
-          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
+          <div data-r="pt-card16" style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
             <span style={{ flex: "none", width: "42px", height: "42px", borderRadius: "13px", background: "#F0EBFA", color: "#6351A1", display: "grid", placeItems: "center" }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M11 2v2" />
@@ -46,7 +46,7 @@ export default function PawtecktCoverage() {
               <div style={{ marginTop: "5px", fontSize: "14px", lineHeight: "1.55", color: "#5A5177" }}>Help with the cost of operations.</div>
             </div>
           </div>
-          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
+          <div data-r="pt-card16" style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
             <span style={{ flex: "none", width: "42px", height: "42px", borderRadius: "13px", background: "#FFF3D9", color: "#8A6300", display: "grid", placeItems: "center" }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
@@ -58,7 +58,7 @@ export default function PawtecktCoverage() {
               <div style={{ marginTop: "5px", fontSize: "14px", lineHeight: "1.55", color: "#5A5177" }}>Treatment at the vet that doesn’t need a hospital stay.</div>
             </div>
           </div>
-          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
+          <div data-r="pt-card16" style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
             <span style={{ flex: "none", width: "42px", height: "42px", borderRadius: "13px", background: "#E4EEFA", color: "#2B5A96", display: "grid", placeItems: "center" }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
@@ -78,7 +78,7 @@ export default function PawtecktCoverage() {
       ) : null}
       {v.ptIsOut ? (
         <div style={{ marginTop: "24px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "14px" }}>
-          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
+          <div data-r="pt-card16" style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
             <span style={{ flex: "none", width: "42px", height: "42px", borderRadius: "13px", background: "#F2EEFA", color: "#6F6590", display: "grid", placeItems: "center" }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="m18 2 4 4" />
@@ -94,7 +94,7 @@ export default function PawtecktCoverage() {
               <div style={{ marginTop: "5px", fontSize: "14px", lineHeight: "1.55", color: "#5A5177" }}>Vaccines and regular visits. Your Lite discounts help with these.</div>
             </div>
           </div>
-          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
+          <div data-r="pt-card16" style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
             <span style={{ flex: "none", width: "42px", height: "42px", borderRadius: "13px", background: "#F2EEFA", color: "#6F6590", display: "grid", placeItems: "center" }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
@@ -105,7 +105,7 @@ export default function PawtecktCoverage() {
               <div style={{ marginTop: "5px", fontSize: "14px", lineHeight: "1.55", color: "#5A5177" }}>Conditions your pet already had when you bought the plan.</div>
             </div>
           </div>
-          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
+          <div data-r="pt-card16" style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
             <span style={{ flex: "none", width: "42px", height: "42px", borderRadius: "13px", background: "#F2EEFA", color: "#6F6590", display: "grid", placeItems: "center" }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="M9.94 14.06 4 20" />
@@ -122,7 +122,7 @@ export default function PawtecktCoverage() {
               <div style={{ marginTop: "5px", fontSize: "14px", lineHeight: "1.55", color: "#5A5177" }}>Procedures that aren’t medically needed.</div>
             </div>
           </div>
-          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
+          <div data-r="pt-card16" style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "22px", padding: "20px", display: "flex", gap: "14px", alignItems: "flex-start" }}>
             <span style={{ flex: "none", width: "42px", height: "42px", borderRadius: "13px", background: "#F2EEFA", color: "#6F6590", display: "grid", placeItems: "center" }}>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <circle cx="12" cy="8" r="6" />

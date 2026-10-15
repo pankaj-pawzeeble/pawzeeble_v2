@@ -8,12 +8,12 @@
  */
 :root {
   --pz-cards: 7; --pz-per-card: 52vh; --pz-outro: 1;
-  --pz-pin-bg: #F7F4FD; --pz-next-bg: #FFFCF6; --pz-pt-bg: #FFF9F2;
+  --pz-pin-bg: #F7F4FD; --pz-next-bg: #FFFFFF; --pz-pt-bg: #FFF9F2;
   --pz-ph-c: 14vh; --pz-ph-g: 3vh;
   --pz-tail: calc(var(--pz-ph-c) + var(--pz-ph-g));
 }
 * { box-sizing: border-box; }
-body { margin: 0; background: #FFFCF6; font-family: 'Plus Jakarta Sans', sans-serif; color: #2B2342; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: #FFFFFF; font-family: 'Plus Jakarta Sans', sans-serif; color: #2B2342; -webkit-font-smoothing: antialiased; }
 a { color: #CA5C00; text-decoration: none; }
 a:hover { color: #A44A00; }
 h1, h2, h3, h4 { margin: 0; line-height: 1.08; font-weight: 800; letter-spacing: -0.025em; }
@@ -80,15 +80,27 @@ button { font-family: inherit; cursor: pointer; border: none; }
 }
 @media (max-width: 1280px) { [data-r="hdr"] { padding-left: 24px !important; padding-right: 24px !important; } }
 @media (max-width: 1024px) {
-  [data-r="navpill"], [data-r="hdr-cta"] { display: none !important; }
-  [data-r="burger"] { display: flex !important; }
+  [data-r="navpill"] { display: none !important; }
+  [data-r="burger"] { display: flex !important; order: -1; }
+  [data-r="site-hdr"] { border-bottom-color: #EFE9F8 !important; }
+  [data-r="hdr-logo"] { flex: none; min-width: 0; }
+  [data-r="hdr-cta"] { flex: 1 1 auto; min-width: 0; }
+  [data-r="hdr-pawteckt"] { display: none !important; }
+  [data-r="hdr-app"] { font-size: 14px !important; padding: 10px 16px !important; }
   [data-r="hero"] { grid-template-columns: 1fr !important; gap: 10px !important; }
   [data-r="hero-copy"] { display: flex; flex-direction: column; align-items: center; text-align: center; }
   [data-r="hero-copy"] > div { justify-content: center; }
   [data-r="hero-copy"] p { margin-left: auto; margin-right: auto; }
-  [data-r="hero-art"] { min-height: 540px !important; }
-  [data-r="hero-phone"] { left: 50% !important; right: auto !important; transform: translateX(-50%) !important; top: 6px !important; width: min(66%,240px) !important; }
-  [data-r="hide-sm"] { display: none !important; }
+  [data-r="hero-art"] { min-height: 0 !important; width: 100%; max-width: 480px; margin: 0 auto; }
+  [data-r="hero-phone"] { position: relative !important; top: 0 !important; left: auto !important; transform: none !important; margin: 0 auto; width: min(56%, 250px) !important; border-radius: 26px !important; }
+  [data-r="hero-phone"] > div { border-radius: 21px !important; }
+  /* both photos run from the phone to the screen edge, tucked 50px behind it */
+  [data-r="hero-img-a"], [data-r="hero-img-b"] { width: calc((100% - min(56%, 250px)) / 2 + 50px) !important; max-width: none; z-index: 1 !important; }
+  [data-r="hero-img-a"] { left: auto !important; right: -20px; top: 32px !important; }
+  [data-r="hero-img-b"] { left: -20px !important; top: auto; bottom: 32px !important; }
+  [data-r="hero-img-a"] > div:first-child, [data-r="hero-img-b"] > div:first-child { border-radius: 0 !important; box-shadow: none !important; }
+  [data-r="hero-img-b"] > div:first-child { height: auto !important; aspect-ratio: 1 / 1; }
+  [data-r="hero-img-a"] > div:last-child, [data-r="hero-img-b"] > div:last-child { display: none !important; }
 }
 @media (max-width: 860px) {
   [data-r="eco1-hero"], [data-r="eco1-prod"] { padding-left: 32px !important; padding-right: 32px !important; }
@@ -97,10 +109,13 @@ button { font-family: inherit; cursor: pointer; border: none; }
   [data-r="hdr"] { padding-left: 16px !important; padding-right: 16px !important; gap: 12px !important; }
   [data-r="featrail"] { padding-left: 20px !important; padding-right: 20px !important; }
   [data-r="hero"] { padding: 28px 20px 8px !important; }
-  [data-r="hero-art"] { min-height: 540px !important; }
-  [data-r="hero-phone"] { width: min(66%,224px) !important; }
   [data-r="pt-sm"] { padding-top: 56px !important; }
-  [data-r="col-pad"] { flex-direction: column !important; align-items: flex-start !important; gap: 26px !important; padding: 0 20px !important; }
+  [data-r="col-pad"] { flex-direction: column !important; align-items: center !important; gap: 26px !important; padding: 0 20px !important; }
+  [data-r="pg-grid"] { grid-template-columns: repeat(5, minmax(0, 1fr)) !important; column-gap: 8px !important; }
+  [data-r="pg-hide"] { display: none !important; }
+  [data-r="pg-tile"] { border-radius: 12px !important; }
+  [data-r="testi-up"] { margin-top: 0 !important; padding-top: 56px !important; }
+  [data-r="testi-h"] { max-width: none !important; }
   [data-r="citygrid"] { grid-template-columns: 1fr 1fr !important; gap: 12px !important; width: 100% !important; }
   [data-r="wrap"] { flex-wrap: wrap !important; }
   [data-r="store"] { min-width: 0 !important; flex: 1 1 160px !important; }
@@ -140,3 +155,50 @@ button { font-family: inherit; cursor: pointer; border: none; }
   [data-r="drafts-continue"] { width: 100% !important; }
 }
 [data-r="drafts-card"]:hover { box-shadow: 0 6px 18px rgba(30,27,75,.08); border-color: #D6D3D1 !important; }
+
+/* Header: logo | centred nav pill | CTAs on desktop, with a bottom stroke that fades in on scroll */
+[data-r="site-hdr"] { border-bottom: 1px solid transparent; transition: border-color .25s; }
+[data-r="site-hdr"][data-scrolled] { border-bottom-color: #EFE9F8; }
+[data-r="hdr-logo"], [data-r="hdr-cta"] { flex: 1 1 0; min-width: max-content; display: flex; align-items: center; }
+[data-r="hdr-logo"] { justify-content: flex-start; }
+[data-r="hdr-cta"] { justify-content: flex-end; }
+@keyframes pzdrawerin { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes pzfadein { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-r="drawer"], [data-r="drawer-panel"] { animation: none !important; }
+  [data-r="faq-a"], [data-r="nav-ind"], [data-r="drawer-ind"] { transition: none !important; }
+}
+
+/* Pawteckt: mobile accordion and tier list are hidden on desktop */
+[data-r="pt-tier-list"], [data-r="pt-acc-trigger"] { display: none; }
+
+@media (max-width: 640px) {
+  [data-r="pt-main"] > section { padding-left: 16px !important; padding-right: 16px !important; }
+  [data-r="pt-main"] > section[data-r="pt-sec"] { padding-top: 56px !important; }
+  [data-r="pt-main"] > section[data-r="pt-hero"] { padding-top: 32px !important; }
+  [data-r="pt-agebar"] { padding: 16px !important; border-radius: 20px !important; }
+  [data-r="pt-plan-grid"] { grid-template-columns: minmax(0, 1fr) !important; gap: 14px !important; }
+  [data-r="pt-card"] { padding: 16px !important; border-radius: 24px !important; gap: 12px !important; }
+  [data-r="pt-card-title"] { font-size: 21px !important; }
+  [data-r="pt-card-desc"] { font-size: 14px !important; }
+  [data-r="pt-price"] { font-size: 36px !important; }
+  [data-r="pt-li"] { font-size: 13.5px !important; gap: 10px !important; }
+  [data-r="pt-stats"] { gap: 8px !important; }
+  [data-r="pt-stat"] { padding: 12px !important; border-radius: 14px !important; }
+  [data-r="pt-stat-label"] { font-size: 12px !important; }
+  [data-r="pt-stat-val"] { font-size: 16.5px !important; }
+  [data-r="pt-cta"] { width: 100% !important; font-size: 15px !important; padding: 14px 18px !important; }
+  [data-r="pt-tier-tabs"] { display: none !important; }
+  [data-r="pt-tier-list"] { display: flex; flex-direction: column; gap: 8px; }
+  [data-r="pt-acc-trigger"] { display: flex; }
+  [data-r="pt-acc-body"] { gap: 12px !important; }
+  [data-r="pt-acc-body"]:not([data-open]) { display: none !important; }
+  [data-r="pt-card16"] { padding: 16px !important; }
+  [data-r="pt-main"] [data-r="faq-q"] { padding: 16px !important; font-size: 15.5px !important; }
+  [data-r="pt-main"] [data-r="faq-a"] { padding: 0 16px 16px !important; font-size: 14.5px !important; }
+}
+
+/* Comparison table: Lite only (Starter, Complete, Guardian, Ultimate hidden) */
+[data-r="cmp"] > [data-r="cmp-grid"] { min-width: 0 !important; }
+[data-r="cmp"] > [data-r="cmp-grid"] > div { grid-template-columns: minmax(150px, 1.4fr) minmax(110px, 1fr) !important; }
+[data-r="cmp"] > [data-r="cmp-grid"] > div > :nth-child(n+3) { display: none !important; }

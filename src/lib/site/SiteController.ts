@@ -510,7 +510,7 @@ export default class SiteController extends DCLogic {
       ptAges: ages.map(([k, label]) => ({ label, pick: () => this.setState({ ptAge: k }),
         style: { padding: '9px 16px', borderRadius: 999, fontSize: 14, fontWeight: 700, background: st.ptAge === k ? '#2B2342' : '#fff', color: st.ptAge === k ? '#fff' : '#4A3E78', border: '1.5px solid ' + (st.ptAge === k ? '#2B2342' : '#E4DDF3') } })),
       ptAgeNote: notes[st.ptAge], ptPremOk: st.ptAge === 'mid', ptPremNo: st.ptAge !== 'mid',
-      ptTiers: tiers.map(([label], i) => ({ label, pick: () => this.setState({ ptTier: i }),
+      ptTiers: tiers.map(([label, , price, , total], i) => ({ label, price: inr(price), total: inr(total), selected: st.ptTier === i, pick: () => this.setState({ ptTier: i }),
         style: { padding: '10px 4px', borderRadius: 14, fontSize: 13.5, fontWeight: 800, background: st.ptTier === i ? '#fff' : 'transparent', color: st.ptTier === i ? '#4A3E78' : '#fff' } })),
       ptTierName: t[0], ptYear: inr(t[2]), ptWas: inr(t[1]), ptHasSave: t[1] > t[2], ptSave: inr(t[1] - t[2]),
       ptEach: inr(t[3]), ptTotal: inr(t[4]), ptMort: inr(t[5]),
@@ -701,8 +701,8 @@ export default class SiteController extends DCLogic {
 
     const nav = [['home','Home'],['ecosystem','Ecosystem'],['about','About'],['community','Community'],['care','Find Care'],['blog','Blog']];
     const navStyle = (on) => ({
-      background: on ? '#F2EEFA' : 'transparent', color: on ? PLUM : '#6F6590',
-      fontSize: 14.5, fontWeight: on ? 700 : 500, padding: '10px 15px', borderRadius: 999, whiteSpace: 'nowrap'
+      position: 'relative', zIndex: 1, background: 'transparent', color: on ? PLUM : '#6F6590',
+      fontSize: 14.5, fontWeight: on ? 700 : 500, padding: '10px 15px', borderRadius: 999, whiteSpace: 'nowrap', transition: 'color .3s'
     });
 
     const marqueeWords = ['Vet booking','Grooming','Dog walking','Boarding','Pawteckt insurance','24×7 vet chat','Sheru AI','Pet records','Clans community','Pet ambulance','Training','Pet QR tag'];
@@ -737,24 +737,6 @@ export default class SiteController extends DCLogic {
       iconStyle: { width: 44, height: 44, borderRadius: 14, background: f[3], color: f[4], display: 'grid', placeItems: 'center', fontSize: 20, flex: 'none' }
     }));
 
-    const bandSource = [
-      ['pz-band-1','Pet parent with her dogs at the kennel', 250, 236, -2],
-      ['pz-band-2','Freshly groomed and ready', 300, 216, 2],
-      ['pz-band-3','Family walking their dog', 230, 260, -1],
-      ['pz-band-4','Cat being cuddled at home', 280, 210, 2],
-      ['pz-band-5','Puppy at its first vaccination', 240, 244, -3],
-      ['pz-band-6','Dog walker on a morning round', 310, 200, 1],
-      ['pz-band-7','Small dog posing for the camera', 220, 252, -2],
-      ['pz-band-8','Pet parent and their Indie', 290, 228, 2]
-    ];
-    const photoBand = bandSource.concat(bandSource).map(b => ({
-      id: b[0], hint: b[1],
-      style: {
-        flex: 'none', width: b[2], height: b[3], borderRadius: 26, overflow: 'hidden',
-        transform: 'rotate(' + b[4] + 'deg)', boxShadow: '0 14px 32px rgba(43,35,66,.1)'
-      }
-    }));
-
     const cityNames = ['Mumbai','Navi Mumbai','Thane','Pune','Delhi NCR','Bengaluru','Hyderabad','Chennai','Kolkata','Ahmedabad','Jaipur','Lucknow','Kochi','Chandigarh'];
     const cities = cityNames.map((name, i) => ({
       name,
@@ -771,10 +753,9 @@ export default class SiteController extends DCLogic {
       ['I moved cities and found a groomer in three taps. The Pawzeeble Assured badge actually means something — they were excellent.','Vikram S.','Koramangala, Bengaluru','pz-t2'],
       ['The insurance claim took one upload. I had expected a month of paperwork and it was settled in nine days.','Meher D.','Bandra, Mumbai','pz-t3']
     ];
-    const testiTint = ['#F7F4FD','#fff','#FFF9F2'];
-    const testimonials = testiData.map((t, i) => ({
+    const testimonials = testiData.map((t) => ({
       quote: t[0], name: t[1], meta: t[2], slotId: t[3],
-      style: { background: testiTint[i], border: '1.5px solid #EFEAF8', borderRadius: 28, padding: 28, height: '100%', display: 'flex', flexDirection: 'column' }
+      style: { height: '100%', display: 'flex', flexDirection: 'column' }
     }));
 
     const faqData = [
@@ -789,11 +770,11 @@ export default class SiteController extends DCLogic {
       return {
         question: f[0], answer: f[1], open,
         toggle: () => this.setState(s => ({ faq: s.faq === i ? -1 : i })),
-        wrapStyle: { background: open ? '#F7F4FD' : '#fff', border: '1.5px solid ' + (open ? '#DCD2F0' : '#EFEAF8'), borderRadius: 24, overflow: 'hidden' },
+        wrapStyle: { background: open ? '#F7F4FD' : '#fff', border: '1.5px solid ' + (open ? '#DCD2F0' : '#EFEAF8'), borderRadius: 24, overflow: 'hidden', transition: 'background-color .35s ease, border-color .35s ease' },
         iconStyle: {
           flex: 'none', width: 30, height: 30, borderRadius: '50%', background: open ? ACCENT : '#F2EEFA',
           color: open ? '#fff' : PLUM, display: 'grid', placeItems: 'center', fontSize: 19,
-          transform: open ? 'rotate(45deg)' : 'none', transition: 'all .2s'
+          transform: open ? 'rotate(45deg)' : 'none', transition: 'transform .35s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease'
         }
       };
     });
@@ -804,7 +785,7 @@ export default class SiteController extends DCLogic {
       ['▣','My Pawzmart','The marketplace','Pet products and merch designed for pets and the people who love them. Food, essentials, and tees your dog will judge you for wearing.',['Curated pet products, not an endless catalogue','Original merch for pet parents','Member pricing on every order'],'Visit My PawzMart','/images/brand/tostb-black.webp','pz-eco-3','Pet parent wearing Pawzeeble merch'],
       ['◧','Skale by Pawzeeble','For service providers','The business management tool for vet clinics and grooming salons. Appointments, clients, inventory and revenue in one dashboard, so you spend the day on animals instead of admin.',['See income, expenses and stock at a glance','Fewer no-shows with automatic reminders','Bookings from Pawzeeble land straight in your schedule'],'Visit Skale','/images/content/vet-dashboard.png','pz-eco-4','Vet team at the front desk']
     ];
-    const prodBg = ['#FFFCF6','#F7F4FD','#FFFCF6','#F7F4FD'];
+    const prodBg = ['#FFFFFF','#F7F4FD','#FFFFFF','#F7F4FD'];
     const prodIcon = [['#F0EBFA',PLUM],['#FFF1E4',ACCENT],['#FFF3D9','#8A6300'],['#E4F4EF','#25795F']];
     const prodBlob = ['#F0EBFA','#FFE9D6','#FFF3D9','#DFF0EA'];
     const products = prodData.map((d, i) => {
@@ -859,7 +840,7 @@ export default class SiteController extends DCLogic {
       ['2026','Pawzeeble Vets','Our first own-brand clinic opens in Kharghar, with published pricing and same-day member slots.']
     ].map((t, i) => ({
       year: t[0], title: t[1], body: t[2],
-      dotStyle: { position: 'absolute', left: -9, top: 19, width: 16, height: 16, borderRadius: '50%', background: i === 5 ? ACCENT : PLUM, border: '3px solid #FFFCF6' }
+      dotStyle: { position: 'absolute', left: -9, top: 19, width: 16, height: 16, borderRadius: '50%', background: i === 5 ? ACCENT : PLUM, border: '3px solid #FFFFFF' }
     }));
 
     const mentors = [
@@ -1163,11 +1144,11 @@ export default class SiteController extends DCLogic {
       return {
         question: f[0], answer: f[1], open,
         toggle: () => this.setState(s => ({ ptFaq: s.ptFaq === i ? -1 : i })),
-        wrapStyle: { background: open ? '#F7F4FD' : '#fff', border: '1.5px solid ' + (open ? '#DCD2F0' : '#EFEAF8'), borderRadius: 24, overflow: 'hidden' },
+        wrapStyle: { background: open ? '#F7F4FD' : '#fff', border: '1.5px solid ' + (open ? '#DCD2F0' : '#EFEAF8'), borderRadius: 24, overflow: 'hidden', transition: 'background-color .35s ease, border-color .35s ease' },
         iconStyle: {
           flex: 'none', width: 30, height: 30, borderRadius: '50%', background: open ? ACCENT : '#F2EEFA',
           color: open ? '#fff' : PLUM, display: 'grid', placeItems: 'center', fontSize: 19,
-          transform: open ? 'rotate(45deg)' : 'none', transition: 'all .2s'
+          transform: open ? 'rotate(45deg)' : 'none', transition: 'transform .35s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease'
         }
       };
     });
@@ -1181,7 +1162,7 @@ export default class SiteController extends DCLogic {
     const stub = stubs[p];
 
     return {
-      navItems: nav.map(n => ({ label: n[1], go: this.go(n[0]), style: navStyle(p === n[0]) })),
+      navItems: nav.map(n => ({ label: n[1], go: this.go(n[0]), active: p === n[0], style: navStyle(p === n[0]) })),
       railRef: this.rail, rowRef: this.row,
       scaleRef: this.scaleEl, stageRef: this.stage, markRef: this.mark, pinTitleRef: this.pinTitle,
       panelRef: this.panel, ptLogoRef: this.ptLogo, ptTitleRef: this.ptTitle,
@@ -1194,10 +1175,10 @@ export default class SiteController extends DCLogic {
       toggleMenu: () => this.setState(s => ({ menu: !s.menu })),
       closeMenu: () => this.setState({ menu: false }),
       drawerItems: nav.map(n => ({
-        label: n[1], go: this.go(n[0]),
+        label: n[1], go: this.go(n[0]), active: p === n[0],
         style: {
-          background: p === n[0] ? '#F2EEFA' : 'transparent', color: p === n[0] ? PLUM : INK,
-          fontSize: 18, fontWeight: 700, padding: '15px 16px', borderRadius: 16, textAlign: 'left', width: '100%'
+          position: 'relative', zIndex: 1, background: 'transparent',
+          fontSize: 18, fontWeight: 700, padding: '15px 16px', borderRadius: 16, textAlign: 'left', width: '100%', transition: 'color .3s'
         }
       })),
       isHome: p === 'home', isEco1: p === 'ecosystem' || p === 'ecosystem1', isEco: p === 'journey', chrome: p !== 'journey', isAbout: p === 'about',
@@ -1233,7 +1214,7 @@ export default class SiteController extends DCLogic {
       careHeading: this.state.service + ' in ' + this.state.city,
       careCount: careResults.length === 1 ? '1 verified provider' : careResults.length + ' verified providers',
       careEmpty: careResults.length === 0,
-      marquee, features, photoBand, cities, testimonials, faqs, products, ecoLoop, stats, timeline, team, mentors,
+      marquee, features, cities, testimonials, faqs, products, ecoLoop, stats, timeline, team, mentors,
       clans: ['Labrador Clan','Indie Clan','Persian Cat Clan','Golden Retriever Clan','Beagle Clan','Shih Tzu Clan'],
       pawteckt: ['Up to 50% off vets, grooming and boarding','Unlimited 24×7 licensed vet chat','Pet QR tag so a lost pet finds its way home','Claims filed and tracked inside the app'],
       footerCols: [

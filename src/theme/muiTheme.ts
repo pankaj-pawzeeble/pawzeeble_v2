@@ -6,7 +6,7 @@ export const muiTheme = createTheme({
     primary: { main: '#6351A1' },
     secondary: { main: '#CA5C00' },
     text: { primary: '#2B2342', secondary: '#5A5177' },
-    background: { default: '#FFFCF6' },
+    background: { default: '#FFFFFF' },
   },
   typography: { fontFamily: "'Plus Jakarta Sans', sans-serif" },
   shape: { borderRadius: 12 },

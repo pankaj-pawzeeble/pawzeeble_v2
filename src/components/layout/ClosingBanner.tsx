@@ -1,9 +1,11 @@
 import ImageSlot from '@/components/ui/ImageSlot';
+import { useAppDownload } from '@/components/layout/AppDownload';
 import { useSite } from '@/hooks/useSite';
 import styles from './ClosingBanner.module.css';
 
 export default function ClosingBanner() {
   const v = useSite();
+  const { dlApp } = useAppDownload();
   return (
     <section style={{ maxWidth: "1260px", margin: "0 auto", padding: "10px 22px 70px" }}>
       <div style={{ background: "#CA5C00", borderRadius: "40px", padding: "clamp(32px,4.6vw,58px)", position: "relative", overflow: "hidden", display: "none", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "36px", alignItems: "center", marginBottom: "80px" }}>
@@ -17,8 +19,8 @@ export default function ClosingBanner() {
           <h2 style={{ fontSize: "clamp(30px,4.2vw,48px)", color: "#fff", textWrap: "balance" }}>Your pet&apos;s whole life, in your pocket.</h2>
           <p style={{ marginTop: "14px", fontSize: "17px", lineHeight: "1.58", color: "#FFE9D6", maxWidth: "440px" }}>Free to download. Free 24×7 vet chat on every Pawteckt plan.</p>
           <div style={{ display: "flex", gap: "11px", marginTop: "26px", flexWrap: "wrap" }}>
-            <button onClick={v.goDownload} style={{ background: "#2B2342", color: "#fff", fontSize: "15.5px", fontWeight: "700", padding: "16px 28px", borderRadius: "999px" }} className={styles.h1}>Get it on Google Play</button>
-            <button onClick={v.goDownload} style={{ background: "#fff", color: "#2B2342", fontSize: "15.5px", fontWeight: "700", padding: "16px 28px", borderRadius: "999px" }} className={styles.h2}>Download on the App Store</button>
+            <button onClick={() => dlApp('android')} style={{ background: "#2B2342", color: "#fff", fontSize: "15.5px", fontWeight: "700", padding: "16px 28px", borderRadius: "999px" }} className={styles.h1}>Get it on Google Play</button>
+            <button onClick={() => dlApp('ios')} style={{ background: "#fff", color: "#2B2342", fontSize: "15.5px", fontWeight: "700", padding: "16px 28px", borderRadius: "999px" }} className={styles.h2}>Download on the App Store</button>
           </div>
         </div>
         <div style={{ position: "relative", height: "300px", borderRadius: "30px", overflow: "hidden", boxShadow: "0 20px 44px rgba(0,0,0,.18)" }}>

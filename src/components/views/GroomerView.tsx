@@ -4,7 +4,7 @@ import GroomerDetail from '@/components/sections/groomer/GroomerDetail';
 
 export default function GroomerView() {
   return (
-    <main style={{ background: "#FFFCF6" }}>
+    <main style={{ background: "#FFFFFF" }}>
       <GroomerHeader />
       <GroomerGallery />
       <GroomerDetail />

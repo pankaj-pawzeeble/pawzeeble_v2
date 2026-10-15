@@ -72,7 +72,7 @@ export default function FeatureRail() {
               </div>
             </div>
           </div>
-          <div data-r="pinmark" ref={v.markRef} aria-hidden="true" style={{ position: "absolute", left: "50%", top: "50%", width: "132px", height: "132px", margin: "-66px 0 0 -66px", opacity: "0", pointerEvents: "none", display: "grid", placeItems: "center", background: "#FFFCF6", borderRadius: "50%", boxShadow: "0 18px 60px rgba(43,35,66,.16)" }}>
+          <div data-r="pinmark" ref={v.markRef} aria-hidden="true" style={{ position: "absolute", left: "50%", top: "50%", width: "132px", height: "132px", margin: "-66px 0 0 -66px", opacity: "0", pointerEvents: "none", display: "grid", placeItems: "center", background: "#FFFFFF", borderRadius: "50%", boxShadow: "0 18px 60px rgba(43,35,66,.16)" }}>
             <svg width="76" height="76" viewBox="0 0 120 120" aria-hidden="true">
               <g fill="#6351A1">
                 <circle cx="40" cy="38" r="12" />
