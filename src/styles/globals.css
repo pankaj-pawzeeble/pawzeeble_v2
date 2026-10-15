@@ -55,6 +55,16 @@ button { font-family: inherit; cursor: pointer; border: none; }
   [data-r="pincard"] p { height: auto !important; min-height: 67px; font-size: 14px !important; margin-top: 8px !important; overflow: visible !important; }
   [data-r="pinmedia"] { flex: none !important; width: 88% !important; height: clamp(240px, 100svh - 440px, 380px) !important; margin-top: 18px !important; }
   [data-r="ptcards"] { grid-template-columns: 1fr 1fr !important; }
+  /* the pinned panel must fit inside the viewport-high stage, otherwise the second card row is clipped */
+  [data-r="ptpanel"] { gap: 10px !important; padding: 12px 18px !important; top: 64px !important; }
+  [data-r="ptpanel"] > img { width: clamp(90px, 13svh, 120px) !important; }
+  [data-r="ptpanel"] > h2 { font-size: clamp(20px, 3.6svh, 24px) !important; }
+  [data-r="ptpanel"] > p { display: none !important; }
+  [data-r="ptcards"] { margin-top: 6px !important; gap: 8px !important; }
+  [data-r="ptcards"] > div { padding: 12px 12px !important; border-radius: 18px !important; }
+  [data-r="ptcards"] > div > div:first-child { width: 34px !important; height: 34px !important; border-radius: 11px !important; }
+  [data-r="ptcards"] > div > div:nth-child(2) { margin-top: 8px !important; font-size: 14.5px !important; }
+  [data-r="ptcards"] > div > div:nth-child(3) { margin-top: 3px !important; font-size: 12px !important; line-height: 1.35 !important; }
   [data-r="ptstatic"] { display: none !important; }
 }
 @media (max-width: 1080px) { #pz-qr { display: none; } #pz-top { right: 18px !important; bottom: 18px !important; } }
