@@ -39,7 +39,7 @@ function DoctorCard({ doc, selected, onSelect }: { doc: Doctor; selected: boolea
 export default function ClinicDoctors() {
   const d = useClinicData();
   return (
-    <div>
+    <div id="doctors" style={{ display: "none" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
         <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Doctors at this clinic</h2>
         {!d.loading && !d.error ? (

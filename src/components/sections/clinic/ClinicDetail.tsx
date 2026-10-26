@@ -4,6 +4,7 @@ import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './ClinicDetail.module.css';
 import { useClinicData } from './ClinicData';
+import ClinicCoupons from './ClinicCoupons';
 import ClinicDoctors from './ClinicDoctors';
 import ClinicSlots from './ClinicSlots';
 
@@ -48,131 +49,14 @@ export default function ClinicDetail() {
             <span style={{ background: "#fff", border: "1.5px solid #E9E2F6", color: "#4A3E78", padding: "7px 13px", borderRadius: "999px", fontSize: "13px", fontWeight: "600" }}>Dental care</span>
           </div>
         </div>
-        {v.clAssured ? (
-          <div>
-            <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,34px)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", gap: "16px", flexWrap: "wrap" }}>
-                <div>
-                  <p style={{ fontSize: "13px", fontWeight: "800", letterSpacing: ".06em", color: "#6351A1" }}>PAWZEEBLE ASSURED</p>
-                  <h2 style={{ marginTop: "8px", fontSize: "clamp(24px,2.8vw,32px)", color: "#2B2342" }}>Discount coupons at this clinic</h2>
-                </div>
-                <p style={{ fontSize: "14.5px", color: "#5A5177", maxWidth: "360px", lineHeight: "1.5" }}>Apply coupons at checkout when you book in the Pawzeeble app.</p>
-              </div>
-              <div style={{ marginTop: "22px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(340px,100%),1fr))", gap: "16px" }}>
-                <div style={{ position: "relative", display: "flex", minHeight: "176px", border: "1.5px solid #E3DDF6", borderRadius: "22px", background: "#F3F0FD" }}>
-                  <div style={{ position: "relative", flex: "none", width: "38%", background: "linear-gradient(100deg,#8C78F0 0%,#AB9BF7 45%,#E4DEFC 100%)", borderRadius: "20px 0 0 20px", padding: "20px 18px", display: "flex", flexDirection: "column", justifyContent: "center", borderRight: "2px dashed #CFC6F2" }}>
-                    <span style={{ position: "absolute", top: "-12px", right: "-12px", width: "24px", height: "24px", borderRadius: "50%", background: "#fff", border: "1.5px solid #E3DDF6", boxSizing: "border-box", zIndex: "1", borderWidth: "0px" }} />
-                    <span style={{ position: "absolute", bottom: "-12px", right: "-12px", width: "24px", height: "24px", borderRadius: "50%", background: "#fff", border: "1.5px solid #E3DDF6", boxSizing: "border-box", zIndex: "1", borderWidth: "0px" }} />
-                    <span style={{ fontSize: "22px", fontWeight: "800", lineHeight: "1.05", color: "#fff", letterSpacing: "-.01em", textShadow: "0 1px 2px rgba(74,62,120,.25)" }}>
-                      FLAT
-                      <br />
-                      50% OFF
-                    </span>
-                  </div>
-                  <div style={{ flex: "1", minWidth: "0", padding: "18px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
-                    <span style={{ fontSize: "21px", fontWeight: "800", lineHeight: "1.15", color: "#2B2342" }}>Consultation</span>
-                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>In-clinic, any doctor | 4 coupons per subscribed pet</span>
-                    <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
-                      <s style={{ fontSize: "13.5px", color: "#9A91B5" }}>₹800</s>
-                      <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹400</strong>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ position: "relative", display: "flex", minHeight: "176px", border: "1.5px solid #E3DDF6", borderRadius: "22px", background: "#F3F0FD" }}>
-                  <div style={{ position: "relative", flex: "none", width: "38%", background: "linear-gradient(100deg,#8C78F0 0%,#AB9BF7 45%,#E4DEFC 100%)", borderRadius: "20px 0 0 20px", padding: "20px 18px", display: "flex", flexDirection: "column", justifyContent: "center", borderRight: "2px dashed #CFC6F2" }}>
-                    <span style={{ position: "absolute", top: "-12px", right: "-12px", width: "24px", height: "24px", borderRadius: "50%", background: "#fff", border: "1.5px solid #E3DDF6", boxSizing: "border-box", zIndex: "1", borderColor: "#f3f2f2", borderWidth: "0px" }} />
-                    <span style={{ position: "absolute", bottom: "-12px", right: "-12px", width: "24px", height: "24px", borderRadius: "50%", background: "#fff", border: "1.5px solid #E3DDF6", boxSizing: "border-box", zIndex: "1", borderWidth: "0px" }} />
-                    <span style={{ fontSize: "22px", fontWeight: "800", lineHeight: "1.05", color: "#fff", letterSpacing: "-.01em", textShadow: "0 1px 2px rgba(74,62,120,.25)" }}>
-                      FLAT
-                      <br />
-                      20% OFF
-                    </span>
-                  </div>
-                  <div style={{ flex: "1", minWidth: "0", padding: "18px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
-                    <span style={{ fontSize: "21px", fontWeight: "800", lineHeight: "1.15", color: "#2B2342" }}>Vaccination</span>
-                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>Core and booster doses | 1 coupon per subscribed pet</span>
-                    <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
-                      <s style={{ fontSize: "13.5px", color: "#9A91B5" }}>₹1,200</s>
-                      <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹960</strong>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ position: "relative", display: "flex", minHeight: "176px", border: "1.5px solid #E3DDF6", borderRadius: "22px", background: "#F3F0FD" }}>
-                  <div style={{ position: "relative", flex: "none", width: "38%", background: "linear-gradient(100deg,#8C78F0 0%,#AB9BF7 45%,#E4DEFC 100%)", borderRadius: "20px 0 0 20px", padding: "20px 18px", display: "flex", flexDirection: "column", justifyContent: "center", borderRight: "2px dashed #CFC6F2" }}>
-                    <span style={{ position: "absolute", top: "-12px", right: "-12px", width: "24px", height: "24px", borderRadius: "50%", background: "#fff", border: "1.5px solid #E3DDF6", boxSizing: "border-box", zIndex: "1", borderWidth: "0px" }} />
-                    <span style={{ position: "absolute", bottom: "-12px", right: "-12px", width: "24px", height: "24px", borderRadius: "50%", background: "#fff", border: "1.5px solid #E3DDF6", boxSizing: "border-box", zIndex: "1", borderWidth: "0px" }} />
-                    <span style={{ fontSize: "22px", fontWeight: "800", lineHeight: "1.05", color: "#fff", letterSpacing: "-.01em", textShadow: "0 1px 2px rgba(74,62,120,.25)" }}>
-                      FLAT
-                      <br />
-                      20% OFF
-                    </span>
-                  </div>
-                  <div style={{ flex: "1", minWidth: "0", padding: "18px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
-                    <span style={{ fontSize: "21px", fontWeight: "800", lineHeight: "1.15", color: "#2B2342" }}>Deworming</span>
-                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>Oral or spot-on dose | 4 coupons per subscribed pet</span>
-                    <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
-                      <s style={{ fontSize: "13.5px", color: "#9A91B5" }}>₹400</s>
-                      <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹320</strong>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ position: "relative", display: "flex", minHeight: "176px", border: "1.5px solid #E3DDF6", borderRadius: "22px", background: "#F3F0FD" }}>
-                  <div style={{ position: "relative", flex: "none", width: "38%", background: "linear-gradient(100deg,#8C78F0 0%,#AB9BF7 45%,#E4DEFC 100%)", borderRadius: "20px 0 0 20px", padding: "20px 18px", display: "flex", flexDirection: "column", justifyContent: "center", borderRight: "2px dashed #CFC6F2" }}>
-                    <span style={{ position: "absolute", top: "-12px", right: "-12px", width: "24px", height: "24px", borderRadius: "50%", background: "#fff", border: "1.5px solid #E3DDF6", boxSizing: "border-box", zIndex: "1", borderWidth: "0px" }} />
-                    <span style={{ position: "absolute", bottom: "-12px", right: "-12px", width: "24px", height: "24px", borderRadius: "50%", background: "#fff", border: "1.5px solid #E3DDF6", boxSizing: "border-box", zIndex: "1", borderWidth: "0px" }} />
-                    <span style={{ fontSize: "22px", fontWeight: "800", lineHeight: "1.05", color: "#fff", letterSpacing: "-.01em", textShadow: "0 1px 2px rgba(74,62,120,.25)" }}>
-                      FLAT
-                      <br />
-                      25% OFF
-                    </span>
-                  </div>
-                  <div style={{ flex: "1", minWidth: "0", padding: "18px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
-                    <span style={{ fontSize: "21px", fontWeight: "800", lineHeight: "1.15", color: "#2B2342" }}>Castration</span>
-                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>Neutering surgery | 1 coupon per subscribed pet</span>
-                    <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
-                      <s style={{ fontSize: "13.5px", color: "#9A91B5" }}>₹6,000</s>
-                      <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹4,500</strong>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "12px" }}>
-                <div style={{ display: "flex", gap: "10px", alignItems: "flex-start", fontSize: "14px", lineHeight: "1.45", color: "#2B2342", background: "#fff", border: "1.5px solid #E3DDF6", borderRadius: "16px", padding: "12px 14px" }}>
-                  <span style={{ width: "28px", height: "28px", borderRadius: "9px", background: "#FFF1E4", display: "grid", placeItems: "center", flex: "none" }}>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#A44A00" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
-                    </svg>
-                  </span>
-                  <span style={{ paddingTop: "4px" }}>
-                    <strong>Pawteckt members only.</strong>
-                    {" "}Valid for pets with an active Pawteckt subscription.
-                  </span>
-                </div>
-                <div style={{ display: "flex", gap: "10px", alignItems: "flex-start", fontSize: "14px", lineHeight: "1.45", color: "#2B2342", background: "#fff", border: "1.5px solid #E3DDF6", borderRadius: "16px", padding: "12px 14px" }}>
-                  <span style={{ width: "28px", height: "28px", borderRadius: "9px", background: "#F2EEFA", display: "grid", placeItems: "center", flex: "none" }}>
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6351A1" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
-                      <path d="M13 5v2" />
-                      <path d="M13 17v2" />
-                      <path d="M13 11v2" />
-                    </svg>
-                  </span>
-                  <span style={{ paddingTop: "4px" }}>
-                    <strong>Apply at checkout.</strong>
-                    {" "}Select the coupon when booking. It isn&apos;t added automatically.
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : null}
-        <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,32px)" }}>
+        <ClinicCoupons />
+        <div id="about" style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,32px)" }}>
           <h2 style={{ fontSize: "24px", color: "#2B2342" }}>About the clinic</h2>
           <p style={{ marginTop: "12px", fontSize: "16px", lineHeight: "1.7", color: "#5A5177", textWrap: "pretty" }}>
             PZB Vet Clinic has cared for pets in Pashan since 2016. Our team handles everything from first puppy vaccines to surgery and senior care, with in-house diagnostics so most results come back the same day. Every visit is logged to your pet&apos;s Pawzeeble profile, so your records stay complete wherever you go next.
           </p>
         </div>
-        <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,32px)" }}>
+        <div id="services" style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,32px)" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
             <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Services at the clinic</h2>
             <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>8 services</span>
@@ -308,9 +192,44 @@ export default function ClinicDetail() {
           </div>
         </div>
         {data.live ? (
+          <ClinicSlots />
+        ) : (
+          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,32px)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
+              <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Available slots</h2>
+              <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>Next 7 days</span>
+            </div>
+            <div style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(7,minmax(64px,1fr))", gap: "8px", overflowX: "auto", paddingBottom: "4px" }}>
+              {v.clDays.map((d: SiteItem, index: number) => (
+                <button onClick={d.pick} style={d.style} key={index}>
+                  <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".04em", opacity: ".8" }}>{d.dow}</span>
+                  {" "}
+                  <span style={{ fontSize: "20px", fontWeight: "800", lineHeight: "1.1" }}>{d.date}</span>
+                  {" "}
+                  <span style={{ fontSize: "11.5px", fontWeight: "600", opacity: ".8" }}>{d.count}</span>
+                </button>
+              ))}
+            </div>
+            {v.clSlotGroups.map((g: SiteItem, index: number) => (
+              <div style={{ marginTop: "20px" }} key={index}>
+                <div style={{ fontSize: "13.5px", fontWeight: "700", color: "#6F6590" }}>{g.label}</div>
+                <div style={{ marginTop: "10px", display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(96px,1fr))", gap: "8px" }}>
+                  {g.slots.map((t: SiteItem, index2: number) => (
+                    <button onClick={t.pick} disabled={t.off} style={t.style} key={index2}>{t.time}</button>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <div style={{ marginTop: "22px", paddingTop: "18px", borderTop: "1.5px solid #F2EEFA", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
+              <span style={{ fontSize: "15px", color: "#2B2342", fontWeight: "600" }}>{v.clPicked}</span>
+              <button onClick={() => dlApp()} style={{ background: "#CA5C00", color: "#fff", fontSize: "15px", fontWeight: "700", padding: "14px 26px", borderRadius: "999px" }} className={styles.h9}>Continue in the app to book</button>
+            </div>
+          </div>
+        )}
+        {data.live ? (
           <ClinicDoctors />
         ) : (
-          <div>
+          <div id="doctors" style={{ display: "none" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
               <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Doctors at this clinic</h2>
               <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>3 doctors</span>
@@ -376,41 +295,6 @@ export default function ClinicDetail() {
                 </div>
                 <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h12}>Book appointment in the app</button>
               </div>
-            </div>
-          </div>
-        )}
-        {data.live ? (
-          <ClinicSlots />
-        ) : (
-          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,32px)" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
-              <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Available slots</h2>
-              <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>Next 7 days</span>
-            </div>
-            <div style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(7,minmax(64px,1fr))", gap: "8px", overflowX: "auto", paddingBottom: "4px" }}>
-              {v.clDays.map((d: SiteItem, index: number) => (
-                <button onClick={d.pick} style={d.style} key={index}>
-                  <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".04em", opacity: ".8" }}>{d.dow}</span>
-                  {" "}
-                  <span style={{ fontSize: "20px", fontWeight: "800", lineHeight: "1.1" }}>{d.date}</span>
-                  {" "}
-                  <span style={{ fontSize: "11.5px", fontWeight: "600", opacity: ".8" }}>{d.count}</span>
-                </button>
-              ))}
-            </div>
-            {v.clSlotGroups.map((g: SiteItem, index: number) => (
-              <div style={{ marginTop: "20px" }} key={index}>
-                <div style={{ fontSize: "13.5px", fontWeight: "700", color: "#6F6590" }}>{g.label}</div>
-                <div style={{ marginTop: "10px", display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(96px,1fr))", gap: "8px" }}>
-                  {g.slots.map((t: SiteItem, index2: number) => (
-                    <button onClick={t.pick} disabled={t.off} style={t.style} key={index2}>{t.time}</button>
-                  ))}
-                </div>
-              </div>
-            ))}
-            <div style={{ marginTop: "22px", paddingTop: "18px", borderTop: "1.5px solid #F2EEFA", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
-              <span style={{ fontSize: "15px", color: "#2B2342", fontWeight: "600" }}>{v.clPicked}</span>
-              <button onClick={() => dlApp()} style={{ background: "#CA5C00", color: "#fff", fontSize: "15px", fontWeight: "700", padding: "14px 26px", borderRadius: "999px" }} className={styles.h9}>Continue in the app to book</button>
             </div>
           </div>
         )}
