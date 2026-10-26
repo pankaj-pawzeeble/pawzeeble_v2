@@ -758,12 +758,12 @@ export default class SiteController extends DCLogic {
     }));
 
     const testiData = [
-      ['Bruno had a reaction to a new food at midnight. Sheru told me exactly what to watch for and a vet was on chat in two minutes.','Aparna R.','Kharghar, Navi Mumbai','pz-t1'],
-      ['I moved cities and found a groomer in three taps. The Pawzeeble Assured badge actually means something — they were excellent.','Vikram S.','Koramangala, Bengaluru','pz-t2'],
-      ['The insurance claim took one upload. I had expected a month of paperwork and it was settled in nine days.','Meher D.','Bandra, Mumbai','pz-t3']
+      ['Bruno had a reaction to a new food at midnight. Sheru told me exactly what to watch for and a vet was on chat in two minutes.','Aparna R.','Kharghar, Navi Mumbai','pz-t1','testimonial-aparna'],
+      ['I moved cities and found a groomer in three taps. The Pawzeeble Assured badge actually means something — they were excellent.','Vikram S.','Koramangala, Bengaluru','pz-t2','testimonial-vikram'],
+      ['The insurance claim took one upload. I had expected a month of paperwork and it was settled in nine days.','Meher D.','Bandra, Mumbai','pz-t3','testimonial-meher']
     ];
     const testimonials = testiData.map((t) => ({
-      quote: t[0], name: t[1], meta: t[2], slotId: t[3],
+      quote: t[0], name: t[1], meta: t[2], slotId: t[3], photo: `/images/shared/${t[4]}.webp`,
       style: { height: '100%', display: 'flex', flexDirection: 'column' }
     }));
 
@@ -1221,7 +1221,7 @@ export default class SiteController extends DCLogic {
       careCityNames, careServiceNames: serviceData.map(sd => sd[0]),
       city: this.state.city, service: this.state.service, pickCity, pickService, scrollToResults,
       careHeading: this.state.service + ' in ' + this.state.city,
-      careCount: careResults.length === 1 ? '1 verified provider' : careResults.length + ' verified providers',
+      careCount: careResults.length === 1 ? '1 place' : careResults.length + ' places',
       careEmpty: careResults.length === 0,
       marquee, features, cities, testimonials, faqs, products, ecoLoop, stats, timeline, team, mentors,
       clans: ['Labrador Clan','Indie Clan','Persian Cat Clan','Golden Retriever Clan','Beagle Clan','Shih Tzu Clan'],

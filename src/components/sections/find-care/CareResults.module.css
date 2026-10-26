@@ -1,3 +1,7 @@
 .h1:hover {
   background: #A44A00 !important;
 }
+
+.card { background: #fff; border: 1.5px solid #EFEAF8; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column; text-decoration: none; color: inherit; cursor: pointer; transition: box-shadow .2s, border-color .2s; }
+.card:hover { border-color: #D9CCF1; box-shadow: 0 14px 30px rgba(43, 35, 66, .12); color: inherit; }
+.card:focus-visible { outline: 2px solid #6351A1; outline-offset: 2px; }

@@ -13,6 +13,11 @@ const LIVE_SERVICE = 'Vet clinics';
 
 const rupees = (n: number) => '₹' + n.toLocaleString('en-IN');
 
+const PLACEHOLDER = { vet: '/images/find-care/placeholders/vet-logo-placeholder.svg', groomer: '/images/find-care/placeholders/groomer-logo-placeholder.svg' };
+/** Offer shown on Assured cards when the backend sends none. */
+const DEFAULT_OFFER: Record<string, string> = { 'Vet clinics': '20% off consultation', Groomers: '25% off first groom', Boarders: '15% off boarding', Trainers: '₹300 off first session', Walking: 'First walk free' };
+const places = (n: number) => (n === 1 ? '1 place' : `${n} places`);
+
 /** Maps an API clinic to the card shape the grid renders. */
 function clinicCard(c: Clinic): SiteItem {
   const target = resolveClinicDetailTarget(c);
@@ -24,8 +29,10 @@ function clinicCard(c: Clinic): SiteItem {
     distance: Number.isFinite(c.distance) ? (c.distance / 1000).toFixed(1) + ' km away' : '',
     price: c.onwardPrice ? rupees(c.onwardPrice) : '',
     assured: c.isAssurancePartner,
-    instant: false,
-    hasOffer: false,
+    hasOffer: c.isAssurancePartner,
+    offer: DEFAULT_OFFER[LIVE_SERVICE],
+    type: 'vet',
+    href: target.kind === 'slug' ? `/find-care/clinic/${encodeURIComponent(target.slug)}` : `/find-care/clinic?id=${encodeURIComponent(target.id)}`,
     image: c.image,
     logo: c.logo,
     photoHint: c.businessName || c.name,
@@ -52,62 +59,75 @@ export default function CareResults() {
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "16px", flexWrap: "wrap" }}>
         <h2 style={{ fontSize: "clamp(24px,2.8vw,32px)", color: "#2B2342" }}>{heading}</h2>
         <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>
-          {live ? (needsLocation ? "" : clinics.loading && cards.length === 0 ? "Loading…" : count === 1 ? "1 verified provider" : count + " verified providers") : v.careCount}
+          {live ? (needsLocation ? "" : clinics.loading && cards.length === 0 ? "Loading…" : places(count)) : v.careCount}
         </span>
       </div>
       <div style={{ marginTop: "22px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(290px,1fr))", gap: "18px" }}>
-        {cards.map((r: SiteItem, index: number) => (
-          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", overflow: "hidden", display: "flex", flexDirection: "column" }} key={r.key ?? index}>
-            <div style={{ position: "relative", height: "184px" }}>
-              <ImageSlot id={r.slotId} src={r.image} shape="rect" placeholder={r.photoHint} />
-              <div style={{ position: "absolute", left: "12px", right: "12px", bottom: "12px", display: "flex", gap: "8px", flexWrap: "wrap", pointerEvents: "none" }}>
-                {r.assured ? (
-                  <img src="/images/badges/pawzeeble-assured.svg" alt="Pawzeeble assured" width="163" height="28" style={{ display: "block", height: "28px", width: "auto" }} />
-                ) : null}
-                {r.instant ? (
-                  <img src="/images/badges/badge-instant-booking.png" alt="Instant booking" width="141" height="28" style={{ display: "block", height: "28px", width: "auto", borderRadius: "5px" }} />
-                ) : null}
-              </div>
-            </div>
-            <div style={{ padding: "18px 20px 20px", display: "flex", flexDirection: "column", flex: "1" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px" }}>
-                <div style={{ minWidth: "0" }}>
-                  <h3 style={{ fontSize: "19.5px", color: "#2B2342", lineHeight: "1.2", textWrap: "pretty" }}>{r.name}</h3>
-                  <div style={{ marginTop: "6px", fontSize: "14px", color: "#5A5177" }}>{r.area}{r.distance ? " · " + r.distance : ""}</div>
+        {cards.map((r: SiteItem, index: number) => {
+          const fallback = r.type === 'groomer' || r.kind === 'Groomers' ? PLACEHOLDER.groomer : PLACEHOLDER.vet;
+          const go = () => (r.href ? void Router.push(r.href) : r.open?.());
+          const closed = r.status === 'Closed';
+          return (
+            <a
+              className={styles.card}
+              href={r.href || undefined}
+              role={r.href ? undefined : 'link'}
+              tabIndex={r.href ? undefined : 0}
+              aria-label={r.name}
+              key={r.key ?? index}
+              onClick={(e) => {
+                if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+                e.preventDefault();
+                go();
+              }}
+              onKeyDown={(e) => {
+                if (!r.href && (e.key === 'Enter' || e.key === ' ')) {
+                  e.preventDefault();
+                  go();
+                }
+              }}
+            >
+              <div style={{ position: "relative", height: "184px", background: "#F3EFFA" }}>
+                <ImageSlot id={r.slotId} src={r.image} shape="rect" placeholder={r.photoHint} />
+                <div style={{ position: "absolute", left: "12px", right: "12px", bottom: "12px", display: "flex", gap: "8px", flexWrap: "wrap", pointerEvents: "none" }}>
+                  {r.assured ? (
+                    <img src="/images/badges/pawzeeble-assured.svg" alt="Pawzeeble assured" width="163" height="28" style={{ display: "block", height: "28px", width: "auto" }} />
+                  ) : (
+                    <img src="/images/badges/instant-booking.webp" alt="Instant booking" width="141" height="28" style={{ display: "block", height: "28px", width: "auto", borderRadius: "5px" }} />
+                  )}
                 </div>
-                <div style={{ flex: "none", width: "52px", height: "52px", borderRadius: "14px", border: "1.5px solid #EFEAF8", overflow: "hidden" }}>
-                  <ImageSlot id={r.logoId} src={r.logo} shape="rect" placeholder="Logo" />
+              </div>
+              <div style={{ padding: "18px 20px 20px", display: "flex", flexDirection: "column", flex: "1" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px" }}>
+                  <div style={{ minWidth: "0" }}>
+                    <h3 style={{ fontSize: "19.5px", color: "#2B2342", lineHeight: "1.2", textWrap: "pretty" }}>{r.name}</h3>
+                    <div style={{ marginTop: "6px", fontSize: "14px", color: "#5A5177" }}>{r.area}{r.distance ? " · " + r.distance : ""}</div>
+                  </div>
+                  <div style={{ flex: "none", width: "52px", height: "52px", borderRadius: "14px", border: "1.5px solid #EFEAF8", overflow: "hidden", background: "#fff" }}>
+                    <img src={r.logo || fallback} alt="" width="52" height="52" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} onError={(e) => { if (!e.currentTarget.src.endsWith(fallback)) e.currentTarget.src = fallback; }} />
+                  </div>
                 </div>
-              </div>
-              <div style={{ marginTop: "10px", display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", fontSize: "14px" }}>
-                {r.status ? (
-                  <>
-                    <span style={{ fontWeight: "700", color: "#1E7A55" }}>{r.status}</span>
-                    <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#A39CB8" }} />
-                    <span style={{ color: "#6F6590" }}>{r.hours}</span>
-                  </>
-                ) : null}
-                {r.price ? <span style={{ marginLeft: "auto", fontSize: "16px", fontWeight: "800", color: "#2B2342" }}>{r.price}{" onwards"}</span> : null}
-              </div>
-              {r.hasOffer ? (
-                <div style={{ marginTop: "12px", display: "flex", alignItems: "center", gap: "9px", background: "linear-gradient(90deg,#0E7C6B,#3DB3A3)", color: "#fff", padding: "10px 14px", borderRadius: "12px", fontSize: "14px", fontWeight: "700" }}>
-                  <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true" style={{ flex: "none" }}>
-                    <path d="M12 1.8l2.4 1.9 3-.3.9 2.9 2.7 1.4-.9 2.9.9 2.9-2.7 1.4-.9 2.9-3-.3L12 19.2l-2.4-1.9-3 .3-.9-2.9-2.7-1.4.9-2.9-.9-2.9 2.7-1.4.9-2.9 3 .3Z" transform="translate(0 1.5)" fill="#fff" />
-                    <path d="M9.2 15.3l5.6-5.6" stroke="#0E7C6B" strokeWidth="1.8" strokeLinecap="round" />
-                    <circle cx="9.6" cy="10.1" r="1.1" fill="#0E7C6B" />
-                    <circle cx="14.4" cy="14.9" r="1.1" fill="#0E7C6B" />
-                  </svg>
-                  <span style={{ flex: "1", minWidth: "0" }}>{r.offer}</span>
-                  {r.hasMore ? (
-                    <span style={{ flex: "none" }}>{r.moreLabel}</span>
+                <div style={{ marginTop: "10px", display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap", fontSize: "14px" }}>
+                  {r.status ? (
+                    <>
+                      <span style={{ fontWeight: "700", color: closed ? "#A3123F" : "#1E7A55" }}>{r.status}</span>
+                      <span style={{ width: "4px", height: "4px", borderRadius: "50%", background: "#A39CB8" }} />
+                      <span style={{ color: "#6F6590" }}>{r.hours}</span>
+                    </>
                   ) : null}
+                  {r.price ? <span style={{ marginLeft: "auto", fontSize: "16px", fontWeight: "800", color: "#2B2342" }}>{r.price}{" onwards"}</span> : null}
                 </div>
-              ) : null}
-              <div style={{ flex: "1" }} />
-              <button onClick={r.open} style={{ marginTop: "14px", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%", backgroundColor: "#CA5C00" }} className={styles.h1}>View details</button>
-            </div>
-          </div>
-        ))}
+                {r.assured && r.hasOffer && r.offer ? (
+                  <div style={{ marginTop: "12px", display: "flex", alignItems: "center", gap: "9px", background: "linear-gradient(90deg,#0E7C6B,#3DB3A3)", color: "#fff", padding: "10px 14px", borderRadius: "12px", fontSize: "14px", fontWeight: "700" }}>
+                    <img src="/images/find-care/icons/offer.svg" alt="" width="17" height="17" style={{ flex: "none" }} />
+                    <span style={{ flex: "1", minWidth: "0" }}>{r.offer}</span>
+                    {r.hasMore ? <span style={{ flex: "none" }}>{r.moreLabel}</span> : null}
+                  </div>
+                ) : null}
+              </div>
+            </a>
+          );
+        })}
       </div>
       {needsLocation ? (
         <div style={{ marginTop: "22px", background: "#F5F1FC", border: "1.5px solid #E9E2F6", borderRadius: "28px", padding: "34px" }}>

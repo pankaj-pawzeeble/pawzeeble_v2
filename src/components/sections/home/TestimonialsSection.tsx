@@ -43,7 +43,7 @@ export default function TestimonialsSection() {
             <p style={{ marginTop: "14px", fontSize: "16.5px", lineHeight: "1.66", color: "#2B2342", textWrap: "pretty" }}>{t.quote}</p>
             <div style={{ marginTop: "auto", paddingTop: "20px", display: "flex", alignItems: "center", gap: "12px" }}>
               <span style={{ flex: "none", width: "46px", height: "46px", borderRadius: "50%", overflow: "hidden" }}>
-                <ImageSlot id={t.slotId} shape="circle" placeholder="Photo" />
+                <ImageSlot id={t.slotId} src={t.photo} shape="circle" placeholder={t.name} />
               </span>
               <div>
                 <div style={{ fontSize: "14.5px", fontWeight: "700", color: "#2B2342" }}>{t.name}</div>
