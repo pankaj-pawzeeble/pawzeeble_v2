@@ -82,12 +82,6 @@ button { font-family: inherit; cursor: pointer; border: none; }
   [data-eco="b2-type1"], [data-eco="b2-type2"] { font-size: clamp(22px,7vw,34px) !important; }
   [data-eco="b3-call"], [data-eco="b4-call"] { width: 140px !important; padding: 12px !important; }
 }
-[data-r="cmp"] > div > div > div:first-child { position: sticky; left: 0; z-index: 2; background: #fff; box-shadow: 1.5px 0 0 #EFEAF8; }
-@media (max-width: 860px) {
-  [data-r="cmp"] > div { min-width: 700px !important; }
-  [data-r="cmp"] > div > div { grid-template-columns: 132px repeat(5, minmax(112px, 1fr)) !important; }
-  [data-r="cmp"] > div > div > div:first-child { padding-left: 14px !important; padding-right: 10px !important; box-shadow: 6px 0 12px -6px rgba(43,35,66,.18), 1.5px 0 0 #EFEAF8; }
-}
 @media (max-width: 1280px) { [data-r="hdr"] { padding-left: 24px !important; padding-right: 24px !important; } }
 @media (max-width: 1024px) {
   [data-r="navpill"] { display: none !important; }
@@ -208,12 +202,6 @@ button { font-family: inherit; cursor: pointer; border: none; }
   [data-r="pt-main"] [data-r="faq-q"] { padding: 16px !important; font-size: 15.5px !important; }
   [data-r="pt-main"] [data-r="faq-a"] { padding: 0 16px 16px !important; font-size: 14.5px !important; }
 }
-
-/* Comparison table: Lite only (Starter, Complete, Guardian, Ultimate hidden) */
-[data-r="cmp"] > [data-r="cmp-grid"] { min-width: 0 !important; }
-[data-r="cmp"] > [data-r="cmp-grid"] > div { grid-template-columns: minmax(150px, 1.4fr) minmax(110px, 1fr) !important; }
-[data-r="cmp"] > [data-r="cmp-grid"] > div > :nth-child(n+3) { display: none !important; }
-
 
 /* Pawteckt "Why parents join": desktop = list + scene, tablet = 2x2 cards, mobile = swipeable cards with dots */
 [data-r="wpj-sec"] { padding: 80px 22px 20px; }

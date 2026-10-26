@@ -1,0 +1,79 @@
+.section { max-width: 1260px; margin: 0 auto; padding: 80px 22px 20px; }
+
+.eyebrow { font-size: 13px; font-weight: 800; letter-spacing: .07em; color: #CA5C00; margin: 0; }
+.title { margin-top: 10px; font-size: clamp(30px, 3.8vw, 44px); color: #2B2342; text-wrap: balance; }
+
+/* position: relative so the visually-hidden labels are clipped by this box instead of widening the page */
+.scroll { position: relative; margin-top: 26px; background: #fff; border: 1.5px solid #EFEAF8; border-radius: 28px; overflow-x: auto; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; touch-action: pan-x pan-y; }
+.scroll:focus-visible { outline: 3px solid #CA5C00; outline-offset: 3px; }
+.table { min-width: 820px; }
+
+.row { display: grid; grid-template-columns: minmax(170px, 1.4fr) repeat(5, minmax(120px, 1fr)); border-bottom: 1.5px solid #F2EEFA; }
+.rowHead { border-bottom-color: #EFEAF8; }
+.row:last-child { border-bottom: 0; }
+
+/* sticky first column at every size: it must stay opaque so the premium tints never show through */
+.row > :first-child { position: sticky; left: 0; z-index: 2; background: #fff; box-shadow: 1.5px 0 0 #EFEAF8; }
+
+.headLabel { padding: 16px 18px; }
+.head { padding: 16px 10px; text-align: center; font-size: 14.5px; font-weight: 800; }
+.headLite { color: #A44A00; }
+.headPremium { color: #fff; background: #6351A1; }
+
+.label { padding: 14px 18px; font-size: 14px; font-weight: 600; color: #2B2342; display: flex; flex-direction: column; justify-content: center; }
+.label small { font-size: 12.5px; font-weight: 500; color: #6F6590; }
+
+.cell { padding: 14px 10px; display: flex; justify-content: center; align-items: center; text-align: center; font-size: 14px; font-weight: 700; color: #2B2342; }
+.cellPremium { background: #FAF8FE; }
+
+.price { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.price s { font-size: 12.5px; font-weight: 600; color: #9A91B5; }
+.save { color: #25795F; }
+
+.check { flex: none; width: 22px; height: 22px; border-radius: 50%; background: #E4F4EF; color: #25795F; display: grid; place-items: center; }
+
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+.footnote { margin-top: 14px; font-size: 13.5px; line-height: 1.5; color: #6F6590; }
+
+/* tablet landscape */
+@media (max-width: 1024px) {
+  .section { padding: 64px 22px 16px; }
+  .head { font-size: 14px; }
+  .label { padding: 14px 14px; }
+}
+
+/* tablet / large phone: horizontal scroll starts, label column pinned with an edge shadow */
+@media (max-width: 860px) {
+  .table { min-width: 700px; }
+  .row { grid-template-columns: 132px repeat(5, minmax(112px, 1fr)); }
+  .row > :first-child { padding-left: 14px; padding-right: 10px; box-shadow: 6px 0 12px -6px rgba(43, 35, 66, .18), 1.5px 0 0 #EFEAF8; }
+}
+
+/* phone */
+@media (max-width: 640px) {
+  .scroll { margin-top: 20px; border-radius: 22px; }
+  .row { grid-template-columns: 124px repeat(5, minmax(104px, 1fr)); }
+  .table { min-width: 644px; }
+  .head { padding: 14px 8px; font-size: 14px; }
+  .cell { padding: 13px 8px; font-size: 13.5px; }
+  .label { font-size: 13.5px; }
+  .label small { font-size: 12px; }
+}
+[data-r="pt-main"] > section.section { padding-top: 80px; }
+@media (max-width: 1024px) { [data-r="pt-main"] > section.section { padding-top: 64px !important; } }
+@media (max-width: 640px) { [data-r="pt-main"] > section.section { padding: 56px 16px 12px !important; } }
+
+/* small phone */
+@media (max-width: 412px) {
+  [data-r="pt-main"] > section.section { padding: 48px 14px 10px !important; }
+  .title { font-size: 28px; }
+  .row { grid-template-columns: 112px repeat(5, minmax(96px, 1fr)); }
+  .table { min-width: 592px; }
+  .row > :first-child { padding-left: 12px; padding-right: 8px; }
+  .head { padding: 13px 6px; font-size: 13.5px; }
+  .cell { padding: 12px 6px; font-size: 13px; }
+  .price s { font-size: 11.5px; }
+  .label { font-size: 13px; line-height: 1.3; }
+  .label small { font-size: 11.5px; }
+}
