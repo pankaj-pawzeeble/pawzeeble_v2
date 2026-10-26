@@ -172,6 +172,11 @@ export default function MyPurchasesView() {
   );
 }
 
+/** The purchase flow reads the draft from the URL when the page loads, so this needs a full load, not a client-side push. */
+function resumeDraft(draftId: string) {
+  window.location.assign(step1Url(draftId, '&resume_draft=true'));
+}
+
 function PurchaseCard({ p, i, onApp }: { p: Purchase; i: number; onApp: () => void }) {
   const s = statusOf(p);
   const [bg, fg] = p.petName ? AVATARS[i % AVATARS.length] : FALLBACK_AVATAR;
@@ -191,7 +196,7 @@ function PurchaseCard({ p, i, onApp }: { p: Purchase; i: number; onApp: () => vo
     case 'incomplete':
       chip = { cls: styles.warn, text: 'Add your pet' };
       rows = [['Paid', paid], idRow];
-      action = <button className={styles.primary} onClick={() => void Router.push(step1Url(p.draftId, '&resume_draft=true'))}>Add your pet to activate</button>;
+      action = <button className={styles.primary} onClick={() => resumeDraft(p.draftId)}>Add your pet to activate</button>;
       break;
     case 'pending':
       chip = { cls: styles.warn, text: `Form pending · ${plural(s.left, 'day')} left` };
@@ -226,7 +231,7 @@ function PurchaseCard({ p, i, onApp }: { p: Purchase; i: number; onApp: () => vo
       </dl>
       <div className={styles.actions}>
         {action}
-        <button className={styles.outline} onClick={() => downloadReceipt(p)}>Download receipt</button>
+        <button className={styles.outline} onClick={() => downloadReceipt(p)} style={{ display: 'none' }}>Download receipt</button>
       </div>
     </article>
   );
