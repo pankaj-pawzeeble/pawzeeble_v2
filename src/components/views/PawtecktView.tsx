@@ -1,6 +1,6 @@
 import PawtecktHero from '@/components/sections/pawteckt/PawtecktHero';
 import PawtecktTrustStrip from '@/components/sections/pawteckt/PawtecktTrustStrip';
-import PawtecktBenefits from '@/components/sections/pawteckt/PawtecktBenefits';
+import PawtecktWhyJoin from '@/components/sections/pawteckt/PawtecktWhyJoin';
 import PawtecktPlans from '@/components/sections/pawteckt/PawtecktPlans';
 import PawtecktComparison from '@/components/sections/pawteckt/PawtecktComparison';
 import PawtecktCoverage from '@/components/sections/pawteckt/PawtecktCoverage';
@@ -14,7 +14,7 @@ export default function PawtecktView() {
     <main data-r="pt-main">
       <PawtecktHero />
       <PawtecktTrustStrip />
-      <PawtecktBenefits />
+      <PawtecktWhyJoin />
       <PawtecktPlans />
       <PawtecktComparison />
       <PawtecktCoverage />

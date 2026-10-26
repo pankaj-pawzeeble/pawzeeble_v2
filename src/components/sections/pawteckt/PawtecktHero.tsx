@@ -7,7 +7,7 @@ export default function PawtecktHero() {
   return (
     <section data-r="pt-hero" style={{ maxWidth: "1260px", margin: "0 auto", padding: "50px 22px 0", display: "flex", gridTemplateColumns: "repeat(auto-fit,minmax(310px,1fr))", gap: "44px", alignItems: "center", flexDirection: "column", marginTop: "0px" }}>
       <div data-r="pt-hero-copy" style={{ alignItems: "center" }}>
-        <img src="/images/brand/pawteckt-logo.png" alt="Pawteckt" style={{ width: "58px", display: "block" }} />
+        <img src="/images/shared/pawteckt-logo.webp" alt="Pawteckt" style={{ width: "58px", display: "block" }} />
         <p style={{ marginTop: "18px", fontSize: "13px", fontWeight: "800", letterSpacing: ".07em", color: "#CA5C00" }}>PET CARE PLANS · INSURANCE BY HDFC ERGO</p>
         <h1 style={{ marginTop: "12px", fontSize: "clamp(38px,5vw,58px)", lineHeight: "1.06", color: "#2B2342", textWrap: "balance" }}>Care for every day. Cover for the big ones.</h1>
         <p style={{ marginTop: "18px", fontSize: "17.5px", lineHeight: "1.62", color: "#5A5177", maxWidth: "520px" }}>

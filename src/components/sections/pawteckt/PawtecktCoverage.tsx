@@ -54,7 +54,7 @@ export default function PawtecktCoverage() {
               </svg>
             </span>
             <div>
-              <div style={{ fontSize: "16.5px", fontWeight: "700", color: "#2B2342" }}>Vet visits</div>
+              <div style={{ fontSize: "16.5px", fontWeight: "700", color: "#2B2342" }}>Vet visits (OPD)</div>
               <div style={{ marginTop: "5px", fontSize: "14px", lineHeight: "1.55", color: "#5A5177" }}>Treatment at the vet that doesn’t need a hospital stay.</div>
             </div>
           </div>

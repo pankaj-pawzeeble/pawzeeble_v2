@@ -2,6 +2,7 @@ import HomeHero from '@/components/sections/home/HomeHero';
 import ServicesMarquee from '@/components/sections/home/ServicesMarquee';
 import FeatureRail from '@/components/sections/home/FeatureRail';
 import PawtecktStaticPanel from '@/components/sections/home/PawtecktStaticPanel';
+import HomeFamilySection from '@/components/sections/home/HomeFamilySection';
 import CitiesSection from '@/components/sections/home/CitiesSection';
 import SheruAiSection from '@/components/sections/home/SheruAiSection';
 import ClansSection from '@/components/sections/home/ClansSection';
@@ -16,6 +17,7 @@ export default function HomeView() {
       <ServicesMarquee />
       <FeatureRail />
       <PawtecktStaticPanel />
+      <HomeFamilySection />
       <SheruAiSection />
       <ClansSection />
       <CitiesSection />

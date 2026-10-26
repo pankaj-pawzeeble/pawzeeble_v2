@@ -181,7 +181,7 @@ export default function PawtecktPlans() {
                   <path d="M20 6 9 17l-5-5" />
                 </svg>
               </span>
-              <span>Vet visits without a hospital stay covered too</span>
+              <span>Vet visits without a hospital stay covered too (OPD)</span>
             </li>
           </ul>
           </div>
