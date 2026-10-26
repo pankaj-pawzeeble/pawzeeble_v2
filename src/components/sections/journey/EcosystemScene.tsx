@@ -31,7 +31,7 @@ export default function EcosystemScene() {
             </div>
             <div data-eco="b1-ripple" style={{ position: "absolute", left: "50%", top: "38%", width: "56px", height: "56px", margin: "-28px 0 0 -28px", borderRadius: "50%", border: "3px solid #FFC24B", opacity: "0" }} />
             <div style={{ position: "absolute", left: "-80px", bottom: "-30px", width: "132px", height: "132px", borderRadius: "26px", overflow: "hidden", transform: "rotate(-8deg)", boxShadow: "0 16px 30px rgba(43,35,66,.2)", border: "4px solid #fff" }}>
-              <ImageSlot id="eco-b1-paw" shape="rect" placeholder="A real paw resting near the phone" />
+              <ImageSlot id="eco-b1-paw" shape="rect" src="/images/journey/paw-near-phone.webp" placeholder="A real paw resting near the phone" />
             </div>
           </div>
         </div>
