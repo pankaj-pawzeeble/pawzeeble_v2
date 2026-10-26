@@ -8,8 +8,8 @@ import { bookingTypeAtom, locationAtom, locationLatLongAtom, setLocationOpenAtom
 import styles from './CareResults.module.css';
 import { useClinicResults } from './useClinicResults';
 
-/** Only vet clinics are served by the API (entType=clinic); other services keep the static placeholder cards. */
-const LIVE_SERVICE = 'Vet clinics';
+/** Both services are served by the businesses API, filtered by entType. */
+const SERVICES = { 'Vet clinics': { entType: 'clinic', noun: 'clinics', singular: 'clinic' }, Groomers: { entType: 'groomer', noun: 'groomers', singular: 'groomer' } } as const;
 
 const rupees = (n: number) => '₹' + n.toLocaleString('en-IN');
 
@@ -19,8 +19,9 @@ const DEFAULT_OFFER: Record<string, string> = { 'Vet clinics': '20% off consulta
 const places = (n: number) => (n === 1 ? '1 place' : `${n} places`);
 
 /** Maps an API clinic to the card shape the grid renders. */
-function clinicCard(c: Clinic): SiteItem {
+function clinicCard(c: Clinic, service: keyof typeof SERVICES): SiteItem {
   const target = resolveClinicDetailTarget(c);
+  const groomer = service === 'Groomers';
   return {
     key: c._id,
     name: c.businessName || c.name,
@@ -30,9 +31,12 @@ function clinicCard(c: Clinic): SiteItem {
     price: c.onwardPrice ? rupees(c.onwardPrice) : '',
     assured: c.isAssurancePartner,
     hasOffer: c.isAssurancePartner,
-    offer: DEFAULT_OFFER[LIVE_SERVICE],
-    type: 'vet',
-    href: target.kind === 'slug' ? `/find-care/clinic/${encodeURIComponent(target.slug)}` : `/find-care/clinic?id=${encodeURIComponent(target.id)}`,
+    offer: DEFAULT_OFFER[service],
+    type: groomer ? 'groomer' : 'vet',
+    // the groomer detail page is not live yet: it takes the assured/regular variant
+    href: groomer
+      ? `/find-care/groomer?type=${c.isAssurancePartner ? 'assured' : 'regular'}&id=${encodeURIComponent(c._id)}`
+      : target.kind === 'slug' ? `/find-care/clinic/${encodeURIComponent(target.slug)}` : `/find-care/clinic?id=${encodeURIComponent(target.id)}`,
     image: c.image,
     logo: c.logo,
     photoHint: c.businessName || c.name,
@@ -43,17 +47,38 @@ function clinicCard(c: Clinic): SiteItem {
 
 export default function CareResults() {
   const v = useSite();
-  const live = v.service === LIVE_SERVICE;
+  const isAll = v.service === 'All';
+  const svc = SERVICES[v.service as keyof typeof SERVICES];
+  const vetOn = isAll || v.service === 'Vet clinics';
+  const groomerOn = isAll || v.service === 'Groomers';
+  const live = vetOn || groomerOn;
   const { latitude, longitude } = useAtomValue(locationLatLongAtom);
   const bookingType = useAtomValue(bookingTypeAtom);
   const savedLocation = useAtomValue(locationAtom);
   const openLocation = useSetAtom(setLocationOpenAtom);
-  const clinics = useClinicResults({ latitude, longitude, bookingType }, live);
-  const cards: SiteItem[] = live ? clinics.records.map(clinicCard) : v.careResults;
+  // one list per business type; "All" runs both and shows them together
+  const vets = useClinicResults({ latitude, longitude, bookingType, entType: 'clinic' }, vetOn);
+  const groomers = useClinicResults({ latitude, longitude, bookingType, entType: 'groomer' }, groomerOn);
+  const active = [vetOn ? vets : null, groomerOn ? groomers : null].filter((x): x is typeof vets => x !== null);
+  const clinics = {
+    loading: active.some((x) => x.loading),
+    error: active.find((x) => x.error)?.error ?? null,
+    hasMore: active.some((x) => x.hasMore),
+    hasLocation: vets.hasLocation,
+    total: active.reduce((n, x) => n + x.total, 0),
+    loadMore: () => active.filter((x) => x.hasMore).forEach((x) => x.loadMore()),
+    retry: () => active.filter((x) => x.error).forEach((x) => x.retry()),
+  };
+  const liveRows = [
+    ...(vetOn ? vets.records.map((c) => ({ c, s: 'Vet clinics' as const })) : []),
+    ...(groomerOn ? groomers.records.map((c) => ({ c, s: 'Groomers' as const })) : []),
+  ];
+  if (isAll) liveRows.sort((a, b) => (Number.isFinite(a.c.distance) ? a.c.distance : Infinity) - (Number.isFinite(b.c.distance) ? b.c.distance : Infinity));
+  const cards: SiteItem[] = live ? liveRows.map((r) => clinicCard(r.c, r.s)) : v.careResults;
   const count = live ? clinics.total : v.careResults.length;
   const needsLocation = live && !clinics.hasLocation;
-  const empty = live ? !needsLocation && !clinics.loading && !clinics.error && clinics.records.length === 0 : v.careEmpty;
-  const heading = live ? (savedLocation.description ? `Vet clinics near ${savedLocation.description}` : 'Vet clinics near you') : v.careHeading;
+  const empty = live ? !needsLocation && !clinics.loading && !clinics.error && liveRows.length === 0 : v.careEmpty;
+  const heading = live ? `${isAll ? 'Vet clinics & groomers' : v.service} near ${savedLocation.description || 'you'}` : v.careHeading;
   return (
     <section id="pz-care-results" style={{ maxWidth: "1260px", margin: "0 auto", padding: "56px 22px 70px", paddingTop: "80px", paddingBottom: "80px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "16px", flexWrap: "wrap" }}>
@@ -62,7 +87,7 @@ export default function CareResults() {
           {live ? (needsLocation ? "" : clinics.loading && cards.length === 0 ? "Loading…" : places(count)) : v.careCount}
         </span>
       </div>
-      <div style={{ marginTop: "22px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(290px,1fr))", gap: "18px" }}>
+      <div style={{ marginTop: "22px", display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(290px,1fr))", gap: "18px" }}>
         {cards.map((r: SiteItem, index: number) => {
           const fallback = r.type === 'groomer' || r.kind === 'Groomers' ? PLACEHOLDER.groomer : PLACEHOLDER.vet;
           const go = () => (r.href ? void Router.push(r.href) : r.open?.());
@@ -132,13 +157,13 @@ export default function CareResults() {
       {needsLocation ? (
         <div style={{ marginTop: "22px", background: "#F5F1FC", border: "1.5px solid #E9E2F6", borderRadius: "28px", padding: "34px" }}>
           <h3 style={{ fontSize: "21px", color: "#2B2342" }}>Where should we look?</h3>
-          <p style={{ marginTop: "9px", fontSize: "15.5px", lineHeight: "1.6", color: "#5A5177", maxWidth: "440px" }}>Enter your address to see clinics near you.</p>
+          <p style={{ marginTop: "9px", fontSize: "15.5px", lineHeight: "1.6", color: "#5A5177", maxWidth: "440px" }}>Enter your address to see {svc?.noun ?? 'providers'} near you.</p>
           <button onClick={() => openLocation(true)} style={{ marginTop: "16px", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "12px 26px", borderRadius: "999px", backgroundColor: "#CA5C00" }}>Choose location</button>
         </div>
       ) : null}
       {live && clinics.error ? (
         <div style={{ marginTop: "22px", background: "#FFF1F1", border: "1.5px solid #F6CFCF", borderRadius: "28px", padding: "28px 34px" }}>
-          <h3 style={{ fontSize: "19px", color: "#2B2342" }}>Couldn&apos;t load clinics</h3>
+          <h3 style={{ fontSize: "19px", color: "#2B2342" }}>Couldn&apos;t load {svc?.noun ?? 'providers'}</h3>
           <p style={{ marginTop: "8px", fontSize: "15px", color: "#5A5177" }}>{clinics.error}</p>
           <button onClick={clinics.retry} style={{ marginTop: "14px", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "11px 24px", borderRadius: "999px", backgroundColor: "#CA5C00" }}>Try again</button>
         </div>

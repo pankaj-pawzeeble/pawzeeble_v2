@@ -10,7 +10,7 @@ import { DCLogic } from './DCLogic';
 import LiteFlow, { initialLiteState } from '@/lib/pawteckt/LiteFlow';
 
 export default class SiteController extends DCLogic {
-  state = { lite: initialLiteState(), ptAge: 'mid', ptTier: 2, ptCov: 'in', sub: null, subPlan: 'lite', subTier: null, decl: false, kycDay: 1, kyc: { front: '', left: '', right: '', selfie: '', pPin: '', pAddr: '', sSame: false, sPin: '', sAddr: '' }, subPhone: '', otp: ['', '', '', '', '', ''], otpLeft: 60, payM: 'upi', payBusy: false, subPets: [{ id: 'bruno', name: 'Bruno' }, { id: 'coco', name: 'Coco' }], subPetId: '', np: { name: '', uname: '', type: '', gender: '', breed: '', breed2: '', other: '' }, jn: { name: '', email: '', user: '' }, grPet: 'dog', clinicType: 'regular', clDay: 0, clSlot: null, clDist: null, page: 'home', faq: 0, ptFaq: 0, city: 'Mumbai', service: 'Vet clinics', blogTab: 'Articles', ...(this.props.routeState || {}) };
+  state = { lite: initialLiteState(), ptAge: 'mid', ptTier: 2, ptCov: 'in', sub: null, subPlan: 'lite', subTier: null, decl: false, kycDay: 1, kyc: { front: '', left: '', right: '', selfie: '', pPin: '', pAddr: '', sSame: false, sPin: '', sAddr: '' }, subPhone: '', otp: ['', '', '', '', '', ''], otpLeft: 60, payM: 'upi', payBusy: false, subPets: [{ id: 'bruno', name: 'Bruno' }, { id: 'coco', name: 'Coco' }], subPetId: '', np: { name: '', uname: '', type: '', gender: '', breed: '', breed2: '', other: '' }, jn: { name: '', email: '', user: '' }, grPet: 'dog', clinicType: 'regular', clDay: 0, clSlot: null, clDist: null, page: 'home', faq: 0, ptFaq: 0, city: 'Mumbai', service: 'All', blogTab: 'Articles', ...(this.props.routeState || {}) };
   _lite = new LiteFlow(this);
   rail = React.createRef();
   row = React.createRef();
@@ -1037,7 +1037,7 @@ export default class SiteController extends DCLogic {
       };
     });
 
-    const serviceData = [['Vet clinics','⚕'],['Groomers','✂'],['Boarders','⌂'],['Trainers','◎'],['Ambulance','✚'],['Walking','🦮']];
+    const serviceData = [['All','▦'],['Vet clinics','⚕'],['Groomers','✂']];
     const careServices = serviceData.map(s => {
       const on = this.state.service === s[0];
       return {

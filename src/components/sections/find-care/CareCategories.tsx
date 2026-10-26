@@ -24,28 +24,6 @@ export default function CareCategories() {
             <img src="/images/find-care/category-groomer.webp" alt="Groomer brushing a dog" style={{ position: "absolute", zIndex: "2", right: "-22px", bottom: "-22px", height: "calc(100% + 22px)", width: "auto", maxWidth: "calc(100% + 30px)", objectFit: "contain", objectPosition: "right bottom", mixBlendMode: "multiply" }} />
           </div>
         </div>
-        <div style={{ position: "relative", background: "#fff", borderRadius: "26px", padding: "22px", overflow: "hidden", display: "flex", gap: "8px", minHeight: "186px", boxShadow: "0 8px 26px rgba(43,35,66,.07)", width: "100%", boxSizing: "border-box" }}>
-          <div style={{ position: "relative", zIndex: "2", flex: "1", minWidth: "0", textAlign: "left" }}>
-            <span style={{ display: "inline-block", background: "transparent", color: "#6351A1", border: "1.5px solid #6351A1", padding: "4.5px 11px", borderRadius: "8px", fontSize: "11.5px", fontWeight: "800", letterSpacing: ".04em" }}>COMING SOON</span>
-            <h3 style={{ marginTop: "14px", fontSize: "25px", color: "#0E7C6B", letterSpacing: "-.025em" }}>Boarders</h3>
-            <p style={{ marginTop: "8px", fontSize: "15px", lineHeight: "1.45", color: "#5A5177" }}>Verified boarder near you</p>
-          </div>
-          <div style={{ position: "relative", flex: "none", width: "124px", alignSelf: "stretch" }}>
-            <div style={{ position: "absolute", right: "-8px", top: "14px", bottom: "0", left: "6px", background: "#D8EDE8", borderRadius: "30px 8px 34px 10px", transform: "rotate(-4deg)" }} />
-            <img src="/images/find-care/category-boarder.webp" alt="Pet parent with a dog and cat" style={{ position: "absolute", zIndex: "2", right: "-22px", bottom: "-22px", height: "calc(100% + 22px)", width: "auto", maxWidth: "calc(100% + 30px)", objectFit: "contain", objectPosition: "right bottom", mixBlendMode: "multiply" }} />
-          </div>
-        </div>
-        <div style={{ position: "relative", background: "#fff", borderRadius: "26px", padding: "22px", overflow: "hidden", display: "flex", gap: "8px", minHeight: "186px", boxShadow: "0 8px 26px rgba(43,35,66,.07)", width: "100%", boxSizing: "border-box" }}>
-          <div style={{ position: "relative", zIndex: "2", flex: "1", minWidth: "0", textAlign: "left" }}>
-            <span style={{ display: "inline-block", background: "transparent", color: "#6351A1", border: "1.5px solid #6351A1", padding: "4.5px 11px", borderRadius: "8px", fontSize: "11.5px", fontWeight: "800", letterSpacing: ".04em" }}>COMING SOON</span>
-            <h3 style={{ marginTop: "14px", fontSize: "25px", color: "#8A4B2A", letterSpacing: "-.025em" }}>Trainers</h3>
-            <p style={{ marginTop: "8px", fontSize: "15px", lineHeight: "1.45", color: "#5A5177" }}>Certified trainers near you</p>
-          </div>
-          <div style={{ position: "relative", flex: "none", width: "124px", alignSelf: "stretch" }}>
-            <div style={{ position: "absolute", right: "-8px", top: "14px", bottom: "0", left: "6px", background: "#FCE3CB", borderRadius: "30px 8px 34px 10px", transform: "rotate(-4deg)" }} />
-            <img src="/images/find-care/category-trainer.webp" alt="Trainer with a German Shepherd" style={{ position: "absolute", zIndex: "2", right: "-22px", bottom: "-22px", height: "calc(100% + 22px)", width: "auto", maxWidth: "calc(100% + 55px)", objectFit: "contain", objectPosition: "right bottom", mixBlendMode: "multiply" }} />
-          </div>
-        </div>
       </div>
     </section>
   );

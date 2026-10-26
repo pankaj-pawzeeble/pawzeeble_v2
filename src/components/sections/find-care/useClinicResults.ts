@@ -15,6 +15,8 @@ export interface ClinicQuery {
   latitude: number;
   longitude: number;
   bookingType: BookingType;
+  /** 'clinic' (default) or 'groomer'. */
+  entType?: 'clinic' | 'groomer';
   /** Free-text search (optional). */
   q?: string;
 }
@@ -23,7 +25,7 @@ export interface ClinicQuery {
  * Loads the clinic grid from GET businesses around the chosen coordinates. Reloads (page 1) whenever latitude, longitude,
  * booking type or q change; "load more" appends. Does nothing while `enabled` is false or the coordinates are 0/0.
  */
-export function useClinicResults({ latitude, longitude, bookingType, q }: ClinicQuery, enabledFlag: boolean) {
+export function useClinicResults({ latitude, longitude, bookingType, entType = 'clinic', q }: ClinicQuery, enabledFlag: boolean) {
   const enabled = enabledFlag && Boolean(latitude) && Boolean(longitude);
   const [state, setState] = useState<ClinicResultsState>(IDLE);
   const pageRef = useRef(1);
@@ -41,6 +43,7 @@ export function useClinicResults({ latitude, longitude, bookingType, q }: Clinic
           q,
           page,
           bookingType,
+          entType,
           loaded: page > 1 ? recordsRef.current : [],
         });
         if (run !== runRef.current) return;
@@ -52,7 +55,7 @@ export function useClinicResults({ latitude, longitude, bookingType, q }: Clinic
         setState((s) => ({ ...s, loading: false, error: e instanceof Error ? e.message : 'Something Went Wrong' }));
       }
     },
-    [latitude, longitude, bookingType, q],
+    [latitude, longitude, bookingType, entType, q],
   );
 
   useEffect(() => {

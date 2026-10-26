@@ -9,8 +9,8 @@ export default function CareSearchBar() {
   const v = useSite();
   const saved = useAtomValue(locationAtom);
   const openLocation = useSetAtom(setLocationOpenAtom);
-  // Vet clinics are searched around a typed address; other services still use the city list.
-  const addressSearch = v.service === 'Vet clinics';
+  // Every service (All, Vet clinics, Groomers) is searched around a typed address.
+  const addressSearch = v.service === 'All' || v.service === 'Vet clinics' || v.service === 'Groomers';
   return (
     <section style={{ maxWidth: "900px", margin: "0 auto", padding: "30px 22px 0", paddingTop: "40px" }}>
       <div style={{ background: "#fff", borderRadius: "30px", padding: "clamp(22px,3vw,34px)", boxShadow: "0 14px 38px rgba(43,35,66,.08)" }}>

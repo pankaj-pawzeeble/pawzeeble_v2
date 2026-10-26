@@ -27,6 +27,8 @@ export interface SearchClinicsInput {
   page: number;
   size?: number;
   bookingType: BookingType;
+  /** Which business type to list. Defaults to 'clinic'. */
+  entType?: 'clinic' | 'groomer';
   /** Records already loaded (pages before `page`). Page 1 ignores it; later pages append to it. */
   loaded?: Clinic[];
 }
@@ -86,7 +88,7 @@ export function createClinicService(api: ApiClient) {
         page: input.page,
         size: input.size ?? GRID_PAGE_SIZE,
         q: input.q && input.q.trim() ? input.q : undefined,
-        entType: 'clinic',
+        entType: input.entType ?? 'clinic',
         oc: input.bookingType === 'Online Consultation' ? true : undefined,
       },
     });
