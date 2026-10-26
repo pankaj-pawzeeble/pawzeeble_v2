@@ -4,6 +4,7 @@ import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './ClinicDetail.module.css';
 import { useClinicData } from './ClinicData';
+import ClinicBlogs from './ClinicBlogs';
 import ClinicCoupons from './ClinicCoupons';
 import ClinicDoctors from './ClinicDoctors';
 import ClinicSlots from './ClinicSlots';
@@ -298,6 +299,7 @@ export default function ClinicDetail() {
             </div>
           </div>
         )}
+        {data.live ? <ClinicBlogs /> : null}
       </div>
       <aside data-r="cl-aside" style={{ position: "sticky", top: "96px", display: "flex", flexDirection: "column", gap: "16px" }}>
         <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", overflow: "hidden" }}>

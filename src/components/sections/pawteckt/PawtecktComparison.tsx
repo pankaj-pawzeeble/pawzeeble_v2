@@ -31,7 +31,7 @@ export default function PawtecktComparison() {
           } as CSSProperties
         }
       >
-        <div data-r="cmp-grid" style={{ minWidth: '820px', display: 'none' }}>
+        <div data-r="cmp-grid" style={{ minWidth: '820px' }}>
           <div
             style={{
               display: 'grid',
