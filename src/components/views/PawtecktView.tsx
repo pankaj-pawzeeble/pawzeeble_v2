@@ -1,3 +1,4 @@
+import PawtecktMyBar from '@/components/sections/pawteckt/PawtecktMyBar';
 import PawtecktHero from '@/components/sections/pawteckt/PawtecktHero';
 import PawtecktTrustStrip from '@/components/sections/pawteckt/PawtecktTrustStrip';
 import PawtecktWhyJoin from '@/components/sections/pawteckt/PawtecktWhyJoin';
@@ -12,6 +13,7 @@ import PawtecktClosingCta from '@/components/sections/pawteckt/PawtecktClosingCt
 export default function PawtecktView() {
   return (
     <main data-r="pt-main">
+      <PawtecktMyBar />
       <PawtecktHero />
       <PawtecktTrustStrip />
       <PawtecktWhyJoin />

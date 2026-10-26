@@ -18,6 +18,7 @@ export const PAGE_ROUTES: Record<string, string> = {
   blog: '/blog',
   post: '/blog/post',
   pawteckt: '/pawteckt',
+  mypt: '/pawteckt/my-purchases',
 };
 
 const PATH_TO_PAGE: Record<string, string> = Object.fromEntries(

@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useMyPurchases } from '@/components/layout/MyPurchases';
 import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './PawtecktPlans.module.css';
 
 export default function PawtecktPlans() {
   const v = useSite();
+  const { openMy } = useMyPurchases();
   const [accOpen, setAccOpen] = useState(false);
   return (
     <section id="pt-plans" data-r="pt-sec" style={{ maxWidth: "1260px", margin: "0 auto", padding: "80px 22px 20px" }}>
@@ -25,6 +27,21 @@ export default function PawtecktPlans() {
           ))}
         </div>
         <span style={{ flex: "1 1 240px", fontSize: "14.5px", lineHeight: "1.45", color: "#4A3E78", fontWeight: "600" }}>{v.ptAgeNote}</span>
+      </div>
+      <div style={{ marginTop: "12px", background: "#F5F1FC", border: "1.5px solid #E9E2F6", borderRadius: "26px", padding: "16px 20px", display: "flex", alignItems: "center", gap: "14px 20px", flexWrap: "wrap" }}>
+        <span style={{ flex: "none", width: "44px", height: "44px", borderRadius: "14px", background: "#fff", color: "#6351A1", display: "grid", placeItems: "center" }}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z" />
+            <path d="M16 8h-6" />
+            <path d="M16 12H8" />
+            <path d="M13 16H8" />
+          </svg>
+        </span>
+        <div style={{ flex: "1 1 280px", minWidth: "0" }}>
+          <div style={{ fontSize: "16px", fontWeight: "700", color: "#2B2342" }}>Bought Pawteckt before?</div>
+          <div style={{ marginTop: "3px", fontSize: "14.5px", lineHeight: "1.45", color: "#5A5177" }}>Check which pets are covered, download receipts or finish adding your pet. Just verify your mobile number.</div>
+        </div>
+        <button onClick={openMy} style={{ flex: "none", background: "#fff", color: "#6351A1", border: "2px solid #6351A1", fontSize: "14.5px", fontWeight: "700", padding: "11px 20px", borderRadius: "999px" }} className={styles.h3}>View my purchases</button>
       </div>
       <div data-r="pt-plan-grid" style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(310px,1fr))", gap: "18px", alignItems: "stretch" }}>
         {v.litePlanVisible ? (

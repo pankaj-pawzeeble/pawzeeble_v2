@@ -9,6 +9,7 @@ import BookingDialog from '@/components/overlays/BookingDialog';
 import SubscribeFlow from '@/components/subscribe/SubscribeFlow';
 import { DownloadGateProvider } from '@/components/sections/community/DownloadGate';
 import { AppDownloadProvider } from '@/components/layout/AppDownload';
+import { MyPurchasesProvider } from '@/components/layout/MyPurchases';
 import IncompleteDraftsModal from '@/components/overlays/IncompleteDraftsModal';
 import { useSite } from '@/hooks/useSite';
 
@@ -17,6 +18,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
   return (
     <DownloadGateProvider>
     <AppDownloadProvider>
+    <MyPurchasesProvider>
     <div style={{ minHeight: "100vh", background: "#FFFFFF", overflowX: "clip" }}>
       {v.chrome ? (
         <SiteHeader />
@@ -47,6 +49,7 @@ export default function SiteShell({ children }: { children: ReactNode }) {
         <IncompleteDraftsModal />
       ) : null}
     </div>
+    </MyPurchasesProvider>
     </AppDownloadProvider>
     </DownloadGateProvider>
   );

@@ -2,6 +2,7 @@
 import Router from 'next/router';
 import { load as loadCashfree } from '@cashfreepayments/cashfree-js';
 import * as api from './api';
+import { maskPhone } from './purchases';
 import type { ApiPet, ApiUser, Creature, LiteDraft } from './api';
 import {
   GST_RATE,
@@ -939,6 +940,8 @@ export default class LiteFlow {
       subEnd: fmt(end),
       subPetName: petName,
       subPetInitial: petName === 'your pet' ? '' : petName.charAt(0).toUpperCase(),
+      subMasked: maskPhone(user?.mobileNumber),
+      subOrderId: String((s.draft as { orderId?: unknown } | null)?.orderId || s.draft?._id || ''),
 
       // phone + otp
       phoneErr: s.phoneErr,

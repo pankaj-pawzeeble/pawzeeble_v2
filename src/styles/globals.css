@@ -264,3 +264,5 @@ button { font-family: inherit; cursor: pointer; border: none; }
 @media (prefers-reduced-motion: reduce) {
   [data-r="wpj-item"], [data-r="wpj-ico"], [data-r="wpj-dotv"] { transition: none !important; }
 }
+
+.pz-mybar-link:hover { color: #fff !important; }

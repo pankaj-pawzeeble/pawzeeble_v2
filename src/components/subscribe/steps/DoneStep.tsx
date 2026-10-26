@@ -1,9 +1,11 @@
 import ImageSlot from '@/components/ui/ImageSlot';
+import { useMyPurchases } from '@/components/layout/MyPurchases';
 import { useSite } from '@/hooks/useSite';
 import styles from './DoneStep.module.css';
 
 export default function DoneStep() {
   const v = useSite();
+  const { goMy } = useMyPurchases();
   return (
     <>
       <div style={{ position: "relative", background: "#ECE5FA", padding: "28px 22px 20px", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", textAlign: "center" }}>
@@ -97,6 +99,27 @@ export default function DoneStep() {
             <span>₹539</span>
           </div>
         </div>
+        {v.subMasked && v.subOrderId ? (
+          <div style={{ background: "#fff", border: "1.5px solid #CFE9DD", borderRadius: "18px", padding: "14px 16px", display: "flex", gap: "12px", alignItems: "flex-start" }}>
+            <span style={{ flex: "none", width: "36px", height: "36px", borderRadius: "50%", background: "#E4F4EF", color: "#1E7A55", display: "grid", placeItems: "center" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+            </span>
+            <div style={{ flex: "1", minWidth: "0" }}>
+              <div style={{ fontSize: "14px", fontWeight: "700", color: "#2B2342" }}>{"Saved to "}{v.subMasked}</div>
+              <div style={{ marginTop: "3px", fontSize: "12.5px", lineHeight: "1.5", color: "#5A5177", wordBreak: "break-word" }}>{"Order "}{v.subOrderId}{". You can view this purchase anytime under My purchases on the Pawteckt page, even without the app."}</div>
+              <button onClick={() => { v.closeSub(); goMy(); }} style={{ marginTop: "8px", display: "inline-flex", alignItems: "center", gap: "6px", background: "transparent", color: "#6351A1", fontSize: "13.5px", fontWeight: "700", padding: "0" }}>
+                View my purchases
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        ) : null}
         <div style={{ background: "#F3EEFF", border: "1.5px solid #CFC2F2", borderRadius: "18px", padding: "14px", display: "flex", alignItems: "center", gap: "12px" }}>
           <span style={{ width: "40px", height: "40px", borderRadius: "12px", background: "#fff", color: "#6351A1", display: "grid", placeItems: "center", flex: "none" }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
