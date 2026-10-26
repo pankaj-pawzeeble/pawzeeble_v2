@@ -25,7 +25,7 @@ export default function PawtecktHero() {
         </div>
         <div style={{ position: "relative", zIndex: "2", width: "252px", borderRadius: "32px", padding: "8px", background: "#2B2342", boxShadow: "0 26px 54px rgba(43,35,66,.24)", transform: "rotate(2deg)", marginTop: "32px", display: "none" }}>
           <div style={{ borderRadius: "25px", overflow: "hidden", background: "#fff" }}>
-            <ImageSlot id="pz-img-pt-select" shape="rect" src="/images/content/select-plan.png" placeholder="Pawteckt plan selection screen" style={{ display: "block", width: "100%", aspectRatio: "360/800" }} />
+            <ImageSlot id="pz-img-pt-select" shape="rect" src="/images/shared/select-plan.webp" placeholder="Pawteckt plan selection screen" style={{ display: "block", width: "100%", aspectRatio: "360/800" }} />
           </div>
         </div>
       </div>

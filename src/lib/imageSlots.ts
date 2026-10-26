@@ -65,6 +65,24 @@ export const IMAGE_SLOTS: Record<string, SlotImage> = {
     "x": 0,
     "y": 0
   },
+  "pz-eco-1": {
+    "src": "/images/slots/pz-eco-1.webp",
+    "s": 1,
+    "x": 0,
+    "y": 0
+  },
+  "pz-eco-2": {
+    "src": "/images/slots/pz-eco-2.webp",
+    "s": 1,
+    "x": 0,
+    "y": 0
+  },
+  "pz-eco-3": {
+    "src": "/images/slots/pz-eco-3.webp",
+    "s": 1,
+    "x": 0,
+    "y": 0
+  },
   "pz-eco-4": {
     "src": "/images/slots/pz-eco-4.webp",
     "s": 1,

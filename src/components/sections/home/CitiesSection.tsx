@@ -3,6 +3,17 @@ import { useSite } from '@/hooks/useSite';
 import styles from './CitiesSection.module.css';
 
 /** Seven staggered columns (outer two are hidden on mobile). The offsets form a valley the testimonials rise into. */
+/** Flags shown under the "Pet care for the world" subtitle, in display order. */
+const FLAGS: [string, string][] = [
+  ["in", "India"],
+  ["us", "United States"],
+  ["ca", "Canada"],
+  ["gb", "United Kingdom"],
+  ["eu", "European Union"],
+  ["ae", "United Arab Emirates"],
+  ["sg", "Singapore"],
+];
+
 const grid = (file: string, alt: string): [string, string] => [`/images/grid/${file}.webp`, alt];
 const PHOTO_COLUMNS: { top: string; edge?: boolean; tiles: [string, string][] }[] = [
   { top: "34%", edge: true, tiles: [grid("01-vet-examining-dog", "Vet examining a dog"), grid("02-dog-at-groomer", "Dog at the groomer")] },
@@ -20,10 +31,23 @@ export default function CitiesSection() {
     <section style={{ marginTop: "0px", padding: "70px 22px 20px", backgroundColor: "#FFFFFF", paddingBottom: "40px", paddingRight: "0px", paddingLeft: "0px", paddingTop: "80px", display: "flex", flexDirection: "column" }}>
       <div data-r="col-pad" style={{ maxWidth: "1260px", margin: "0 auto", display: "flex", gridTemplateColumns: "repeat(auto-fit,minmax(300px,1fr))", gap: "44px", alignItems: "center", justifyContent: "space-around", flexDirection: "row" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <h2 style={{ fontSize: "clamp(32px,4vw,48px)", color: "#2B2342", textWrap: "balance", textAlign: "center" }}>Built for India, city by city</h2>
+          <h2 style={{ fontSize: "clamp(32px,4vw,48px)", color: "#2B2342", textWrap: "balance", textAlign: "center" }}>Pet care for the world</h2>
           <p style={{ marginTop: "14px", fontSize: "17px", lineHeight: "1.62", color: "#5A5177", maxWidth: "440px", textAlign: "center" }}>
-            We onboard vets and groomers street by street, verify them in person, and only switch a city on once the list is good enough for our own pets.
+            Pawzeeble is now live in India, the United States, Canada, the United Kingdom, the European Union, the United Arab Emirates and Singapore. In every country we verify vets and groomers in person before they go live.
           </p>
+          <div style={{ marginTop: "20px", display: "flex", gap: "10px", flexWrap: "wrap", justifyContent: "center" }}>
+            {FLAGS.map(([code, name]) => (
+              <img
+                src={`/images/flags/${code}.webp`}
+                alt={name}
+                title={name}
+                width="28"
+                height="28"
+                style={{ width: "28px", height: "28px", borderRadius: "50%", objectFit: "cover", border: "1px solid #eae7e7", boxShadow: "0 0 0 1.5px #fff, 0 1px 4px rgba(43,35,66,.18)" }}
+                key={code}
+              />
+            ))}
+          </div>
           <button onClick={v.goCare} style={{ marginTop: "26px", background: "#CA5C00", color: "#fff", fontSize: "15.5px", fontWeight: "700", padding: "15px 28px", borderRadius: "999px" }} className={styles.h1}>Find care near you</button>
         </div>
         <div data-r="citygrid" style={{ display: "none", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: "16px", justifyContent: "space-evenly" }}>

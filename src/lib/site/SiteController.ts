@@ -455,6 +455,8 @@ export default class SiteController extends DCLogic {
     let picked = 'Pick a time for ' + days[st.clDay].label;
     if (st.clSlot) { const [gi, ti] = st.clSlot.split('-').map(Number); picked = days[st.clDay].label + ' · ' + groups[gi][1][ti]; }
     return {
+      setClinicGeo: (geo) => this._setClinicGeo(geo),
+      setClinicAssured: (a) => { if ((this.state.clinicType === 'assured') !== !!a) this.setState({ clinicType: a ? 'assured' : 'regular' }); },
       clAssured: assured, clRegular: !assured, clTabRegular: tab(!assured), clTabAssured: tab(assured),
       viewRegular: () => this.setState({ clinicType: 'regular' }), viewAssured: () => this.setState({ clinicType: 'assured' }),
       clDays: days, clSlotGroups, clPicked: picked,
@@ -467,6 +469,13 @@ export default class SiteController extends DCLogic {
     };
   }
 
+  /** Map centre: the loaded clinic's coordinates ([lat, lng]) when known, else the design's sample location. */
+  _center() { return (this._clinicGeo && this._clinicGeo.center) || (this.state.page === 'groomer' ? [19.0330, 73.0297] : [18.5382, 73.7964]); }
+  /** Called by the clinic page once its data loads (or with null on leave): re-centres the map on the clinic. */
+  _setClinicGeo(geo) {
+    this._clinicGeo = geo;
+    if (this.clMap.current) { this._killMap(); this._initMap(); }
+  }
   _killMap() { if (this._map) { this._map.remove(); this._map = null; this._userMk = null; } }
   _initMap() {
     const el = this.clMap.current;
@@ -474,11 +483,11 @@ export default class SiteController extends DCLogic {
     if (this._map && this._mapEl === el) return;
     if (!window.L) { clearTimeout(this._mapT); this._mapT = setTimeout(() => this._initMap(), 300); return; }
     this._killMap();
-    const L = window.L, C = this.state.page === 'groomer' ? [19.0330, 73.0297] : [18.5382, 73.7964];
+    const L = window.L, C = this._center();
     this._mapEl = el;
     this._map = L.map(el, { zoomControl: true, scrollWheelZoom: false, attributionControl: true }).setView(C, 14);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap contributors' }).addTo(this._map);
-    L.circleMarker(C, { radius: 10, color: '#fff', weight: 3, fillColor: '#6351A1', fillOpacity: 1 }).addTo(this._map).bindTooltip(this.state.page === 'groomer' ? 'Snip & Sniff Grooming' : 'PZB Vet Clinic');
+    L.circleMarker(C, { radius: 10, color: '#fff', weight: 3, fillColor: '#6351A1', fillOpacity: 1 }).addTo(this._map).bindTooltip((this._clinicGeo && this._clinicGeo.name) || (this.state.page === 'groomer' ? 'Snip & Sniff Grooming' : 'PZB Vet Clinic'));
     this._locate();
   }
   _locate() {
@@ -486,7 +495,7 @@ export default class SiteController extends DCLogic {
     this.setState({ clDist: 'Finding your location…' });
     navigator.geolocation.getCurrentPosition((pos) => {
       if (!this._map) return;
-      const L = window.L, U = [pos.coords.latitude, pos.coords.longitude], C = this.state.page === 'groomer' ? [19.0330, 73.0297] : [18.5382, 73.7964];
+      const L = window.L, U = [pos.coords.latitude, pos.coords.longitude], C = this._center();
       if (this._userMk) this._userMk.remove();
       this._userMk = L.circleMarker(U, { radius: 9, color: '#fff', weight: 3, fillColor: '#CA5C00', fillOpacity: 1 }).addTo(this._map).bindTooltip('You');
       this._map.fitBounds(L.latLngBounds([U, C]).pad(0.25), { maxZoom: 15 });
@@ -761,8 +770,8 @@ export default class SiteController extends DCLogic {
     const faqData = [
       ['Is Pawzeeble free to use?','Yes. Browsing providers, booking, records and the community are free. Pawteckt is an optional paid membership that adds discounts, unlimited vet chat and insurance.'],
       ['What does "Pawzeeble Assured" mean?','Our team visits the clinic or salon in person, checks registration and facilities, and reviews pet parent feedback every quarter. A provider loses the badge if standards slip.'],
-      ['Who underwrites the insurance?','Pawteckt plans are underwritten by HDFC ERGO and distributed by Pawzeeble as an IRDAI registered partner.'],
-      ['Which cities are you in?','Four: Mumbai, Pune, Bengaluru and Delhi NCR. We open a new city only once enough verified providers are onboarded, so the list is short on purpose.'],
+      ['Who underwrites the insurance?','In India, Pawteckt plans are underwritten by HDFC ERGO and distributed by Pawzeeble as an IRDAI registered partner. Pawteckt insurance is currently available in India only.'],
+      ['Which countries are you in?','Seven markets: India, the United States, Canada, the United Kingdom, the European Union, the United Arab Emirates and Singapore. We open a new city only once enough verified providers are onboarded, so the list is short on purpose.'],
       ['Can I keep records for more than one pet?','Yes. Each pet gets its own profile, calendar and document folder, and you can switch between them from the home screen.']
     ];
     const faqs = faqData.map((f, i) => {
@@ -773,17 +782,17 @@ export default class SiteController extends DCLogic {
         wrapStyle: { background: open ? '#F7F4FD' : '#fff', border: '1.5px solid ' + (open ? '#DCD2F0' : '#EFEAF8'), borderRadius: 24, overflow: 'hidden', transition: 'background-color .35s ease, border-color .35s ease' },
         iconStyle: {
           flex: 'none', width: 30, height: 30, borderRadius: '50%', background: open ? ACCENT : '#F2EEFA',
-          color: open ? '#fff' : PLUM, display: 'grid', placeItems: 'center', fontSize: 19,
-          transform: open ? 'rotate(45deg)' : 'none', transition: 'transform .35s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease'
+          color: open ? '#fff' : PLUM, display: 'grid', placeItems: 'center', lineHeight: 0,
+          transform: open ? 'none' : 'rotate(45deg)', transition: 'transform .35s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease'
         }
       };
     });
 
     const prodData = [
-      ['◉','Pawzeeble App','The everyday hub','Bookings, records, reminders, Sheru AI and the Clans community — the app is where pet parenting actually happens day to day.',['Verified vets, groomers, walkers, boarders','Automatic vaccination and appointment reminders','Every document in one searchable folder'],'Download the app','/images/content/home-hero.png','pz-eco-1','Pet parent using the app'],
-      ['🛡','Pawteckt','Membership and insurance','A membership that pays for itself in one grooming session, bundled with pet insurance underwritten by HDFC ERGO and claimable in the app.',['Up to 50% off across the network','Unlimited 24×7 licensed vet chat','Pet QR tag so a lost pet finds you'],'Explore Pawteckt','/images/content/select-plan.png','pz-eco-2','Dog wearing a QR tag'],
-      ['▣','My Pawzmart','The marketplace','Pet products and merch designed for pets and the people who love them. Food, essentials, and tees your dog will judge you for wearing.',['Curated pet products, not an endless catalogue','Original merch for pet parents','Member pricing on every order'],'Visit My PawzMart','/images/brand/tostb-black.webp','pz-eco-3','Pet parent wearing Pawzeeble merch'],
-      ['◧','Skale by Pawzeeble','For service providers','The business management tool for vet clinics and grooming salons. Appointments, clients, inventory and revenue in one dashboard, so you spend the day on animals instead of admin.',['See income, expenses and stock at a glance','Fewer no-shows with automatic reminders','Bookings from Pawzeeble land straight in your schedule'],'Visit Skale','/images/content/vet-dashboard.png','pz-eco-4','Vet team at the front desk']
+      ['◉','Pawzeeble App','The everyday hub','Bookings, records, reminders, Sheru AI and the Clans community — the app is where pet parenting actually happens day to day.',['Verified vets, groomers, walkers, boarders','Automatic vaccination and appointment reminders','Every document in one searchable folder'],'Download the app','/images/shared/new-homepage-design-11.webp','pz-eco-1','Dog yawning in the sunlight'],
+      ['🛡','Pawteckt','Membership and insurance','A membership that pays for itself in one grooming session, bundled with pet insurance underwritten by HDFC ERGO and claimable in the app.',['Up to 50% off across the network','Unlimited 24×7 licensed vet chat','Pet QR tag so a lost pet finds you'],'Explore Pawteckt','/images/shared/select-plan.webp','pz-eco-2','Dog wearing a tie against a blue backdrop'],
+      ['▣','My Pawzmart','The marketplace','Pet products and merch designed for pets and the people who love them. Food, essentials, and tees your dog will judge you for wearing.',['Curated pet products, not an endless catalogue','Original merch for pet parents','Member pricing on every order'],'Visit My PawzMart','/images/shared/tostb-black.webp','pz-eco-3','Dog in a Hawaiian shirt and red sunglasses'],
+      ['◧','Skale by Pawzeeble','For service providers','The business management tool for vet clinics and grooming salons. Appointments, clients, inventory and revenue in one dashboard, so you spend the day on animals instead of admin.',['See income, expenses and stock at a glance','Fewer no-shows with automatic reminders','Bookings from Pawzeeble land straight in your schedule'],'Visit Skale','/images/shared/vet-dashboard.webp','pz-eco-4','Vet team at the front desk']
     ];
     const prodBg = ['#FFFFFF','#F7F4FD','#FFFFFF','#F7F4FD'];
     const prodIcon = [['#F0EBFA',PLUM],['#FFF1E4',ACCENT],['#FFF3D9','#8A6300'],['#E4F4EF','#25795F']];
@@ -807,7 +816,7 @@ export default class SiteController extends DCLogic {
         frameStyle: wide
           ? { position: 'relative', zIndex: 2, width: 'min(100%,560px)' }
           : { position: 'relative', zIndex: 2, width: 248, borderRadius: 32, padding: 8, background: INK, boxShadow: '0 26px 54px rgba(43,35,66,.24)', transform: left ? 'rotate(2deg)' : 'rotate(-2deg)' },
-        hasShot: !!d[6],
+        wide, hasShot: !!d[6],
         screenStyle: wide
           ? { borderRadius: 0, overflow: 'visible' }
           : { borderRadius: 25, overflow: 'hidden', background: '#fff', height: 460 },
@@ -1147,8 +1156,8 @@ export default class SiteController extends DCLogic {
         wrapStyle: { background: open ? '#F7F4FD' : '#fff', border: '1.5px solid ' + (open ? '#DCD2F0' : '#EFEAF8'), borderRadius: 24, overflow: 'hidden', transition: 'background-color .35s ease, border-color .35s ease' },
         iconStyle: {
           flex: 'none', width: 30, height: 30, borderRadius: '50%', background: open ? ACCENT : '#F2EEFA',
-          color: open ? '#fff' : PLUM, display: 'grid', placeItems: 'center', fontSize: 19,
-          transform: open ? 'rotate(45deg)' : 'none', transition: 'transform .35s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease'
+          color: open ? '#fff' : PLUM, display: 'grid', placeItems: 'center', lineHeight: 0,
+          transform: open ? 'none' : 'rotate(45deg)', transition: 'transform .35s cubic-bezier(.22,1,.36,1), background-color .35s ease, color .35s ease'
         }
       };
     });

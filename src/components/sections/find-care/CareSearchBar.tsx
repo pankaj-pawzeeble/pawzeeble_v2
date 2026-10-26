@@ -1,9 +1,16 @@
+import { useAtomValue, useSetAtom } from 'jotai';
+import LocationPopup from '@/components/location-popup';
 import { useSite } from '@/hooks/useSite';
+import { locationAtom, setLocationOpenAtom } from '@/lib/location/atoms';
 import type { SiteItem } from '@/types/site';
 import styles from './CareSearchBar.module.css';
 
 export default function CareSearchBar() {
   const v = useSite();
+  const saved = useAtomValue(locationAtom);
+  const openLocation = useSetAtom(setLocationOpenAtom);
+  // Vet clinics are searched around a typed address; other services still use the city list.
+  const addressSearch = v.service === 'Vet clinics';
   return (
     <section style={{ maxWidth: "900px", margin: "0 auto", padding: "30px 22px 0", paddingTop: "40px" }}>
       <div style={{ background: "#fff", borderRadius: "30px", padding: "clamp(22px,3vw,34px)", boxShadow: "0 14px 38px rgba(43,35,66,.08)" }}>
@@ -16,11 +23,17 @@ export default function CareSearchBar() {
                 <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              <select onChange={v.pickCity} value={v.city} aria-label="Select location" style={{ flex: "1", appearance: "none", background: "none", border: "none", padding: "15px 0", fontFamily: "inherit", fontSize: "15.5px", color: "#2B2342" }}>
-                {v.careCityNames.map((cn: SiteItem, index: number) => (
-                  <option value={cn} key={index}>{cn}</option>
-                ))}
-              </select>
+              {addressSearch ? (
+                <button type="button" onClick={() => openLocation(true)} aria-label="Choose location" style={{ flex: "1", minWidth: "0", textAlign: "left", background: "none", border: "none", padding: "15px 0", fontFamily: "inherit", fontSize: "15.5px", color: saved.description ? "#2B2342" : "#8B83A3", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                  {saved.description || "Input location"}
+                </button>
+              ) : (
+                <select onChange={v.pickCity} value={v.city} aria-label="Select location" style={{ flex: "1", appearance: "none", background: "none", border: "none", padding: "15px 0", fontFamily: "inherit", fontSize: "15.5px", color: "#2B2342" }}>
+                  {v.careCityNames.map((cn: SiteItem, index: number) => (
+                    <option value={cn} key={index}>{cn}</option>
+                  ))}
+                </select>
+              )}
             </span>
           </label>
           <label style={{ display: "block" }}>
@@ -40,6 +53,7 @@ export default function CareSearchBar() {
         </div>
         <button onClick={v.scrollToResults} style={{ marginTop: "24px", width: "100%", color: "#FFFFFF", fontSize: "17px", fontWeight: "700", padding: "19px 24px", borderRadius: "999px", backgroundColor: "#CA5C00" }} className={styles.h1}>Search Services</button>
       </div>
+      <LocationPopup />
     </section>
   );
 }

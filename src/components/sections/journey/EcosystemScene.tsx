@@ -27,7 +27,7 @@ export default function EcosystemScene() {
           <div aria-hidden="true" style={{ position: "absolute", right: "-40px", bottom: "-60px", width: "200px", height: "200px", borderRadius: "46% 54% 58% 42%/54% 46% 42% 58%", background: "#FFEFDD", pointerEvents: "none" }} />
           <div data-eco="b1-flat" style={{ position: "relative", marginBottom: "8vh", height: "min(660px,88vh)", width: "calc(min(660px,88vh) * 268 / 540)", flex: "none", boxSizing: "border-box", aspectRatio: "268/540", borderRadius: "46px", background: "#2B2342", padding: "11px", boxShadow: "0 34px 68px rgba(43,35,66,.28)" }}>
             <div style={{ width: "100%", height: "100%", borderRadius: "34px", overflow: "hidden" }}>
-              <ImageSlot id="pz-img-eco-profile" shape="rect" src="/images/journey/pet-profile-screen.webp" placeholder="Bruno's pet profile in the Pawzeeble app" align="top" style={{ display: "block", width: "100%", height: "100%" }} />
+              <ImageSlot id="pz-img-eco-profile" shape="rect" src="/images/shared/pet-profile-updated-1.webp" placeholder="Bruno's pet profile in the Pawzeeble app" align="top" style={{ display: "block", width: "100%", height: "100%" }} />
             </div>
             <div data-eco="b1-ripple" style={{ position: "absolute", left: "50%", top: "38%", width: "56px", height: "56px", margin: "-28px 0 0 -28px", borderRadius: "50%", border: "3px solid #FFC24B", opacity: "0" }} />
             <div style={{ position: "absolute", left: "-80px", bottom: "-30px", width: "132px", height: "132px", borderRadius: "26px", overflow: "hidden", transform: "rotate(-8deg)", boxShadow: "0 16px 30px rgba(43,35,66,.2)", border: "4px solid #fff" }}>
@@ -186,7 +186,7 @@ export default function EcosystemScene() {
           </div>
           <div data-eco="b4-call" style={{ opacity: "0", position: "absolute", right: "6%", top: "20%", width: "200px", display: "flex", flexDirection: "column", gap: "12px", background: "#fff", border: "1.5px solid #F7E3C2", borderRadius: "20px", padding: "16px", boxShadow: "0 16px 36px rgba(43,35,66,.14)" }}>
             <div style={{ width: "40px", height: "40px", borderRadius: "12px", background: "#FFF6E3", display: "grid", placeItems: "center", overflow: "hidden" }}>
-              <img src="/images/brand/pzb-coin.png" alt="" style={{ width: "30px", height: "30px", objectFit: "contain" }} />
+              <img src="/images/shared/pzb-coin.webp" alt="" style={{ width: "30px", height: "30px", objectFit: "contain" }} />
             </div>
             <div style={{ fontSize: "14.5px", fontWeight: "800", lineHeight: "1.35", color: "#2B2342", textWrap: "pretty" }}>PZB Coins earned on every purchase</div>
           </div>

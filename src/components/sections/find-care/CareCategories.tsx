@@ -1,5 +1,3 @@
-import ImageSlot from '@/components/ui/ImageSlot';
-
 export default function CareCategories() {
   return (
     <section style={{ maxWidth: "1260px", margin: "0 auto", padding: "34px 22px 0", paddingTop: "24px" }}>
@@ -12,9 +10,7 @@ export default function CareCategories() {
           </div>
           <div style={{ position: "relative", flex: "none", width: "124px", alignSelf: "stretch" }}>
             <div style={{ position: "absolute", right: "-8px", top: "14px", bottom: "0", left: "6px", background: "#D8EDE8", borderRadius: "30px 8px 34px 10px", transform: "rotate(-4deg)" }} />
-            <div style={{ position: "absolute", inset: "0", zIndex: "2" }}>
-              <ImageSlot id="pz-cc-vet" shape="rect" placeholder="Vet holding a puppy" />
-            </div>
+            <img src="/images/find-care/category-vet.webp" alt="Vet holding a puppy" style={{ position: "absolute", zIndex: "2", right: "-22px", bottom: "-22px", height: "calc(100% + 22px)", width: "auto", maxWidth: "calc(100% + 30px)", objectFit: "contain", objectPosition: "right bottom", mixBlendMode: "multiply" }} />
           </div>
         </div>
         <div style={{ position: "relative", background: "#fff", borderRadius: "26px", padding: "22px", overflow: "hidden", display: "flex", gap: "8px", minHeight: "186px", boxShadow: "0 8px 26px rgba(43,35,66,.07)", width: "100%", boxSizing: "border-box" }}>
@@ -25,9 +21,7 @@ export default function CareCategories() {
           </div>
           <div style={{ position: "relative", flex: "none", width: "124px", alignSelf: "stretch" }}>
             <div style={{ position: "absolute", right: "-8px", top: "14px", bottom: "0", left: "6px", background: "#FBD6DF", borderRadius: "30px 8px 34px 10px", transform: "rotate(-4deg)" }} />
-            <div style={{ position: "absolute", inset: "0", zIndex: "2" }}>
-              <ImageSlot id="pz-cc-groom" shape="rect" placeholder="Groomer brushing a dog" />
-            </div>
+            <img src="/images/find-care/category-groomer.webp" alt="Groomer brushing a dog" style={{ position: "absolute", zIndex: "2", right: "-22px", bottom: "-22px", height: "calc(100% + 22px)", width: "auto", maxWidth: "calc(100% + 30px)", objectFit: "contain", objectPosition: "right bottom", mixBlendMode: "multiply" }} />
           </div>
         </div>
         <div style={{ position: "relative", background: "#fff", borderRadius: "26px", padding: "22px", overflow: "hidden", display: "flex", gap: "8px", minHeight: "186px", boxShadow: "0 8px 26px rgba(43,35,66,.07)", width: "100%", boxSizing: "border-box" }}>
@@ -38,9 +32,7 @@ export default function CareCategories() {
           </div>
           <div style={{ position: "relative", flex: "none", width: "124px", alignSelf: "stretch" }}>
             <div style={{ position: "absolute", right: "-8px", top: "14px", bottom: "0", left: "6px", background: "#D8EDE8", borderRadius: "30px 8px 34px 10px", transform: "rotate(-4deg)" }} />
-            <div style={{ position: "absolute", inset: "0", zIndex: "2" }}>
-              <ImageSlot id="pz-cc-board" shape="rect" placeholder="Pet parent with a dog and cat" />
-            </div>
+            <img src="/images/find-care/category-boarder.webp" alt="Pet parent with a dog and cat" style={{ position: "absolute", zIndex: "2", right: "-22px", bottom: "-22px", height: "calc(100% + 22px)", width: "auto", maxWidth: "calc(100% + 30px)", objectFit: "contain", objectPosition: "right bottom", mixBlendMode: "multiply" }} />
           </div>
         </div>
         <div style={{ position: "relative", background: "#fff", borderRadius: "26px", padding: "22px", overflow: "hidden", display: "flex", gap: "8px", minHeight: "186px", boxShadow: "0 8px 26px rgba(43,35,66,.07)", width: "100%", boxSizing: "border-box" }}>
@@ -51,9 +43,7 @@ export default function CareCategories() {
           </div>
           <div style={{ position: "relative", flex: "none", width: "124px", alignSelf: "stretch" }}>
             <div style={{ position: "absolute", right: "-8px", top: "14px", bottom: "0", left: "6px", background: "#FCE3CB", borderRadius: "30px 8px 34px 10px", transform: "rotate(-4deg)" }} />
-            <div style={{ position: "absolute", inset: "0", zIndex: "2" }}>
-              <ImageSlot id="pz-cc-train" shape="rect" placeholder="Trainer with a German Shepherd" />
-            </div>
+            <img src="/images/find-care/category-trainer.webp" alt="Trainer with a German Shepherd" style={{ position: "absolute", zIndex: "2", right: "-22px", bottom: "-22px", height: "calc(100% + 22px)", width: "auto", maxWidth: "calc(100% + 55px)", objectFit: "contain", objectPosition: "right bottom", mixBlendMode: "multiply" }} />
           </div>
         </div>
       </div>

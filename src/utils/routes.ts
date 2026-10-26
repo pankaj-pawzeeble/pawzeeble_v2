@@ -28,7 +28,11 @@ const PATH_TO_PAGE: Record<string, string> = Object.fromEntries(
 
 export const routeFor = (page?: string) => (page && PAGE_ROUTES[page]) || '/';
 
+/** /find-care/clinic/{slug} — the clinic's business SEO URL. */
+const CLINIC_SLUG_PATH = '/find-care/clinic/[slug]';
+
 export function pageFromPath(pathname: string): string {
+  if (pathname === CLINIC_SLUG_PATH) return 'clinic';
   return PATH_TO_PAGE[pathname] ?? 'home';
 }
 

@@ -3,10 +3,14 @@ import { useAppDownload } from '@/components/layout/AppDownload';
 import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './ClinicDetail.module.css';
+import { useClinicData } from './ClinicData';
+import ClinicDoctors from './ClinicDoctors';
+import ClinicSlots from './ClinicSlots';
 
 export default function ClinicDetail() {
   const v = useSite();
   const { dlApp } = useAppDownload();
+  const data = useClinicData();
   return (
     <section data-r="cl-grid" style={{ maxWidth: "1260px", margin: "0 auto", padding: "32px 22px 90px", display: "grid", gridTemplateColumns: "minmax(0,1fr) 380px", gap: "28px", alignItems: "start" }}>
       <div style={{ display: "flex", flexDirection: "column", gap: "28px", minWidth: "0" }}>
@@ -15,7 +19,7 @@ export default function ClinicDetail() {
             <span style={{ background: "#E4F4EF", color: "#25795F", padding: "5px 11px", borderRadius: "999px", fontSize: "13.5px", fontWeight: "700" }}>★ 4.8</span>
             <span>312 reviews</span>
             <span>·</span>
-            <span>Pashan, Pune</span>
+            <span>{data.live ? (data.place?.areaCity ?? "") : "Pashan, Pune"}</span>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", fontSize: "15px", color: "#2B2342" }}>
             <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
@@ -33,7 +37,7 @@ export default function ClinicDetail() {
                 <path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              <span>Sutarwadi Road, Pashan, Pune 411021</span>
+              <span>{data.live ? (data.place?.address ?? "") : "Sutarwadi Road, Pashan, Pune 411021"}</span>
             </div>
           </div>
           <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "4px" }}>
@@ -67,21 +71,10 @@ export default function ClinicDetail() {
                   </div>
                   <div style={{ flex: "1", minWidth: "0", padding: "18px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
                     <span style={{ fontSize: "21px", fontWeight: "800", lineHeight: "1.15", color: "#2B2342" }}>Consultation</span>
-                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>In-clinic, any doctor | Use 4 times</span>
+                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>In-clinic, any doctor | 4 coupons per subscribed pet</span>
                     <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
                       <s style={{ fontSize: "13.5px", color: "#9A91B5" }}>₹800</s>
                       <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹400</strong>
-                      <span style={{ fontSize: "12.5px", color: "#6F6590" }}>3 of 4 uses left</span>
-                    </div>
-                    <div style={{ marginTop: "auto", paddingTop: "10px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                      <span title="Used" style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px solid #6351A1", display: "grid", placeItems: "center", background: "#6351A1", boxSizing: "border-box" }}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                          <path d="M20 6 9 17l-5-5" />
-                        </svg>
-                      </span>
-                      <span style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "13px", fontWeight: "800", color: "#6351A1", background: "#fff", boxSizing: "border-box" }}>2</span>
-                      <span style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "13px", fontWeight: "800", color: "#6351A1", background: "#fff", boxSizing: "border-box" }}>3</span>
-                      <span style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "13px", fontWeight: "800", color: "#6351A1", background: "#fff", boxSizing: "border-box" }}>4</span>
                     </div>
                   </div>
                 </div>
@@ -97,14 +90,10 @@ export default function ClinicDetail() {
                   </div>
                   <div style={{ flex: "1", minWidth: "0", padding: "18px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
                     <span style={{ fontSize: "21px", fontWeight: "800", lineHeight: "1.15", color: "#2B2342" }}>Vaccination</span>
-                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>Core and booster doses | Use once</span>
+                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>Core and booster doses | 1 coupon per subscribed pet</span>
                     <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
                       <s style={{ fontSize: "13.5px", color: "#9A91B5" }}>₹1,200</s>
                       <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹960</strong>
-                      <span style={{ fontSize: "12.5px", color: "#6F6590" }}>1 of 1 use left</span>
-                    </div>
-                    <div style={{ marginTop: "auto", paddingTop: "10px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                      <span style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "13px", fontWeight: "800", color: "#6351A1", background: "#fff", boxSizing: "border-box" }}>1</span>
                     </div>
                   </div>
                 </div>
@@ -120,17 +109,10 @@ export default function ClinicDetail() {
                   </div>
                   <div style={{ flex: "1", minWidth: "0", padding: "18px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
                     <span style={{ fontSize: "21px", fontWeight: "800", lineHeight: "1.15", color: "#2B2342" }}>Deworming</span>
-                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>Oral or spot-on dose | Use 4 times</span>
+                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>Oral or spot-on dose | 4 coupons per subscribed pet</span>
                     <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
                       <s style={{ fontSize: "13.5px", color: "#9A91B5" }}>₹400</s>
                       <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹320</strong>
-                      <span style={{ fontSize: "12.5px", color: "#6F6590" }}>4 of 4 uses left</span>
-                    </div>
-                    <div style={{ marginTop: "auto", paddingTop: "10px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                      <span style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "13px", fontWeight: "800", color: "#6351A1", background: "#fff", boxSizing: "border-box" }}>1</span>
-                      <span style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "13px", fontWeight: "800", color: "#6351A1", background: "#fff", boxSizing: "border-box" }}>2</span>
-                      <span style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "13px", fontWeight: "800", color: "#6351A1", background: "#fff", boxSizing: "border-box" }}>3</span>
-                      <span style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "13px", fontWeight: "800", color: "#6351A1", background: "#fff", boxSizing: "border-box" }}>4</span>
                     </div>
                   </div>
                 </div>
@@ -146,14 +128,10 @@ export default function ClinicDetail() {
                   </div>
                   <div style={{ flex: "1", minWidth: "0", padding: "18px 20px", display: "flex", flexDirection: "column", gap: "6px" }}>
                     <span style={{ fontSize: "21px", fontWeight: "800", lineHeight: "1.15", color: "#2B2342" }}>Castration</span>
-                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>Neutering surgery | Use once</span>
+                    <span style={{ fontSize: "13.5px", color: "#5A5177" }}>Neutering surgery | 1 coupon per subscribed pet</span>
                     <div style={{ display: "flex", gap: "8px", alignItems: "baseline" }}>
                       <s style={{ fontSize: "13.5px", color: "#9A91B5" }}>₹6,000</s>
                       <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹4,500</strong>
-                      <span style={{ fontSize: "12.5px", color: "#6F6590" }}>1 of 1 use left</span>
-                    </div>
-                    <div style={{ marginTop: "auto", paddingTop: "10px", display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                      <span style={{ width: "32px", height: "32px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "13px", fontWeight: "800", color: "#6351A1", background: "#fff", boxSizing: "border-box" }}>1</span>
                     </div>
                   </div>
                 </div>
@@ -329,105 +307,113 @@ export default function ClinicDetail() {
             </div>
           </div>
         </div>
-        <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,32px)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
-            <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Available slots</h2>
-            <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>Next 7 days</span>
+        {data.live ? (
+          <ClinicDoctors />
+        ) : (
+          <div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
+              <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Doctors at this clinic</h2>
+              <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>3 doctors</span>
+            </div>
+            <div style={{ marginTop: "16px", display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(250px,1fr))", gap: "16px" }}>
+              <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
+                  <div style={{ width: "72px", height: "72px", borderRadius: "50%", overflow: "hidden", flex: "none", background: "#F2EEFA" }}>
+                    <ImageSlot id="pz-cl-doc-1" shape="circle" placeholder="Doctor photo" />
+                  </div>
+                  <div style={{ minWidth: "0" }}>
+                    <h3 style={{ fontSize: "18px", color: "#2B2342", lineHeight: "1.25" }}>Dr. Ananya Kulkarni</h3>
+                    <div style={{ marginTop: "4px", fontSize: "13.5px", color: "#5A5177", lineHeight: "1.4" }}>BVSc &amp; AH, MVSc (Surgery)</div>
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                  <span style={{ background: "#F2EEFA", color: "#4A3E78", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "700" }}>12 yrs experience</span>
+                  <span style={{ background: "#F7F4FD", color: "#5A5177", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "600" }}>English, Marathi, Hindi</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "10px", paddingTop: "14px", borderTop: "1.5px solid #F2EEFA" }}>
+                  <span style={{ fontSize: "13.5px", color: "#6F6590", fontWeight: "600" }}>Consultation</span>
+                  <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹800</strong>
+                </div>
+                <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h10}>Book appointment in the app</button>
+              </div>
+              <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
+                  <div style={{ width: "72px", height: "72px", borderRadius: "50%", overflow: "hidden", flex: "none", background: "#F2EEFA" }}>
+                    <ImageSlot id="pz-cl-doc-2" shape="circle" placeholder="Doctor photo" />
+                  </div>
+                  <div style={{ minWidth: "0" }}>
+                    <h3 style={{ fontSize: "18px", color: "#2B2342", lineHeight: "1.25" }}>Dr. Rohan Deshpande</h3>
+                    <div style={{ marginTop: "4px", fontSize: "13.5px", color: "#5A5177", lineHeight: "1.4" }}>BVSc &amp; AH, MVSc (Medicine)</div>
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                  <span style={{ background: "#F2EEFA", color: "#4A3E78", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "700" }}>8 yrs experience</span>
+                  <span style={{ background: "#F7F4FD", color: "#5A5177", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "600" }}>English, Hindi</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "10px", paddingTop: "14px", borderTop: "1.5px solid #F2EEFA" }}>
+                  <span style={{ fontSize: "13.5px", color: "#6F6590", fontWeight: "600" }}>Consultation</span>
+                  <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹800</strong>
+                </div>
+                <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h11}>Book appointment in the app</button>
+              </div>
+              <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
+                <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
+                  <div style={{ width: "72px", height: "72px", borderRadius: "50%", overflow: "hidden", flex: "none", background: "#F2EEFA" }}>
+                    <ImageSlot id="pz-cl-doc-3" shape="circle" placeholder="Doctor photo" />
+                  </div>
+                  <div style={{ minWidth: "0" }}>
+                    <h3 style={{ fontSize: "18px", color: "#2B2342", lineHeight: "1.25" }}>Dr. Sneha Patil</h3>
+                    <div style={{ marginTop: "4px", fontSize: "13.5px", color: "#5A5177", lineHeight: "1.4" }}>BVSc &amp; AH</div>
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+                  <span style={{ background: "#F2EEFA", color: "#4A3E78", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "700" }}>5 yrs experience</span>
+                  <span style={{ background: "#F7F4FD", color: "#5A5177", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "600" }}>English, Marathi</span>
+                </div>
+                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "10px", paddingTop: "14px", borderTop: "1.5px solid #F2EEFA" }}>
+                  <span style={{ fontSize: "13.5px", color: "#6F6590", fontWeight: "600" }}>Consultation</span>
+                  <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹800</strong>
+                </div>
+                <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h12}>Book appointment in the app</button>
+              </div>
+            </div>
           </div>
-          <div style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(7,minmax(64px,1fr))", gap: "8px", overflowX: "auto", paddingBottom: "4px" }}>
-            {v.clDays.map((d: SiteItem, index: number) => (
-              <button onClick={d.pick} style={d.style} key={index}>
-                <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".04em", opacity: ".8" }}>{d.dow}</span>
-                {" "}
-                <span style={{ fontSize: "20px", fontWeight: "800", lineHeight: "1.1" }}>{d.date}</span>
-                {" "}
-                <span style={{ fontSize: "11.5px", fontWeight: "600", opacity: ".8" }}>{d.count}</span>
-              </button>
+        )}
+        {data.live ? (
+          <ClinicSlots />
+        ) : (
+          <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,32px)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
+              <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Available slots</h2>
+              <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>Next 7 days</span>
+            </div>
+            <div style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(7,minmax(64px,1fr))", gap: "8px", overflowX: "auto", paddingBottom: "4px" }}>
+              {v.clDays.map((d: SiteItem, index: number) => (
+                <button onClick={d.pick} style={d.style} key={index}>
+                  <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".04em", opacity: ".8" }}>{d.dow}</span>
+                  {" "}
+                  <span style={{ fontSize: "20px", fontWeight: "800", lineHeight: "1.1" }}>{d.date}</span>
+                  {" "}
+                  <span style={{ fontSize: "11.5px", fontWeight: "600", opacity: ".8" }}>{d.count}</span>
+                </button>
+              ))}
+            </div>
+            {v.clSlotGroups.map((g: SiteItem, index: number) => (
+              <div style={{ marginTop: "20px" }} key={index}>
+                <div style={{ fontSize: "13.5px", fontWeight: "700", color: "#6F6590" }}>{g.label}</div>
+                <div style={{ marginTop: "10px", display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(96px,1fr))", gap: "8px" }}>
+                  {g.slots.map((t: SiteItem, index2: number) => (
+                    <button onClick={t.pick} disabled={t.off} style={t.style} key={index2}>{t.time}</button>
+                  ))}
+                </div>
+              </div>
             ))}
-          </div>
-          {v.clSlotGroups.map((g: SiteItem, index: number) => (
-            <div style={{ marginTop: "20px" }} key={index}>
-              <div style={{ fontSize: "13.5px", fontWeight: "700", color: "#6F6590" }}>{g.label}</div>
-              <div style={{ marginTop: "10px", display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(96px,1fr))", gap: "8px" }}>
-                {g.slots.map((t: SiteItem, index2: number) => (
-                  <button onClick={t.pick} disabled={t.off} style={t.style} key={index2}>{t.time}</button>
-                ))}
-              </div>
-            </div>
-          ))}
-          <div style={{ marginTop: "22px", paddingTop: "18px", borderTop: "1.5px solid #F2EEFA", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
-            <span style={{ fontSize: "15px", color: "#2B2342", fontWeight: "600" }}>{v.clPicked}</span>
-            <button onClick={() => dlApp()} style={{ background: "#CA5C00", color: "#fff", fontSize: "15px", fontWeight: "700", padding: "14px 26px", borderRadius: "999px" }} className={styles.h9}>Continue in the app to book</button>
-          </div>
-        </div>
-        <div>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
-            <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Doctors at this clinic</h2>
-            <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>3 doctors</span>
-          </div>
-          <div style={{ marginTop: "16px", display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(250px,1fr))", gap: "16px" }}>
-            <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
-              <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
-                <div style={{ width: "72px", height: "72px", borderRadius: "50%", overflow: "hidden", flex: "none", background: "#F2EEFA" }}>
-                  <ImageSlot id="pz-cl-doc-1" shape="circle" placeholder="Doctor photo" />
-                </div>
-                <div style={{ minWidth: "0" }}>
-                  <h3 style={{ fontSize: "18px", color: "#2B2342", lineHeight: "1.25" }}>Dr. Ananya Kulkarni</h3>
-                  <div style={{ marginTop: "4px", fontSize: "13.5px", color: "#5A5177", lineHeight: "1.4" }}>BVSc &amp; AH, MVSc (Surgery)</div>
-                </div>
-              </div>
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                <span style={{ background: "#F2EEFA", color: "#4A3E78", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "700" }}>12 yrs experience</span>
-                <span style={{ background: "#F7F4FD", color: "#5A5177", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "600" }}>English, Marathi, Hindi</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "10px", paddingTop: "14px", borderTop: "1.5px solid #F2EEFA" }}>
-                <span style={{ fontSize: "13.5px", color: "#6F6590", fontWeight: "600" }}>Consultation</span>
-                <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹800</strong>
-              </div>
-              <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h10}>Book appointment in the app</button>
-            </div>
-            <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
-              <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
-                <div style={{ width: "72px", height: "72px", borderRadius: "50%", overflow: "hidden", flex: "none", background: "#F2EEFA" }}>
-                  <ImageSlot id="pz-cl-doc-2" shape="circle" placeholder="Doctor photo" />
-                </div>
-                <div style={{ minWidth: "0" }}>
-                  <h3 style={{ fontSize: "18px", color: "#2B2342", lineHeight: "1.25" }}>Dr. Rohan Deshpande</h3>
-                  <div style={{ marginTop: "4px", fontSize: "13.5px", color: "#5A5177", lineHeight: "1.4" }}>BVSc &amp; AH, MVSc (Medicine)</div>
-                </div>
-              </div>
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                <span style={{ background: "#F2EEFA", color: "#4A3E78", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "700" }}>8 yrs experience</span>
-                <span style={{ background: "#F7F4FD", color: "#5A5177", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "600" }}>English, Hindi</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "10px", paddingTop: "14px", borderTop: "1.5px solid #F2EEFA" }}>
-                <span style={{ fontSize: "13.5px", color: "#6F6590", fontWeight: "600" }}>Consultation</span>
-                <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹800</strong>
-              </div>
-              <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h11}>Book appointment in the app</button>
-            </div>
-            <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
-              <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
-                <div style={{ width: "72px", height: "72px", borderRadius: "50%", overflow: "hidden", flex: "none", background: "#F2EEFA" }}>
-                  <ImageSlot id="pz-cl-doc-3" shape="circle" placeholder="Doctor photo" />
-                </div>
-                <div style={{ minWidth: "0" }}>
-                  <h3 style={{ fontSize: "18px", color: "#2B2342", lineHeight: "1.25" }}>Dr. Sneha Patil</h3>
-                  <div style={{ marginTop: "4px", fontSize: "13.5px", color: "#5A5177", lineHeight: "1.4" }}>BVSc &amp; AH</div>
-                </div>
-              </div>
-              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-                <span style={{ background: "#F2EEFA", color: "#4A3E78", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "700" }}>5 yrs experience</span>
-                <span style={{ background: "#F7F4FD", color: "#5A5177", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "600" }}>English, Marathi</span>
-              </div>
-              <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: "10px", paddingTop: "14px", borderTop: "1.5px solid #F2EEFA" }}>
-                <span style={{ fontSize: "13.5px", color: "#6F6590", fontWeight: "600" }}>Consultation</span>
-                <strong style={{ fontSize: "17px", color: "#2B2342" }}>₹800</strong>
-              </div>
-              <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h12}>Book appointment in the app</button>
+            <div style={{ marginTop: "22px", paddingTop: "18px", borderTop: "1.5px solid #F2EEFA", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
+              <span style={{ fontSize: "15px", color: "#2B2342", fontWeight: "600" }}>{v.clPicked}</span>
+              <button onClick={() => dlApp()} style={{ background: "#CA5C00", color: "#fff", fontSize: "15px", fontWeight: "700", padding: "14px 26px", borderRadius: "999px" }} className={styles.h9}>Continue in the app to book</button>
             </div>
           </div>
-        </div>
+        )}
       </div>
       <aside data-r="cl-aside" style={{ position: "sticky", top: "96px", display: "flex", flexDirection: "column", gap: "16px" }}>
         <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", overflow: "hidden" }}>
@@ -444,9 +430,9 @@ export default function ClinicDetail() {
               </span>
             </div>
             <div style={{ fontSize: "16px", fontWeight: "700", color: "#2B2342" }}>{v.clDistance}</div>
-            <div style={{ fontSize: "14px", lineHeight: "1.5", color: "#5A5177" }}>Sutarwadi Road, Pashan, Pune 411021</div>
+            <div style={{ fontSize: "14px", lineHeight: "1.5", color: "#5A5177" }}>{data.live ? (data.place?.address ?? "") : "Sutarwadi Road, Pashan, Pune 411021"}</div>
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-              <a href="https://www.google.com/maps/dir/?api=1&destination=18.5382,73.7964" target="_blank" rel="noopener" style={{ flex: "1", textAlign: "center", background: "#CA5C00", color: "#fff", fontSize: "14px", fontWeight: "700", padding: "12px 16px", borderRadius: "999px", textDecoration: "none" }} className={styles.h13}>Get directions</a>
+              <a href={data.place?.center ? `https://www.google.com/maps/dir/?api=1&destination=${data.place.center[0]},${data.place.center[1]}` : "https://www.google.com/maps/dir/?api=1&destination=18.5382,73.7964"} target="_blank" rel="noopener" style={{ flex: "1", textAlign: "center", background: "#CA5C00", color: "#fff", fontSize: "14px", fontWeight: "700", padding: "12px 16px", borderRadius: "999px", textDecoration: "none" }} className={styles.h13}>Get directions</a>
               <button onClick={v.clLocate} style={{ flex: "1", background: "transparent", color: "#6351A1", fontSize: "14px", fontWeight: "700", padding: "12px 16px", borderRadius: "999px", border: "2px solid #D8CFF0" }} className={styles.h14}>Use my location</button>
             </div>
           </div>

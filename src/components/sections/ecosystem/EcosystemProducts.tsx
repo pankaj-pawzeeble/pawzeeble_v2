@@ -1,7 +1,17 @@
+import type { CSSProperties } from 'react';
 import ImageSlot from '@/components/ui/ImageSlot';
 import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './EcosystemProducts.module.css';
+
+/** The tilted lifestyle photo next to each product's phone. */
+function PhotoCard({ p, style, tilt }: { p: SiteItem; style: CSSProperties; tilt: string }) {
+  return (
+    <div style={{ position: "absolute", ...style, width: "152px", height: "186px", borderRadius: "24px", overflow: "hidden", transform: tilt, boxShadow: "0 18px 36px rgba(43,35,66,.16)", zIndex: "3" }}>
+      <ImageSlot id={p.slotId} shape="rect" placeholder={p.photoHint} />
+    </div>
+  );
+}
 
 export default function EcosystemProducts() {
   const v = useSite();
@@ -29,10 +39,12 @@ export default function EcosystemProducts() {
             </div>
             <div style={p.visualOrder}>
               <div style={p.blobStyle} />
-              <div style={{ position: "absolute", ...p.photoPos, width: "152px", height: "186px", borderRadius: "24px", overflow: "hidden", transform: p.photoTilt, boxShadow: "0 18px 36px rgba(43,35,66,.16)", zIndex: "3" }}>
-                <ImageSlot id={p.slotId} shape="rect" placeholder={p.photoHint} />
-              </div>
+              {/* Phone rows: the photo is anchored to the phone (overlapping its left/right edge), so the overlap stays the same at any
+                  width. The frame is rotated 2deg, so the photo's own tilt is 2deg stronger to net out to ±6deg. The wide row (no phone)
+                  keeps the percentage position inside the column. */}
+              {p.wide ? <PhotoCard p={p} style={{ ...p.photoPos }} tilt={p.photoTilt} /> : null}
               <div style={p.frameStyle}>
+                {!p.wide ? <PhotoCard p={p} style={p.photoPos.left !== undefined ? { left: "-60px", bottom: "14px" } : { right: "-47px", top: "12px" }} tilt={p.photoPos.left !== undefined ? "rotate(-8deg)" : "rotate(8deg)"} /> : null}
                 {p.hasShot ? (
                   <div style={p.screenStyle}>
                     <ImageSlot id={p.shotId} shape="rect" src={p.shot} placeholder={`${p.title} screen`} style={p.imgStyle} />

@@ -1,10 +1,14 @@
+import { useState } from 'react';
 import ImageSlot from '@/components/ui/ImageSlot';
 import { useAppDownload } from '@/components/layout/AppDownload';
 import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './GroomerDetail.module.css';
 
+const STAFF = ['Priya Nair', 'Arjun Mehta', 'Farah Shaikh'];
+
 export default function GroomerDetail() {
+  const [staff, setStaff] = useState<number | null>(null);
   const v = useSite();
   const { dlApp } = useAppDownload();
   return (
@@ -60,7 +64,7 @@ export default function GroomerDetail() {
                 <div style={{ flex: "1", padding: "clamp(20px,2.6vw,28px)", display: "flex", flexDirection: "column", gap: "10px", minWidth: "0" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
                     <span style={{ fontSize: "20px", fontWeight: "800", color: "#2B2342" }}>Assured Grooming Package</span>
-                    <span style={{ background: "#FFF1E4", color: "#A44A00", padding: "5px 11px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "800" }}>Use 4 times</span>
+                    <span style={{ background: "#FFF1E4", color: "#A44A00", padding: "5px 11px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "800" }}>4 coupons per subscribed pet</span>
                   </div>
                   <div style={{ fontSize: "14.5px", lineHeight: "1.55", color: "#5A5177", maxWidth: "440px" }}>
                     Bath, haircut, nail trim and ear cleaning in one session. The coupon covers four sessions at this salon.
@@ -69,30 +73,6 @@ export default function GroomerDetail() {
                     <s style={{ fontSize: "15px", color: "#9A91B5" }}>₹1,499</s>
                     <strong style={{ fontSize: "24px", color: "#6351A1" }}>₹1,199</strong>
                     <span style={{ fontSize: "13.5px", color: "#6F6590" }}>per session</span>
-                  </div>
-                  <div style={{ marginTop: "8px", display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
-                    <div style={{ display: "flex", gap: "8px" }}>
-                      <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-                        <span title="Used on 12 Sep" style={{ width: "38px", height: "38px", borderRadius: "50%", border: "2px solid #6351A1", display: "grid", placeItems: "center", background: "#6351A1" }}>
-                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M20 6 9 17l-5-5" />
-                          </svg>
-                        </span>
-                      </span>
-                      <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-                        <span style={{ width: "38px", height: "38px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "14px", fontWeight: "800", color: "#6351A1", background: "#fff" }}>2</span>
-                      </span>
-                      <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-                        <span style={{ width: "38px", height: "38px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "14px", fontWeight: "800", color: "#6351A1", background: "#fff" }}>3</span>
-                      </span>
-                      <span style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px" }}>
-                        <span style={{ width: "38px", height: "38px", borderRadius: "50%", border: "2px dashed #6351A1", display: "grid", placeItems: "center", fontSize: "14px", fontWeight: "800", color: "#6351A1", background: "#fff" }}>4</span>
-                      </span>
-                    </div>
-                    <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                      <span style={{ fontSize: "13px", color: "#5A5177", fontWeight: "700" }}>3 of 4 uses left</span>
-                      <span style={{ fontSize: "12px", color: "#6F6590" }}>Last used 12 Sep</span>
-                    </span>
                   </div>
                   <div style={{ marginTop: "10px", display: "flex", flexDirection: "column", gap: "8px", paddingTop: "14px", borderTop: "1.5px dashed #E3DDF6" }}>
                     <div style={{ display: "flex", gap: "10px", alignItems: "flex-start", fontSize: "14px", lineHeight: "1.45", color: "#2B2342" }}>
@@ -260,44 +240,50 @@ export default function GroomerDetail() {
             </div>
           ) : null}
         </div>
-        <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,32px)" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
-            <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Available slots</h2>
-            <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>Next 7 days</span>
-          </div>
-          <div style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(7,minmax(64px,1fr))", gap: "8px", overflowX: "auto", paddingBottom: "4px" }}>
-            {v.clDays.map((d: SiteItem, index: number) => (
-              <button onClick={d.pick} style={d.style} key={index}>
-                <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".04em", opacity: ".8" }}>{d.dow}</span>
-                {" "}
-                <span style={{ fontSize: "20px", fontWeight: "800", lineHeight: "1.1" }}>{d.date}</span>
-                {" "}
-                <span style={{ fontSize: "11.5px", fontWeight: "600", opacity: ".8" }}>{d.count}</span>
-              </button>
-            ))}
-          </div>
-          {v.clSlotGroups.map((g: SiteItem, index: number) => (
-            <div style={{ marginTop: "20px" }} key={index}>
-              <div style={{ fontSize: "13.5px", fontWeight: "700", color: "#6F6590" }}>{g.label}</div>
-              <div style={{ marginTop: "10px", display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(96px,1fr))", gap: "8px" }}>
-                {g.slots.map((t: SiteItem, index2: number) => (
-                  <button onClick={t.pick} disabled={t.off} style={t.style} key={index2}>{t.time}</button>
-                ))}
-              </div>
-            </div>
-          ))}
-          <div style={{ marginTop: "22px", paddingTop: "18px", borderTop: "1.5px solid #F2EEFA", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
-            <span style={{ fontSize: "15px", color: "#2B2342", fontWeight: "600" }}>{v.clPicked}</span>
-            <button onClick={() => dlApp()} style={{ background: "#CA5C00", color: "#fff", fontSize: "15px", fontWeight: "700", padding: "14px 26px", borderRadius: "999px" }} className={styles.h12}>Continue in the app to book</button>
-          </div>
-        </div>
         <div>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
             <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Groomers at this salon</h2>
             <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>3 groomers</span>
           </div>
+          {staff === null ? (
+            <p style={{ marginTop: "18px", background: "#F5F1FC", border: "1.5px solid #E9E2F6", borderRadius: "18px", padding: "18px 20px", fontSize: "15px", color: "#4A3E78", fontWeight: "600" }}>Select a groomer above to see their available slots.</p>
+          ) : (
+            <>
+            <div style={{ marginTop: "18px", display: "grid", gridTemplateColumns: "repeat(7,minmax(64px,1fr))", gap: "8px", overflowX: "auto", paddingBottom: "4px" }}>
+              {v.clDays.map((d: SiteItem, index: number) => (
+                <button onClick={d.pick} style={d.style} key={index}>
+                  <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".04em", opacity: ".8" }}>{d.dow}</span>
+                  {" "}
+                  <span style={{ fontSize: "20px", fontWeight: "800", lineHeight: "1.1" }}>{d.date}</span>
+                  {" "}
+                  <span style={{ fontSize: "11.5px", fontWeight: "600", opacity: ".8" }}>{d.count}</span>
+                </button>
+              ))}
+            </div>
+            {v.clSlotGroups.map((g: SiteItem, index: number) => (
+              <div style={{ marginTop: "20px" }} key={index}>
+                <div style={{ fontSize: "13.5px", fontWeight: "700", color: "#6F6590" }}>{g.label}</div>
+                <div style={{ marginTop: "10px", display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(96px,1fr))", gap: "8px" }}>
+                  {g.slots.map((t: SiteItem, index2: number) => (
+                    <button onClick={t.pick} disabled={t.off} style={t.style} key={index2}>{t.time}</button>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <div style={{ marginTop: "22px", paddingTop: "18px", borderTop: "1.5px solid #F2EEFA", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "14px", flexWrap: "wrap" }}>
+              <span style={{ fontSize: "15px", color: "#2B2342", fontWeight: "600" }}>{v.clPicked}</span>
+              <button onClick={() => dlApp()} style={{ background: "#CA5C00", color: "#fff", fontSize: "15px", fontWeight: "700", padding: "14px 26px", borderRadius: "999px" }} className={styles.h12}>Continue in the app to book</button>
+            </div>
+            </>
+          )}
+        </div>
+        <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "28px", padding: "clamp(22px,3vw,32px)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", flexWrap: "wrap" }}>
+            <h2 style={{ fontSize: "24px", color: "#2B2342" }}>Available slots</h2>
+            <span style={{ fontSize: "14px", color: "#6F6590", fontWeight: "600" }}>{staff === null ? "Next 7 days" : STAFF[staff]}</span>
+          </div>
           <div style={{ marginTop: "16px", display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(250px,1fr))", gap: "16px" }}>
-            <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ background: staff === 0 ? "#F7F4FD" : "#fff", border: "1.5px solid " + (staff === 0 ? "#6351A1" : "#EFEAF8"), borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px", transition: "border-color .2s ease, background-color .2s ease" }}>
               <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
                 <div style={{ width: "72px", height: "72px", borderRadius: "50%", overflow: "hidden", flex: "none", background: "#F2EEFA" }}>
                   <ImageSlot id="pz-gr-staff-1" shape="circle" placeholder="Groomer photo" />
@@ -311,9 +297,9 @@ export default function GroomerDetail() {
                 <span style={{ background: "#F2EEFA", color: "#4A3E78", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "700" }}>9 yrs experience</span>
                 <span style={{ background: "#F7F4FD", color: "#5A5177", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "600" }}>Breed cuts · Doodles</span>
               </div>
-              <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h13}>Book appointment in the app</button>
+              <button onClick={() => setStaff(staff === 0 ? null : 0)} aria-pressed={staff === 0} style={{ background: staff === 0 ? "#6351A1" : "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h13}>{staff === 0 ? "✓ Selected" : "Select groomer"}</button>
             </div>
-            <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ background: staff === 1 ? "#F7F4FD" : "#fff", border: "1.5px solid " + (staff === 1 ? "#6351A1" : "#EFEAF8"), borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px", transition: "border-color .2s ease, background-color .2s ease" }}>
               <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
                 <div style={{ width: "72px", height: "72px", borderRadius: "50%", overflow: "hidden", flex: "none", background: "#F2EEFA" }}>
                   <ImageSlot id="pz-gr-staff-2" shape="circle" placeholder="Groomer photo" />
@@ -327,9 +313,9 @@ export default function GroomerDetail() {
                 <span style={{ background: "#F2EEFA", color: "#4A3E78", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "700" }}>6 yrs experience</span>
                 <span style={{ background: "#F7F4FD", color: "#5A5177", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "600" }}>Nervous &amp; senior dogs</span>
               </div>
-              <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h14}>Book appointment in the app</button>
+              <button onClick={() => setStaff(staff === 1 ? null : 1)} aria-pressed={staff === 1} style={{ background: staff === 1 ? "#6351A1" : "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h14}>{staff === 1 ? "✓ Selected" : "Select groomer"}</button>
             </div>
-            <div style={{ background: "#fff", border: "1.5px solid #EFEAF8", borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div style={{ background: staff === 2 ? "#F7F4FD" : "#fff", border: "1.5px solid " + (staff === 2 ? "#6351A1" : "#EFEAF8"), borderRadius: "24px", padding: "20px", display: "flex", flexDirection: "column", gap: "16px", transition: "border-color .2s ease, background-color .2s ease" }}>
               <div style={{ display: "flex", gap: "14px", alignItems: "center" }}>
                 <div style={{ width: "72px", height: "72px", borderRadius: "50%", overflow: "hidden", flex: "none", background: "#F2EEFA" }}>
                   <ImageSlot id="pz-gr-staff-3" shape="circle" placeholder="Groomer photo" />
@@ -343,7 +329,7 @@ export default function GroomerDetail() {
                 <span style={{ background: "#F2EEFA", color: "#4A3E78", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "700" }}>4 yrs experience</span>
                 <span style={{ background: "#F7F4FD", color: "#5A5177", padding: "6px 12px", borderRadius: "999px", fontSize: "12.5px", fontWeight: "600" }}>Cats · Long coats</span>
               </div>
-              <button onClick={v.bookInApp} style={{ background: "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h15}>Book appointment in the app</button>
+              <button onClick={() => setStaff(staff === 2 ? null : 2)} aria-pressed={staff === 2} style={{ background: staff === 2 ? "#6351A1" : "#CA5C00", color: "#fff", fontSize: "14.5px", fontWeight: "700", padding: "13px 20px", borderRadius: "999px", width: "100%" }} className={styles.h15}>{staff === 2 ? "✓ Selected" : "Select groomer"}</button>
             </div>
           </div>
         </div>
