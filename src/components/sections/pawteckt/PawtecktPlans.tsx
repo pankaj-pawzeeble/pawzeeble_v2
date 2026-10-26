@@ -4,6 +4,9 @@ import { useSite } from '@/hooks/useSite';
 import type { SiteItem } from '@/types/site';
 import styles from './PawtecktPlans.module.css';
 
+/** false: Premium shows a "Coming soon" tag instead of the purchase button. true brings the old CTA back. */
+const PREMIUM_AVAILABLE = false;
+
 export default function PawtecktPlans() {
   const v = useSite();
   const { openMy } = useMyPurchases();
@@ -118,7 +121,7 @@ export default function PawtecktPlans() {
           <button data-r="pt-cta" onClick={v.openSub} style={{ marginTop: "auto", background: "transparent", color: "#CA5C00", border: "2px solid #CA5C00", fontSize: "15.5px", fontWeight: "700", padding: "15px 24px", borderRadius: "999px" }} className={styles.h1}>Get Lite for {v.litePriceLabel}/year</button>
         </div>
         ) : null}
-        <div data-r="pt-card" style={{ position: "relative", background: "#6351A1", color: "#fff", borderRadius: "32px", padding: "clamp(24px,3vw,34px)", display: "none", flexDirection: "column", gap: "16px" }}>
+        <div data-r="pt-card" style={{ position: "relative", background: "#6351A1", color: "#fff", borderRadius: "32px", padding: "clamp(24px,3vw,34px)", display: "flex", flexDirection: "column", gap: "16px" }}>
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
             <span style={{ background: "#FFC24B", color: "#2B2342", padding: "6px 13px", borderRadius: "999px", fontSize: "12px", fontWeight: "800", letterSpacing: ".04em" }}>PAWTECKT PREMIUM</span>
             <span style={{ fontSize: "13px", fontWeight: "700", color: "#FFC24B" }}>Ages 6 months – 5 years</span>
@@ -203,7 +206,20 @@ export default function PawtecktPlans() {
           </ul>
           </div>
           {v.ptPremOk ? (
-            <button data-r="pt-cta" onClick={v.openPrem} style={{ marginTop: "auto", background: "#CA5C00", color: "#fff", fontSize: "15.5px", fontWeight: "700", padding: "15px 24px", borderRadius: "999px" }} className={styles.h2}>{"Get "}{v.ptTierName}{" for "}{v.ptYear}/year</button>
+            PREMIUM_AVAILABLE ? (
+              <button data-r="pt-cta" onClick={v.openPrem} style={{ marginTop: "auto", background: "#CA5C00", color: "#fff", fontSize: "15.5px", fontWeight: "700", padding: "15px 24px", borderRadius: "999px" }} className={styles.h2}>{"Get "}{v.ptTierName}{" for "}{v.ptYear}/year</button>
+            ) : (
+              <div data-r="pt-soon" role="status" style={{ marginTop: "auto", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "8px" }}>
+                <span data-r="pt-soon-tag" style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", background: "#FFC24B", color: "#2B2342", padding: "10px 18px", borderRadius: "999px", fontSize: "15px", fontWeight: "800", letterSpacing: ".01em", cursor: "default", userSelect: "none" }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 6v6l4 2" />
+                  </svg>
+                  Coming soon
+                </span>
+                <span data-r="pt-soon-note" style={{ fontSize: "13.5px", lineHeight: "1.5", color: "#D5CCEE" }}>Premium plans open shortly. Start with Lite today.</span>
+              </div>
+            )
           ) : null}
           {v.ptPremNo ? (
             <div style={{ marginTop: "auto", background: "rgba(255,255,255,.12)", borderRadius: "18px", padding: "14px 16px", fontSize: "14px", lineHeight: "1.5", color: "#fff" }}>

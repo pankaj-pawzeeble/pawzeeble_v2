@@ -202,6 +202,9 @@ button { font-family: inherit; cursor: pointer; border: none; }
   [data-r="pt-acc-body"] { gap: 12px !important; }
   [data-r="pt-acc-body"]:not([data-open]) { display: none !important; }
   [data-r="pt-card16"] { padding: 16px !important; }
+  [data-r="pt-soon"] { align-items: stretch !important; }
+  [data-r="pt-soon-tag"] { width: 100%; padding: 14px 18px !important; box-sizing: border-box; }
+  [data-r="pt-soon-note"] { text-align: center; }
   [data-r="pt-main"] [data-r="faq-q"] { padding: 16px !important; font-size: 15.5px !important; }
   [data-r="pt-main"] [data-r="faq-a"] { padding: 0 16px 16px !important; font-size: 14.5px !important; }
 }
@@ -266,3 +269,8 @@ button { font-family: inherit; cursor: pointer; border: none; }
 }
 
 .pz-mybar-link:hover { color: #fff !important; }
+
+/* Why parents join: on narrow phones the snippet cards drop their leading avatar/logo/icon so the title keeps the full width */
+@media (max-width: 411.98px) {
+  [data-r="wpj-lead"] { display: none !important; }
+}
